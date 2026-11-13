@@ -51,10 +51,14 @@
     @media print {
       @page {
         size: auto;
-        margin: 12mm 12mm 14mm 12mm;
+        margin: 9mm 10mm 10mm 10mm;
       }
 
-      /* Strict Monochrome / Greyscale Enforcement */
+      /* Strict Monochrome / Greyscale Enforcement & Proportional Print Font Scaling */
+      html {
+        font-size: 16.5px !important;
+      }
+
       html, body {
         background: #ffffff !important;
         color: #000000 !important;
@@ -62,7 +66,11 @@
         -webkit-filter: grayscale(100%) !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
-        font-size: 10.5pt !important;
+      }
+
+      body {
+        font-size: 1rem !important;
+        line-height: 1.35 !important;
       }
 
       *, *::before, *::after {
@@ -82,14 +90,30 @@
         display: none !important;
       }
 
-      /* Flatten sticky header into a clean worksheet title banner */
+      /* Compact Top Worksheet Title Banner */
       header {
         position: static !important;
         background: #ffffff !important;
         border: 1.5px solid #000000 !important;
         border-radius: 0 !important;
-        margin-bottom: 10px !important;
-        padding: 8px 12px !important;
+        margin-bottom: 6px !important;
+        padding: 4px 10px !important;
+      }
+
+      header > div {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+      }
+
+      header .w-10.h-10 {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 0.85rem !important;
+      }
+
+      header h1 {
+        font-size: 1.05rem !important;
+        line-height: 1.15 !important;
       }
 
       header .bg-indigo-600 {
@@ -103,6 +127,7 @@
         background: #f3f4f6 !important;
         color: #000000 !important;
         border: 1px solid #374151 !important;
+        padding: 2px 6px !important;
       }
 
       header .text-indigo-700,
@@ -122,13 +147,28 @@
         margin: 0 !important;
       }
 
-      /* Student Name & Date Box */
+      main > * + * {
+        margin-top: 6px !important;
+      }
+
+      /* Compact Student Name & Date Box */
       main > section:first-of-type {
         background: #ffffff !important;
         border: 1.5px solid #222222 !important;
         border-radius: 0 !important;
-        padding: 10px 12px !important;
-        margin-bottom: 14px !important;
+        padding: 5px 10px !important;
+        margin-bottom: 8px !important;
+      }
+
+      main > section:first-of-type > div:first-child {
+        display: grid !important;
+        grid-template-columns: 2fr 1fr !important;
+        gap: 10px !important;
+      }
+
+      main > section:first-of-type label {
+        font-size: 0.65rem !important;
+        margin-bottom: 2px !important;
       }
 
       main > section:first-of-type > div:last-child {
@@ -141,6 +181,9 @@
         border-radius: 0 !important;
         background: #ffffff !important;
         color: #000000 !important;
+        padding: 2px 6px !important;
+        min-height: 1.45rem !important;
+        font-size: 0.85rem !important;
       }
 
       /* Ensure all 3 sections print & force explicit page breaks between sections */
@@ -157,9 +200,19 @@
 
       /* Section Header Styling in Monochrome */
       .section-panel > div:first-child {
-        border-bottom: 2px solid #000000 !important;
-        padding-bottom: 6px !important;
-        margin-bottom: 12px !important;
+        border-bottom: 1.5px solid #000000 !important;
+        padding-bottom: 4px !important;
+        margin-bottom: 8px !important;
+      }
+
+      #section-1 > div:first-child h2 {
+        font-size: 1.05rem !important;
+        line-height: 1.2 !important;
+      }
+
+      #section-1 > div:first-child p {
+        font-size: 0.8rem !important;
+        line-height: 1.25 !important;
       }
 
       .section-panel span,
@@ -175,17 +228,40 @@
         color: #000000 !important;
         border: 1px solid #374151 !important;
         border-radius: 2px !important;
+        padding: 2px 6px !important;
       }
 
-      /* Worksheet-Style 2-Column Grid for Section 1 (MCQ) */
+      /* Compact 2-Column Grid for Section 1 (MCQ) so all 5 fit on Page 1 */
       #sec1-container {
         display: grid !important;
         grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-        gap: 10px !important;
+        gap: 7px !important;
+      }
+
+      #sec1-container > .question-card {
+        padding: 7px 9px !important;
+      }
+
+      #sec1-container > .question-card > div:first-child {
+        margin-bottom: 6px !important;
+      }
+
+      #sec1-container > .question-card > div:first-child p {
+        font-size: 0.82rem !important;
+        line-height: 1.28 !important;
+      }
+
+      #sec1-container > .question-card .grid {
+        gap: 5px !important;
+        margin-bottom: 0 !important;
       }
 
       #sec1-container > .question-card:last-child {
         grid-column: span 2 / span 2 !important;
+      }
+
+      #sec1-container > .question-card:last-child .grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
       }
 
       /* Worksheet-Style 2-Column Grid for Sections 2 & 3 (Word Problems) */
@@ -220,7 +296,8 @@
         background: #ffffff !important;
         border: 1px solid #4b5563 !important;
         border-radius: 0 !important;
-        padding: 6px 8px !important;
+        padding: 3px 6px !important;
+        font-size: 0.8rem !important;
         color: #000000 !important;
       }
 
@@ -231,317 +308,341 @@
 
       .question-card .space-y-3 > div {
         background: #f9fafb !important;
-        border: 1px solid #9ca3af !important;
+        border: 1px solid #4b5563 !important;
         border-radius: 0 !important;
         padding: 6px 8px !important;
-        margin-top: 6px !important;
       }
 
-      .question-card .space-y-3 > div:first-child {
-        margin-top: 0 !important;
-      }
-
-      /* Step Circle Badges */
-      .question-card .w-5.h-5 {
-        background: #e5e7eb !important;
-        color: #000000 !important;
-        border: 1px solid #374151 !important;
-      }
-
-      /* Clear Rectangular Worksheet Answer & Working Boxes */
+      /* Writing Boxes (Inputs & Textareas) */
       .question-card input[type="text"],
       .question-card textarea {
         background: #ffffff !important;
-        border: 1px solid #333333 !important;
+        border: 1px solid #222222 !important;
         border-radius: 0 !important;
         color: #000000 !important;
         min-height: 28px !important;
         padding: 4px 6px !important;
-        width: 100% !important;
       }
 
       .question-card textarea {
         min-height: 44px !important;
       }
 
-      /* Hide placeholders when printing blank so students have clean white boxes to write in */
-      .question-card input::placeholder,
-      .question-card textarea::placeholder {
+      /* Hide placeholders on blank printed sheets */
+      input::placeholder,
+      textarea::placeholder {
         color: transparent !important;
       }
 
-      /* Monochrome Feedback / Summary Banners if already revealed */
-      #summary-banner,
-      #teacher-mode-banner,
-      .teacher-key-box,
-      [id^="feedback-"] {
+      /* Monochrome Feedback & Teacher Key Boxes if printed after grading */
+      [id$="-feedback"],
+      .teacher-key-box {
         background: #f3f4f6 !important;
         border: 1px solid #222222 !important;
         border-radius: 0 !important;
         color: #000000 !important;
       }
-
-      [id^="status-"],
-      [id^="eq-badge-"] {
-        background: #e5e7eb !important;
-        color: #000000 !important;
-        border: 1px solid #374151 !important;
-      }
     }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-indigo-100 selection:text-indigo-900">
 
-  <!-- Sticky Top Academic Header -->
+  <!-- Sticky Header & Score Dashboard -->
   <header class="sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3">
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div class="flex flex-wrap items-center justify-between gap-3">
         <!-- Title & Badge -->
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-lg shadow-sm shrink-0">
-            ∑x
+            x=?
           </div>
           <div>
-            <div class="flex items-center gap-2 flex-wrap">
-              <span class="text-xs font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">Grade 9 Algebra</span>
-              <span class="text-xs font-medium text-slate-500">Currency: Euros (€)</span>
+            <div class="flex items-center gap-2">
+              <span class="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700">Grade 9 Mathematics</span>
+              <span class="text-xs text-slate-400 hidden sm:inline">• Algebra &amp; Modeling (€)</span>
             </div>
-            <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">Forming &amp; Solving Equations</h1>
+            <h1 class="text-base sm:text-lg font-extrabold text-slate-900 leading-tight">Forming &amp; Solving Linear Equations</h1>
           </div>
         </div>
 
-        <!-- Score & Action Buttons -->
-        <div class="flex items-center justify-between md:justify-end gap-2 sm:gap-3 flex-wrap">
+        <!-- Score & Action Controls -->
+        <div class="flex items-center gap-2 sm:gap-3">
           <div class="flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200">
-            <span class="text-xs font-semibold text-slate-500 uppercase">Score</span>
-            <span id="live-score" class="text-sm sm:text-base font-extrabold text-indigo-700">0 / 25</span>
+            <div class="text-right">
+              <div class="text-[10px] font-semibold uppercase tracking-wider text-slate-500">Score</div>
+              <div class="text-sm font-extrabold text-slate-900"><span id="total-score">0</span> <span class="text-slate-400 font-medium">/ 20</span></div>
+            </div>
+            <div class="h-6 w-px bg-slate-300 mx-1"></div>
+            <div class="text-right">
+              <div class="text-[10px] font-semibold uppercase tracking-wider text-slate-500">Completed</div>
+              <div class="text-sm font-bold text-indigo-600"><span id="completed-count">0</span>/20</div>
+            </div>
           </div>
 
-          <button onclick="gradeAll()" class="no-print px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:scale-[0.99] text-white text-xs sm:text-sm font-semibold shadow-sm transition flex items-center gap-1.5">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <button id="teacher-key-btn" onclick="handleTeacherKeyClick()" type="button" class="no-print inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 transition shadow-sm" title="Teacher Answer Key (PIN Required)">
+            <svg id="teacher-lock-icon" class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            <span id="teacher-key-label" class="hidden sm:inline">Teacher Answer Key</span>
+          </button>
+
+          <button onclick="window.print()" type="button" class="no-print inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 transition shadow-sm" title="Print or Save Worksheet">
+            <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+            <span class="hidden md:inline">Print</span>
+          </button>
+
+          <button onclick="gradeAll()" type="button" class="no-print inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             <span>Submit Assignment</span>
-          </button>
-
-          <button id="teacher-key-btn" onclick="handleTeacherKeyToggle()" class="no-print px-3 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 text-xs sm:text-sm font-semibold transition flex items-center gap-1.5" title="Switch to Teacher Answer Key View">
-            <svg id="teacher-key-icon" class="w-4 h-4 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-            <span id="teacher-key-label">Teacher Answer Key</span>
-          </button>
-
-          <button onclick="window.print()" class="no-print px-3 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 text-xs sm:text-sm font-semibold transition flex items-center gap-1.5" title="Print or Save as PDF">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
-            <span class="hidden sm:inline">Print / PDF</span>
           </button>
         </div>
       </div>
 
       <!-- Progress Bar -->
-      <div class="mt-2.5 flex items-center gap-3">
-        <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
-          <div id="progress-bar" class="bg-indigo-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
-        </div>
-        <span id="progress-text" class="text-xs font-semibold text-slate-500 whitespace-nowrap">0/25 Answered</span>
+      <div class="mt-2.5 w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+        <div id="progress-bar" class="bg-indigo-600 h-1.5 rounded-full transition-all duration-300" style="width: 0%"></div>
       </div>
     </div>
   </header>
 
-  <!-- Main Workspace -->
-  <main class="max-w-5xl w-full mx-auto px-4 sm:px-6 py-6 flex-1 space-y-6">
+  <!-- Teacher Mode Active Banner -->
+  <div id="teacher-banner" class="hidden no-print bg-amber-500 text-slate-950 border-b border-amber-600 shadow-sm">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2 text-xs sm:text-sm font-bold">
+        <span class="px-2 py-0.5 rounded bg-slate-900 text-amber-300 text-[11px] uppercase tracking-wider">Teacher View</span>
+        <span>Answer Key Unlocked — All 20 model solutions are displayed below.</span>
+      </div>
+      <button onclick="lockTeacherMode()" type="button" class="px-3 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition">
+        Exit Answer Key (Student View)
+      </button>
+    </div>
+  </div>
 
-    <!-- Top Toddle Submission & Score Banner (Revealed on Submit Assignment) -->
-    <div id="summary-banner" class="hidden rounded-2xl p-5 sm:p-6 border-2 shadow-md transition-all"></div>
+  <!-- Main Container -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6">
 
-    <!-- Student Details & Quick Strategy Guide -->
-    <section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 sm:p-5 space-y-4">
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+    <!-- Student Submission Confirmation & Toddle Screenshot Banner (Hidden until Submit) -->
+    <section id="submission-banner" class="hidden bg-emerald-600 text-white rounded-2xl p-5 sm:p-6 shadow-md border-2 border-emerald-700">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="space-y-1.5">
+          <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-emerald-800/70 text-emerald-100 text-xs font-bold uppercase tracking-wider">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            Assignment Submitted &amp; Graded
+          </div>
+          <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight">
+            Great work, <span id="sub-student-name" class="underline decoration-emerald-300">Student</span>!
+          </h2>
+          <p class="text-sm sm:text-base text-emerald-50 font-medium">
+            📸 <strong>Next Step:</strong> Please take a <strong>screenshot of this score box</strong> and upload it to <strong>today's Toddle assignment</strong>.
+          </p>
+          <p class="text-xs text-emerald-200" id="sub-timestamp"></p>
+        </div>
+
+        <div class="flex items-center gap-4 bg-white text-slate-900 rounded-xl px-5 py-3.5 shadow-sm shrink-0">
+          <div class="text-center">
+            <div class="text-[11px] font-bold uppercase tracking-wider text-slate-500">Final Score</div>
+            <div class="text-2xl sm:text-3xl font-extrabold text-emerald-700"><span id="sub-score">0</span><span class="text-base text-slate-400 font-semibold"> / 20</span></div>
+            <div class="text-xs font-bold text-slate-600" id="sub-percent">0%</div>
+          </div>
+          <div class="h-12 w-px bg-slate-200"></div>
+          <div class="text-xs space-y-1 text-slate-600">
+            <div>Part 1 (MCQ): <strong class="text-slate-900" id="sub-s1">0/5</strong></div>
+            <div>Part 2 (One-Step): <strong class="text-slate-900" id="sub-s2">0/7</strong></div>
+            <div>Part 3 (Two-Step): <strong class="text-slate-900" id="sub-s3">0/8</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Student Details & Strategy Guide Card -->
+    <section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 sm:p-6">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
         <div class="sm:col-span-2">
-          <label for="student-name" class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Student Full Name</label>
-          <input id="student-name" type="text" placeholder="Enter your name..." class="w-full rounded-xl border border-slate-300 px-3.5 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" />
+          <label for="student-name" class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Student Full Name</label>
+          <input id="student-name" type="text" placeholder="Enter your full name..." class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" />
         </div>
         <div>
-          <label for="assignment-date" class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Date</label>
-          <input id="assignment-date" type="date" class="w-full rounded-xl border border-slate-300 px-3.5 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" />
+          <label for="assignment-date" class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Date</label>
+          <input id="assignment-date" type="date" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" />
         </div>
       </div>
 
-      <!-- Collapsible Grade 9 Tip Box -->
-      <div class="border-t border-slate-100 pt-3">
-        <button type="button" onclick="toggleGuide()" class="no-print w-full flex items-center justify-between text-left px-3.5 py-2.5 rounded-xl bg-indigo-50/70 hover:bg-indigo-50 text-indigo-900 border border-indigo-100 transition">
-          <span class="flex items-center gap-2 text-sm font-bold">
-            <span class="w-6 h-6 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-xs">?</span>
-            Quick Guide: How to Form &amp; Solve Word Problem Equations
+      <!-- Collapsible Algebra Guide -->
+      <div class="mt-4 pt-4 border-t border-slate-100">
+        <button type="button" onclick="toggleGuide()" class="flex items-center justify-between w-full text-left text-xs font-bold text-indigo-700 hover:text-indigo-800 transition">
+          <span class="flex items-center gap-2">
+            <span class="w-5 h-5 rounded-full bg-indigo-100 text-indigo-700 inline-flex items-center justify-center font-extrabold">?</span>
+            Grade 9 Problem-Solving Blueprint (Click to view tips)
           </span>
-          <span id="guide-chevron" class="text-xs font-semibold text-indigo-700">Show Guide ▼</span>
+          <span id="guide-chevron" class="text-slate-400">▼</span>
         </button>
-
-        <div id="strategy-guide" class="hidden mt-3 grid grid-cols-1 md:grid-cols-4 gap-3 text-xs sm:text-sm">
-          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
-            <div class="font-bold text-indigo-700 mb-1">1. Name a Variable</div>
-            <p class="text-slate-600">Identify what the question asks you to find and assign a letter, e.g., <code class="font-math bg-white px-1.5 py-0.5 rounded border">Let x = cost of 1 pencil (€)</code>.</p>
+        <div id="strategy-guide" class="hidden mt-3 grid grid-cols-1 md:grid-cols-3 gap-3 text-xs text-slate-600 bg-slate-50 p-4 rounded-xl border border-slate-200/80">
+          <div class="bg-white p-3 rounded-lg border border-slate-200/70">
+            <div class="font-bold text-slate-900 mb-1">Step 1: Define a Variable</div>
+            <p>Identify the unknown quantity asked in the question and assign a letter (e.g., <span class="font-math text-indigo-700">Let x = cost of 1 pencil in €</span>).</p>
           </div>
-          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
-            <div class="font-bold text-indigo-700 mb-1">2. Translate Keywords</div>
-            <p class="text-slate-600"><em>"Total / sum / more"</em> → <code class="font-math">+</code><br/><em>"Difference / left / reduced"</em> → <code class="font-math">-</code><br/><em>"Each / times / per"</em> → <code class="font-math">×</code><br/><em>"Split / shared / half"</em> → <code class="font-math">÷</code></p>
+          <div class="bg-white p-3 rounded-lg border border-slate-200/70">
+            <div class="font-bold text-slate-900 mb-1">Step 2: Form an Equation</div>
+            <p>Translate English phrases into math: <em>"total / sum"</em> (<span class="font-math">+</span>), <em>"difference / left"</em> (<span class="font-math">-</span>), <em>"each / per / times"</em> (<span class="font-math">×</span>), <em>"shared / split evenly"</em> (<span class="font-math">÷</span>).</p>
           </div>
-          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
-            <div class="font-bold text-indigo-700 mb-1">3. Inverse Operations</div>
-            <p class="text-slate-600">For two-step equations, undo <strong>addition or subtraction</strong> first, then undo <strong>multiplication or division</strong> on both sides.</p>
-          </div>
-          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
-            <div class="font-bold text-indigo-700 mb-1">4. Check &amp; Label Units</div>
-            <p class="text-slate-600">Substitute your answer back into the story to verify it makes sense, and include units like <code class="font-math">€</code> or <code class="font-math">students</code>.</p>
+          <div class="bg-white p-3 rounded-lg border border-slate-200/70">
+            <div class="font-bold text-slate-900 mb-1">Step 3: Solve &amp; Check Units</div>
+            <p>Use inverse operations to isolate the variable. Always check if your final answer makes sense in context and include units (e.g., <span class="font-math">€12</span> or <span class="font-math">5 cups</span>).</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Section Navigation Tabs -->
-    <nav class="no-print flex flex-wrap items-center justify-between gap-2 bg-white p-2 rounded-2xl border border-slate-200 shadow-sm">
-      <div class="flex flex-wrap gap-1.5 w-full sm:w-auto">
-        <button onclick="switchSection('all')" id="tab-all" class="tab-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold bg-indigo-600 text-white shadow-sm transition">
-          All Sections (25)
-        </button>
-        <button onclick="switchSection('sec1')" id="tab-sec1" class="tab-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:bg-slate-100 transition">
-          1. Multiple Choice (5)
-        </button>
-        <button onclick="switchSection('sec2')" id="tab-sec2" class="tab-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:bg-slate-100 transition">
-          2. One-Step Problems (10)
-        </button>
-        <button onclick="switchSection('sec3')" id="tab-sec3" class="tab-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:bg-slate-100 transition">
-          3. Two-Step Problems (10)
-        </button>
-      </div>
-      <button onclick="resetAssignment()" class="px-3 py-2 rounded-xl text-xs font-semibold text-rose-600 hover:bg-rose-50 transition ml-auto">
-        Reset All
+    <nav class="no-print flex flex-wrap gap-2 bg-white p-2 rounded-2xl border border-slate-200 shadow-sm" aria-label="Assignment Sections">
+      <button onclick="filterSection('all')" id="tab-all" class="tab-btn flex-1 min-w-[120px] py-2 px-3 rounded-xl text-xs sm:text-sm font-bold bg-indigo-600 text-white shadow-sm transition">
+        All Sections (20)
+      </button>
+      <button onclick="filterSection('sec1')" id="tab-sec1" class="tab-btn flex-1 min-w-[140px] py-2 px-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:bg-slate-100 transition">
+        Part 1: Multi-Choice (5)
+      </button>
+      <button onclick="filterSection('sec2')" id="tab-sec2" class="tab-btn flex-1 min-w-[140px] py-2 px-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:bg-slate-100 transition">
+        Part 2: One-Step (7)
+      </button>
+      <button onclick="filterSection('sec3')" id="tab-sec3" class="tab-btn flex-1 min-w-[140px] py-2 px-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:bg-slate-100 transition">
+        Part 3: Two-Step (8)
       </button>
     </nav>
 
-    <!-- Teacher Answer Key Active Banner -->
-    <div id="teacher-mode-banner" class="hidden rounded-2xl p-4 sm:p-5 bg-amber-50 border-2 border-amber-400 text-amber-950 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-      <div class="flex items-start sm:items-center gap-3">
-        <div class="w-9 h-9 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
-        </div>
-        <div>
-          <div class="text-xs font-extrabold uppercase tracking-wider text-amber-800">Teacher Answer Key Mode Active</div>
-          <p class="text-xs sm:text-sm text-amber-900">All correct options, model equations, step-by-step workings, and Euro (&euro;) solutions are displayed below without altering student entries.</p>
-        </div>
-      </div>
-      <button type="button" onclick="exitTeacherKeyMode()" class="no-print px-4 py-2 rounded-xl bg-amber-900 hover:bg-amber-950 text-white text-xs sm:text-sm font-bold transition shrink-0">
-        Exit Answer Key (Student View)
-      </button>
-    </div>
-
-    <!-- ========================================================= -->
+    <!-- ===================================================================== -->
+    <!-- SECTION 1: MULTIPLE CHOICE (5 QUESTIONS)                              -->
+    <!-- ===================================================================== -->
     <section id="section-1" class="section-panel space-y-4">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-3">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3">
         <div>
-          <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Section 1 of 3</span>
-          <h2 class="text-xl font-extrabold text-slate-900">Two-Step Equations — Multiple Choice</h2>
-          <p class="text-sm text-slate-600">Select the equation that accurately models each real-world scenario.</p>
+          <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Part 1 of 3</span>
+          <h2 class="text-xl font-extrabold text-slate-900">Forming Two-Step Equations — Multiple Choice</h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Read each scenario carefully and select the equation that accurately models the situation.</p>
         </div>
-        <span id="sec1-badge" class="self-start sm:self-center px-3 py-1 rounded-full text-xs font-bold bg-slate-200 text-slate-700">0 / 5 Correct</span>
+        <span id="sec1-badge" class="text-xs font-bold px-3 py-1 rounded-full bg-slate-200/70 text-slate-700">0 / 5 Correct</span>
       </div>
 
       <div id="sec1-container" class="space-y-4"></div>
     </section>
 
-    <!-- ========================================================= -->
-    <!-- SECTION 2: ONE-STEP WORD PROBLEMS (10 QUESTIONS)          -->
-    <!-- ========================================================= -->
+    <!-- ===================================================================== -->
+    <!-- SECTION 2: ONE-STEP WORD PROBLEMS (7 QUESTIONS)                       -->
+    <!-- ===================================================================== -->
     <section id="section-2" class="section-panel space-y-4 pt-2">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-3">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3">
         <div>
-          <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">Section 2 of 3</span>
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">Part 2 of 3</span>
           <h2 class="text-xl font-extrabold text-slate-900">One-Step Equation Word Problems</h2>
-          <p class="text-sm text-slate-600">Follow the 3 guided steps: name your variable, write a one-step equation, and solve for the final answer.</p>
+          <p class="text-xs sm:text-sm text-slate-500 mt-0.5">For each problem, define a variable, write a one-step equation, and solve for the final answer.</p>
         </div>
-        <span id="sec2-badge" class="self-start sm:self-center px-3 py-1 rounded-full text-xs font-bold bg-slate-200 text-slate-700">0 / 10 Correct</span>
+        <span id="sec2-badge" class="text-xs font-bold px-3 py-1 rounded-full bg-slate-200/70 text-slate-700">0 / 7 Correct</span>
       </div>
 
       <div id="sec2-container" class="space-y-5"></div>
     </section>
 
-    <!-- ========================================================= -->
-    <!-- SECTION 3: TWO-STEP WORD PROBLEMS (10 QUESTIONS)          -->
-    <!-- ========================================================= -->
+    <!-- ===================================================================== -->
+    <!-- SECTION 3: TWO-STEP WORD PROBLEMS (8 QUESTIONS)                       -->
+    <!-- ===================================================================== -->
     <section id="section-3" class="section-panel space-y-4 pt-2">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-3">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3">
         <div>
-          <span class="text-xs font-bold uppercase tracking-wider text-amber-600">Section 3 of 3</span>
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-600">Part 3 of 3</span>
           <h2 class="text-xl font-extrabold text-slate-900">Two-Step Equation Word Problems</h2>
-          <p class="text-sm text-slate-600">Name your variable, form the two-step equation, show your inverse operation steps, and enter your final answer.</p>
+          <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Define your variable, form a two-step equation, show your inverse operation steps, and write the final answer.</p>
         </div>
-        <span id="sec3-badge" class="self-start sm:self-center px-3 py-1 rounded-full text-xs font-bold bg-slate-200 text-slate-700">0 / 10 Correct</span>
+        <span id="sec3-badge" class="text-xs font-bold px-3 py-1 rounded-full bg-slate-200/70 text-slate-700">0 / 8 Correct</span>
       </div>
 
       <div id="sec3-container" class="space-y-5"></div>
     </section>
 
-    <!-- Bottom Submit Bar -->
-    <div class="no-print bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="text-center sm:text-left">
-        <h3 class="font-bold text-slate-900">Finished your assignment?</h3>
-        <p class="text-xs sm:text-sm text-slate-500">Click below to submit all 25 questions, view your final score at the top, and get your Toddle upload instructions.</p>
+    <!-- Bottom Action Bar -->
+    <section class="no-print bg-white rounded-2xl border border-slate-200 shadow-sm p-5 flex flex-wrap items-center justify-between gap-4">
+      <div class="text-xs sm:text-sm text-slate-600">
+        Finished all 3 sections? Click <strong class="text-slate-900">Submit Assignment</strong> to review your feedback and get your score screenshot for Toddle.
       </div>
-      <div class="flex items-center gap-3 w-full sm:w-auto justify-center">
-        <button onclick="gradeAll()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-sm transition flex items-center justify-center gap-2">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          <span>Submit Assignment</span>
+      <div class="flex items-center gap-3">
+        <button type="button" onclick="openResetModal()" class="px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-rose-700 hover:bg-rose-50 border border-slate-200 transition">
+          Clear All Answers
+        </button>
+        <button type="button" onclick="gradeAll()" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition">
+          Submit Assignment
         </button>
       </div>
-    </div>
+    </section>
 
   </main>
 
-  <footer class="border-t border-slate-200 bg-white py-4 mt-8 text-center text-xs text-slate-400">
-    Grade 9 Mathematics &bull; Forming and Solving Equations Interactive Worksheet
+  <!-- Footer -->
+  <footer class="max-w-5xl mx-auto px-4 sm:px-6 py-8 text-center text-xs text-slate-400">
+    Grade 9 Algebra Interactive Assignment • Forming &amp; Solving Equations (EUR €)
   </footer>
 
-  <!-- Custom Notification Toast (Replaces alert) -->
-  <div id="toast" class="fixed bottom-5 right-5 z-50 hidden max-w-sm bg-slate-900 text-white px-4 py-3 rounded-xl shadow-lg text-sm font-medium transition-opacity"></div>
-
-  <!-- Teacher Password Modal -->
-  <div id="teacher-modal" class="no-print fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4" onclick="if(event.target===this) closeTeacherModal()">
-    <div class="bg-white rounded-2xl border border-slate-200 shadow-xl max-w-sm w-full p-6 space-y-4">
+  <!-- Teacher PIN Modal -->
+  <div id="teacher-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 space-y-4">
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
         </div>
         <div>
           <h3 class="text-base font-extrabold text-slate-900">Teacher Answer Key</h3>
-          <p class="text-xs text-slate-500">Enter your 4-digit PIN to unlock solutions.</p>
+          <p class="text-xs text-slate-500">Enter the 4-digit teacher passcode to unlock answers.</p>
         </div>
       </div>
 
       <div>
-        <label for="teacher-pin-input" class="sr-only">4-Digit Teacher PIN</label>
-        <input id="teacher-pin-input" type="password" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="••••"
-          onkeydown="if(event.key==='Enter'){ event.preventDefault(); verifyTeacherPin(); }"
-          class="w-full text-center tracking-[0.5em] text-xl font-math font-bold rounded-xl border border-slate-300 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition" />
-        <p id="teacher-pin-error" class="hidden mt-2 text-xs font-semibold text-rose-600">Incorrect PIN. Please try again.</p>
+        <label for="teacher-pin-input" class="sr-only">4-Digit Passcode</label>
+        <input id="teacher-pin-input" type="password" inputmode="numeric" maxlength="4" placeholder="••••"
+               onkeydown="if(event.key==='Enter') verifyTeacherPin()"
+               class="w-full text-center tracking-[0.6em] font-math text-xl font-bold rounded-xl border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500" />
+        <p id="teacher-pin-error" class="hidden mt-2 text-xs font-semibold text-rose-600 text-center">Incorrect PIN. Please try again.</p>
       </div>
 
       <div class="flex items-center justify-end gap-2 pt-1">
-        <button type="button" onclick="closeTeacherModal()" class="px-4 py-2 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 text-xs sm:text-sm font-semibold transition">
+        <button type="button" onclick="closeTeacherModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 transition">
           Cancel
         </button>
-        <button type="button" onclick="verifyTeacherPin()" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs sm:text-sm font-bold shadow-sm transition">
-          Unlock Answer Key
+        <button type="button" onclick="verifyTeacherPin()" class="px-4 py-2 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-600 text-slate-950 shadow-sm transition">
+          Unlock Answers
         </button>
       </div>
     </div>
   </div>
 
-  <script>
-    // ==========================================
-    // DATA DEFINITIONS (ALL CURRENCIES IN EUROS)
-    // ==========================================
+  <!-- Custom Reset Confirmation Modal (No browser confirm/alert) -->
+  <div id="reset-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <h3 class="text-base font-extrabold text-slate-900">Clear All Answers?</h3>
+      <p class="text-xs text-slate-600 leading-relaxed">This will erase all your selected options, variable definitions, equations, and final answers across all 20 questions. Are you sure?</p>
+      <div class="flex items-center justify-end gap-2 pt-1">
+        <button type="button" onclick="closeResetModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 transition">
+          Cancel
+        </button>
+        <button type="button" onclick="confirmResetAll()" class="px-4 py-2 rounded-xl text-xs font-bold bg-rose-600 hover:bg-rose-700 text-white shadow-sm transition">
+          Yes, Clear All
+        </button>
+      </div>
+    </div>
+  </div>
 
-    const section1Data = [
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <div id="toast-inner" class="bg-slate-900 text-white text-xs font-semibold px-4 py-3 rounded-xl shadow-lg flex items-center gap-2.5">
+      <span id="toast-icon">✓</span>
+      <span id="toast-msg">Notification</span>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // DATA DEFINITIONS (All Dollar ($) amounts converted to Euros (€))
+    // =========================================================================
+
+    const mcqQuestions = [
       {
-        id: 'mcq-1',
+        id: 'm1',
         num: 1,
-        prompt: 'Janice had <span class="font-math font-semibold text-indigo-700">x</span> color pencils in her box and shares them equally with her friend, Talia. Her brother gives her 2 more color pencils. Janice now has 3 pencils in her box.',
+        prompt: 'Janice had <strong>x</strong> color pencils in her box and shares them equally with her friend, Talia. Her brother gives her 2 more color pencils. Janice now has 3 pencils in her box.',
         options: [
           { key: 'a', html: '<span class="frac"><span>x</span><span>2</span></span> + 3 = 2' },
           { key: 'b', html: '2x &minus; 2 = 3' },
@@ -549,12 +650,12 @@
           { key: 'd', html: '<span class="frac"><span>x</span><span>2</span></span> + 2 = 3' }
         ],
         correct: 'd',
-        explanation: 'Sharing <em>x</em> pencils equally with Talia (2 people) gives <strong>x/2</strong>. Receiving 2 more adds <strong>+ 2</strong>, resulting in <strong>3</strong> pencils: <strong>x/2 + 2 = 3</strong>.'
+        explanation: 'Sharing x pencils equally between 2 people gives x/2. Receiving 2 more adds 2, resulting in 3: (x/2) + 2 = 3.'
       },
       {
-        id: 'mcq-2',
+        id: 'm2',
         num: 2,
-        prompt: 'A meteorologist measured the average rainfall received in Cities A and B. Both cities received 11 inches of rainfall in total. While City A received <span class="font-math font-semibold text-indigo-700">x</span> inches of rain, City B experienced three times the amount of rainfall than City A.',
+        prompt: 'A meteorologist measured the average rainfall received in Cities A and B. Both cities received 11 inches of rainfall in total. While City A received <strong>x</strong> inches of rain, City B experienced three times the amount of rainfall than City A.',
         options: [
           { key: 'a', html: 'x + 3x = 11' },
           { key: 'b', html: 'x &minus; 3x = 11' },
@@ -562,12 +663,12 @@
           { key: 'd', html: '11 = &minus;3x &minus; x' }
         ],
         correct: 'a',
-        explanation: 'City A = <strong>x</strong> and City B = <strong>3x</strong>. Their combined total rainfall is 11 inches, giving <strong>x + 3x = 11</strong>.'
+        explanation: 'City A = x and City B = 3x. Their combined total rainfall is x + 3x = 11.'
       },
       {
-        id: 'mcq-3',
+        id: 'm3',
         num: 3,
-        prompt: 'Timothy spent a total of <strong>&euro;68</strong> at a department store. His purchases included a pair of jeans at <strong>&euro;32</strong> and 2 t-shirts at <strong>&euro;x</strong> each.',
+        prompt: 'Timothy spent a total of <strong>€68</strong> at a clothing store. His purchases included a pair of jeans at <strong>€32</strong> and 2 t-shirts at <strong>€x</strong> each.',
         options: [
           { key: 'a', html: '2x &minus; 32 = 68' },
           { key: 'b', html: '2x + 32 = 68' },
@@ -575,12 +676,12 @@
           { key: 'd', html: '2x + 68 = 32' }
         ],
         correct: 'b',
-        explanation: '2 t-shirts at &euro;x each cost <strong>2x</strong>, plus &euro;32 for the jeans equals &euro;68 total: <strong>2x + 32 = 68</strong>.'
+        explanation: 'Two t-shirts at €x each cost 2x, plus €32 for the jeans equals the total of €68: 2x + 32 = 68.'
       },
       {
-        id: 'mcq-4',
+        id: 'm4',
         num: 4,
-        prompt: 'A customer at a Mexican diner placed an order for 3 burrito bowls which was priced at <strong>&euro;x</strong> each. He also ordered a plate of corn tacos at <strong>&euro;12.96</strong> and was billed for a total of <strong>&euro;32.46</strong>.',
+        prompt: 'A customer at a Mexican diner placed an order for 3 burrito bowls which were priced at <strong>€x</strong> each. He also ordered a plate of corn tacos at <strong>€12.96</strong> and was billed for a total of <strong>€32.46</strong>.',
         options: [
           { key: 'a', html: '3x + 12.96 = 32.46' },
           { key: 'b', html: '2x &minus; 32.46 = 12.96' },
@@ -588,12 +689,12 @@
           { key: 'd', html: '3x &minus; 12.96 = 32.46' }
         ],
         correct: 'a',
-        explanation: '3 burrito bowls at &euro;x each is <strong>3x</strong>. Adding &euro;12.96 for corn tacos gives the total bill of &euro;32.46: <strong>3x + 12.96 = 32.46</strong>.'
+        explanation: 'Three burrito bowls at €x each cost 3x, plus €12.96 for the tacos equals the total bill of €32.46.'
       },
       {
-        id: 'mcq-5',
+        id: 'm5',
         num: 5,
-        prompt: 'Mr. Hewitt estimates the cost towards a fresh paint job for the exteriors of his home. He makes a provision for 12 gallons of paint priced at <strong>&euro;x</strong> per gallon. The cost of paint supplies and miscellaneous expenses are <strong>&euro;2264</strong>. The total estimated cost for the paint job is <strong>&euro;2624</strong>.',
+        prompt: 'Mr. Hewitt estimates the cost towards a fresh paint job for the exterior of his home. He makes a provision for 12 gallons of paint priced at <strong>€x</strong> per gallon. The cost of paint supplies and miscellaneous expenses are <strong>€2264</strong>. The total estimated cost for the paint job is <strong>€2624</strong>.',
         options: [
           { key: 'a', html: '12x &minus; 2264 = 2624' },
           { key: 'b', html: '12x + 2624 = 2264' },
@@ -601,323 +702,266 @@
           { key: 'd', html: '12x + 2624 = &minus;2264' }
         ],
         correct: 'c',
-        explanation: '12 gallons at &euro;x per gallon is <strong>12x</strong>. Adding &euro;2264 in supplies gives &euro;2624 total: <strong>12x + 2264 = 2624</strong>.'
+        explanation: '12 gallons at €x per gallon is 12x, plus €2264 in supplies equals the €2624 total estimate: 12x + 2264 = 2624.'
       }
     ];
 
-    const section2Data = [
+    // 7 Selected One-Step Questions (removed original #4, #6, #7)
+    const oneStepQuestions = [
       {
-        id: 'one-1',
+        id: 's1_1',
         num: 1,
         prompt: 'Lisa is cooking muffins. The recipe calls for 7 cups of sugar. She has already put in 2 cups. How many more cups does she need to put in?',
-        varPlaceholder: 'e.g., Let x = the number of additional cups of sugar needed',
-        eqPlaceholder: 'e.g., x + 2 = 7',
-        ansPlaceholder: 'e.g., 5 cups',
-        modelVar: 'Let x = the number of more cups of sugar Lisa needs.',
-        modelEq: 'x + 2 = 7',
-        validEqs: ['x+2=7', '2+x=7', '7-2=x', 'x=7-2'],
-        numericAns: 5,
-        displayAns: '5 cups',
-        steps: 'Subtract 2 from both sides: x = 7 − 2 = 5 cups.'
+        varHint: 'e.g., Let c = number of additional cups of sugar needed',
+        eqHint: 'e.g., 2 + c = 7',
+        ansHint: 'e.g., 5 cups',
+        sampleVar: 'Let c = cups of sugar still needed',
+        sampleEq: '2 + c = 7',
+        validEquations: ['2+x=7', 'x+2=7', '7-2=x', '7-x=2'],
+        answerNum: 5,
+        answerDisplay: '5 cups',
+        workSteps: '2 + c = 7  →  Subtract 2 from both sides  →  c = 5 cups'
       },
       {
-        id: 'one-2',
+        id: 's1_2',
         num: 2,
-        prompt: 'At a restaurant, Mike and his three friends decided to divide the bill evenly. If each person paid <strong>&euro;13</strong> then what was the total bill?',
-        varPlaceholder: 'e.g., Let x = the total restaurant bill in Euros (€)',
-        eqPlaceholder: 'e.g., x / 4 = 13',
-        ansPlaceholder: 'e.g., €52',
-        modelVar: 'Let x = the total bill in Euros (€). (Note: Mike + 3 friends = 4 people)',
-        modelEq: 'x / 4 = 13',
-        validEqs: ['x/4=13', '13=x/4', 'x÷4=13', '1/4x=13', '0.25x=13'],
-        numericAns: 52,
-        displayAns: '€52',
-        steps: 'Multiply both sides by 4: x = 13 × 4 = €52.'
+        prompt: 'At a restaurant, Mike and his three friends decided to divide the bill evenly. If each person paid <strong>€13</strong>, then what was the total bill?',
+        varHint: 'e.g., Let b = total restaurant bill in Euros (€)',
+        eqHint: 'e.g., b / 4 = 13',
+        ansHint: 'e.g., €52',
+        sampleVar: 'Let b = total restaurant bill in €',
+        sampleEq: 'b / 4 = 13',
+        validEquations: ['x/4=13', 'x÷4=13', '13*4=x', '4*13=x'],
+        answerNum: 52,
+        answerDisplay: '€52',
+        workSteps: 'Mike + 3 friends = 4 people.  b / 4 = 13  →  Multiply both sides by 4  →  b = €52'
       },
       {
-        id: 'one-3',
+        id: 's1_3',
         num: 3,
-        prompt: 'How many packages of diapers can you buy with <strong>&euro;40</strong> if one package costs <strong>&euro;8</strong>?',
-        varPlaceholder: 'e.g., Let x = the number of packages of diapers',
-        eqPlaceholder: 'e.g., 8x = 40',
-        ansPlaceholder: 'e.g., 5 packages',
-        modelVar: 'Let x = the number of packages of diapers you can buy.',
-        modelEq: '8x = 40',
-        validEqs: ['8x=40', '8*x=40', 'x*8=40', '40=8x', '40/8=x', 'x=40/8'],
-        numericAns: 5,
-        displayAns: '5 packages',
-        steps: 'Divide both sides by 8: x = 40 ÷ 8 = 5 packages.'
+        prompt: 'How many packages of diapers can you buy with <strong>€40</strong> if one package costs <strong>€8</strong>?',
+        varHint: 'e.g., Let p = number of packages of diapers',
+        eqHint: 'e.g., 8p = 40',
+        ansHint: 'e.g., 5 packages',
+        sampleVar: 'Let p = number of packages of diapers',
+        sampleEq: '8p = 40',
+        validEquations: ['8x=40', '8*x=40', '40/8=x', '40/x=8'],
+        answerNum: 5,
+        answerDisplay: '5 packages',
+        workSteps: '8p = 40  →  Divide both sides by 8  →  p = 5 packages'
       },
       {
-        id: 'one-4',
+        id: 's1_4',
         num: 4,
-        prompt: 'Last Friday Trevon had <strong>&euro;29</strong>. Over the weekend he received some money for cleaning the attic. He now has <strong>&euro;41</strong>. How much money did he receive?',
-        varPlaceholder: 'e.g., Let x = the amount of money Trevon received (€)',
-        eqPlaceholder: 'e.g., 29 + x = 41',
-        ansPlaceholder: 'e.g., €12',
-        modelVar: 'Let x = the amount of money (€) Trevon received.',
-        modelEq: '29 + x = 41',
-        validEqs: ['29+x=41', 'x+29=41', '41=29+x', '41=x+29', '41-29=x', 'x=41-29'],
-        numericAns: 12,
-        displayAns: '€12',
-        steps: 'Subtract 29 from both sides: x = 41 − 29 = €12.'
-      },
-      {
-        id: 'one-5',
-        num: 5,
         prompt: 'Last week Julia ran 30 miles more than Pranav. Julia ran 47 miles. How many miles did Pranav run?',
-        varPlaceholder: 'e.g., Let x = the number of miles Pranav ran',
-        eqPlaceholder: 'e.g., x + 30 = 47',
-        ansPlaceholder: 'e.g., 17 miles',
-        modelVar: 'Let x = the number of miles Pranav ran.',
-        modelEq: 'x + 30 = 47',
-        validEqs: ['x+30=47', '30+x=47', '47=x+30', '47=30+x', '47-30=x', 'x=47-30'],
-        numericAns: 17,
-        displayAns: '17 miles',
-        steps: 'Subtract 30 from both sides: x = 47 − 30 = 17 miles.'
+        varHint: 'e.g., Let m = miles Pranav ran',
+        eqHint: 'e.g., m + 30 = 47',
+        ansHint: 'e.g., 17 miles',
+        sampleVar: 'Let m = distance Pranav ran in miles',
+        sampleEq: 'm + 30 = 47',
+        validEquations: ['x+30=47', '30+x=47', '47-30=x', '47-x=30'],
+        answerNum: 17,
+        answerDisplay: '17 miles',
+        workSteps: 'm + 30 = 47  →  Subtract 30 from both sides  →  m = 17 miles'
       },
       {
-        id: 'one-6',
+        id: 's1_5',
+        num: 5,
+        prompt: 'Jenny wants to buy an MP3 player that costs <strong>€30.98</strong>. How much change does she receive if she gives the cashier <strong>€40</strong>?',
+        varHint: 'e.g., Let c = amount of change in Euros (€)',
+        eqHint: 'e.g., 30.98 + c = 40',
+        ansHint: 'e.g., €9.02',
+        sampleVar: 'Let c = change received in €',
+        sampleEq: '30.98 + c = 40',
+        validEquations: ['30.98+x=40', 'x+30.98=40', '40-30.98=x', '40-x=30.98'],
+        answerNum: 9.02,
+        answerDisplay: '€9.02',
+        workSteps: '30.98 + c = 40  →  Subtract 30.98 from both sides  →  c = €9.02'
+      },
+      {
+        id: 's1_6',
         num: 6,
-        prompt: 'How many boxes of envelopes can you buy with <strong>&euro;12</strong> if one box costs <strong>&euro;3</strong>?',
-        varPlaceholder: 'e.g., Let x = the number of boxes of envelopes',
-        eqPlaceholder: 'e.g., 3x = 12',
-        ansPlaceholder: 'e.g., 4 boxes',
-        modelVar: 'Let x = the number of boxes of envelopes.',
-        modelEq: '3x = 12',
-        validEqs: ['3x=12', '3*x=12', 'x*3=12', '12=3x', '12/3=x', 'x=12/3'],
-        numericAns: 4,
-        displayAns: '4 boxes',
-        steps: 'Divide both sides by 3: x = 12 ÷ 3 = 4 boxes.'
+        prompt: 'Last Friday Adam had <strong>€22.33</strong>. Over the weekend he received some money for cleaning the attic. He now has <strong>€32</strong>. How much money did he receive?',
+        varHint: 'e.g., Let m = money Adam received in Euros (€)',
+        eqHint: 'e.g., 22.33 + m = 32',
+        ansHint: 'e.g., €9.67',
+        sampleVar: 'Let m = money earned cleaning the attic in €',
+        sampleEq: '22.33 + m = 32',
+        validEquations: ['22.33+x=32', 'x+22.33=32', '32-22.33=x', '32-x=22.33'],
+        answerNum: 9.67,
+        answerDisplay: '€9.67',
+        workSteps: '22.33 + m = 32  →  Subtract 22.33 from both sides  →  m = €9.67'
       },
       {
-        id: 'one-7',
+        id: 's1_7',
         num: 7,
-        prompt: 'Amanda and her best friend found some money buried in a field. They split the money evenly, each getting <strong>&euro;24.28</strong>. How much money did they find?',
-        varPlaceholder: 'e.g., Let x = the total amount of money found (€)',
-        eqPlaceholder: 'e.g., x / 2 = 24.28',
-        ansPlaceholder: 'e.g., €48.56',
-        modelVar: 'Let x = the total amount of money (€) they found.',
-        modelEq: 'x / 2 = 24.28',
-        validEqs: ['x/2=24.28', '24.28=x/2', 'x÷2=24.28', '0.5x=24.28', '1/2x=24.28'],
-        numericAns: 48.56,
-        displayAns: '€48.56',
-        steps: 'Multiply both sides by 2: x = 24.28 × 2 = €48.56.'
-      },
-      {
-        id: 'one-8',
-        num: 8,
-        prompt: 'Jenny wants to buy an MP3 player that costs <strong>&euro;30.98</strong>. How much change does she receive if she gives the cashier <strong>&euro;40</strong>?',
-        varPlaceholder: 'e.g., Let x = the amount of change Jenny receives (€)',
-        eqPlaceholder: 'e.g., 30.98 + x = 40',
-        ansPlaceholder: 'e.g., €9.02',
-        modelVar: 'Let x = the amount of change (€) Jenny receives.',
-        modelEq: '30.98 + x = 40',
-        validEqs: ['30.98+x=40', 'x+30.98=40', '40=30.98+x', '40-30.98=x', 'x=40-30.98'],
-        numericAns: 9.02,
-        displayAns: '€9.02',
-        steps: 'Subtract 30.98 from both sides: x = 40 − 30.98 = €9.02.'
-      },
-      {
-        id: 'one-9',
-        num: 9,
-        prompt: 'Last Friday Adam had <strong>&euro;22.33</strong>. Over the weekend he received some money for cleaning the attic. He now has <strong>&euro;32</strong>. How much money did he receive?',
-        varPlaceholder: 'e.g., Let x = the amount of money Adam received (€)',
-        eqPlaceholder: 'e.g., 22.33 + x = 32',
-        ansPlaceholder: 'e.g., €9.67',
-        modelVar: 'Let x = the amount of money (€) Adam received.',
-        modelEq: '22.33 + x = 32',
-        validEqs: ['22.33+x=32', 'x+22.33=32', '32=22.33+x', '32-22.33=x', 'x=32-22.33'],
-        numericAns: 9.67,
-        displayAns: '€9.67',
-        steps: 'Subtract 22.33 from both sides: x = 32 − 22.33 = €9.67.'
-      },
-      {
-        id: 'one-10',
-        num: 10,
-        prompt: 'After paying <strong>&euro;5.12</strong> for a salad, Norachai has <strong>&euro;27.10</strong>. How much money did he have before buying the salad?',
-        varPlaceholder: 'e.g., Let x = the money Norachai had before buying the salad (€)',
-        eqPlaceholder: 'e.g., x - 5.12 = 27.10',
-        ansPlaceholder: 'e.g., €32.22',
-        modelVar: 'Let x = the amount of money (€) Norachai had initially.',
-        modelEq: 'x − 5.12 = 27.10',
-        validEqs: ['x-5.12=27.10', 'x-5.12=27.1', '27.10=x-5.12', '27.1=x-5.12', '27.10+5.12=x', 'x=27.10+5.12'],
-        numericAns: 32.22,
-        displayAns: '€32.22',
-        steps: 'Add 5.12 to both sides: x = 27.10 + 5.12 = €32.22.'
+        prompt: 'After paying <strong>€5.12</strong> for a salad, Norachai has <strong>€27.10</strong>. How much money did he have before buying the salad?',
+        varHint: 'e.g., Let m = initial amount of money in Euros (€)',
+        eqHint: 'e.g., m - 5.12 = 27.10',
+        ansHint: 'e.g., €32.22',
+        sampleVar: 'Let m = money Norachai started with in €',
+        sampleEq: 'm − 5.12 = 27.10',
+        validEquations: ['x-5.12=27.1', 'x-5.12=27.10', '27.10+5.12=x', '27.1+5.12=x'],
+        answerNum: 32.22,
+        answerDisplay: '€32.22',
+        workSteps: 'm − 5.12 = 27.10  →  Add 5.12 to both sides  →  m = €32.22'
       }
     ];
 
-    const section3Data = [
+    // 8 Selected Two-Step Questions (removed original #2 and #8)
+    const twoStepQuestions = [
       {
-        id: 'two-1',
+        id: 's2_1',
         num: 1,
         prompt: '331 students went on a field trip. Six buses were filled and 7 students traveled in cars. How many students were in each bus?',
-        varPlaceholder: 'e.g., Let x = the number of students in each bus',
-        eqPlaceholder: 'e.g., 6x + 7 = 331',
-        workPlaceholder: 'Step 1: Subtract 7 from both sides -> 6x = 324\nStep 2: Divide by 6 -> x = ...',
-        ansPlaceholder: 'e.g., 54 students',
-        modelVar: 'Let x = the number of students in each bus.',
-        modelEq: '6x + 7 = 331',
-        validEqs: ['6x+7=331', '7+6x=331', '331=6x+7', '331=7+6x'],
-        numericAns: 54,
-        displayAns: '54 students',
-        steps: 'Subtract 7: 6x = 324 → Divide by 6: x = 54 students.'
+        varHint: 'e.g., Let s = number of students in each bus',
+        eqHint: 'e.g., 6s + 7 = 331',
+        workHint: 'e.g., 6s = 331 - 7  →  6s = 324  →  s = 54',
+        ansHint: 'e.g., 54 students',
+        sampleVar: 'Let s = number of students on each bus',
+        sampleEq: '6s + 7 = 331',
+        validEquations: ['6x+7=331', '7+6x=331', '331-7=6x', '331-6x=7'],
+        answerNum: 54,
+        answerDisplay: '54 students',
+        workSteps: '6s + 7 = 331  →  6s = 324  →  s = 54 students'
       },
       {
-        id: 'two-2',
+        id: 's2_2',
         num: 2,
-        prompt: 'Aliyah had <strong>&euro;24</strong> to spend on seven pencils. After buying them she had <strong>&euro;10</strong>. How much did each pencil cost?',
-        varPlaceholder: 'e.g., Let x = the cost of one pencil (€)',
-        eqPlaceholder: 'e.g., 7x + 10 = 24 or 24 - 7x = 10',
-        workPlaceholder: 'Undo addition/subtraction first, then divide by 7...',
-        ansPlaceholder: 'e.g., €2',
-        modelVar: 'Let x = the cost of each pencil in Euros (€).',
-        modelEq: '7x + 10 = 24  (or 24 − 7x = 10)',
-        validEqs: ['7x+10=24', '10+7x=24', '24-7x=10', '24=7x+10', '10=24-7x'],
-        numericAns: 2,
-        displayAns: '€2',
-        steps: 'Subtract 10: 7x = 14 → Divide by 7: x = €2.'
-      },
-      {
-        id: 'two-3',
-        num: 3,
         prompt: 'The sum of three consecutive numbers is 72. What is the smallest of these numbers?',
-        varPlaceholder: 'e.g., Let x = the smallest consecutive number',
-        eqPlaceholder: 'e.g., x + (x + 1) + (x + 2) = 72 or 3x + 3 = 72',
-        workPlaceholder: 'Combine like terms -> 3x + 3 = 72, subtract 3, then divide by 3...',
-        ansPlaceholder: 'e.g., 23',
-        modelVar: 'Let x = the smallest number (next two are x + 1 and x + 2).',
-        modelEq: 'x + (x + 1) + (x + 2) = 72  →  3x + 3 = 72',
-        validEqs: ['x+(x+1)+(x+2)=72', 'x+x+1+x+2=72', '3x+3=72', '3+3x=72', '72=3x+3'],
-        numericAns: 23,
-        displayAns: '23',
-        steps: 'Combine terms: 3x + 3 = 72 → Subtract 3: 3x = 69 → Divide by 3: x = 23.'
+        varHint: 'e.g., Let n = the smallest consecutive number',
+        eqHint: 'e.g., n + (n + 1) + (n + 2) = 72  or  3n + 3 = 72',
+        workHint: 'e.g., 3n + 3 = 72  →  3n = 69  →  n = 23',
+        ansHint: 'e.g., 23',
+        sampleVar: 'Let n = the smallest of the three consecutive integers',
+        sampleEq: 'n + (n + 1) + (n + 2) = 72  (or 3n + 3 = 72)',
+        validEquations: ['3x+3=72', '3+3x=72', 'x+(x+1)+(x+2)=72', 'x+x+1+x+2=72'],
+        answerNum: 23,
+        answerDisplay: '23',
+        workSteps: '3n + 3 = 72  →  3n = 69  →  n = 23 (numbers: 23, 24, 25)'
       },
       {
-        id: 'two-4',
-        num: 4,
+        id: 's2_3',
+        num: 3,
         prompt: 'The sum of three consecutive even numbers is 48. What is the smallest of these numbers?',
-        varPlaceholder: 'e.g., Let x = the smallest consecutive even number',
-        eqPlaceholder: 'e.g., x + (x + 2) + (x + 4) = 48 or 3x + 6 = 48',
-        workPlaceholder: 'Combine like terms -> 3x + 6 = 48, subtract 6, then divide by 3...',
-        ansPlaceholder: 'e.g., 14',
-        modelVar: 'Let x = the smallest even number (next two are x + 2 and x + 4).',
-        modelEq: 'x + (x + 2) + (x + 4) = 48  →  3x + 6 = 48',
-        validEqs: ['x+(x+2)+(x+4)=48', 'x+x+2+x+4=48', '3x+6=48', '6+3x=48', '48=3x+6'],
-        numericAns: 14,
-        displayAns: '14',
-        steps: 'Combine terms: 3x + 6 = 48 → Subtract 6: 3x = 42 → Divide by 3: x = 14.'
+        varHint: 'e.g., Let n = the smallest consecutive even number',
+        eqHint: 'e.g., n + (n + 2) + (n + 4) = 48  or  3n + 6 = 48',
+        workHint: 'e.g., 3n + 6 = 48  →  3n = 42  →  n = 14',
+        ansHint: 'e.g., 14',
+        sampleVar: 'Let n = the smallest consecutive even integer',
+        sampleEq: 'n + (n + 2) + (n + 4) = 48  (or 3n + 6 = 48)',
+        validEquations: ['3x+6=48', '6+3x=48', 'x+(x+2)+(x+4)=48', 'x+x+2+x+4=48'],
+        answerNum: 14,
+        answerDisplay: '14',
+        workSteps: '3n + 6 = 48  →  3n = 42  →  n = 14 (numbers: 14, 16, 18)'
       },
       {
-        id: 'two-5',
+        id: 's2_4',
+        num: 4,
+        prompt: 'You bought a magazine for <strong>€5</strong> and four erasers. You spent a total of <strong>€25</strong>. How much did each eraser cost?',
+        varHint: 'e.g., Let e = cost of one eraser in Euros (€)',
+        eqHint: 'e.g., 4e + 5 = 25',
+        workHint: 'e.g., 4e = 25 - 5  →  4e = 20  →  e = 5',
+        ansHint: 'e.g., €5',
+        sampleVar: 'Let e = cost of one eraser in €',
+        sampleEq: '4e + 5 = 25',
+        validEquations: ['4x+5=25', '5+4x=25', '25-5=4x', '25-4x=5'],
+        answerNum: 5,
+        answerDisplay: '€5',
+        workSteps: '4e + 5 = 25  →  4e = 20  →  e = €5'
+      },
+      {
+        id: 's2_5',
         num: 5,
-        prompt: 'You bought a magazine for <strong>&euro;5</strong> and four erasers. You spent a total of <strong>&euro;25</strong>. How much did each eraser cost?',
-        varPlaceholder: 'e.g., Let x = the cost of each eraser (€)',
-        eqPlaceholder: 'e.g., 4x + 5 = 25',
-        workPlaceholder: 'Subtract 5 from both sides, then divide by 4...',
-        ansPlaceholder: 'e.g., €5',
-        modelVar: 'Let x = the cost of one eraser in Euros (€).',
-        modelEq: '4x + 5 = 25',
-        validEqs: ['4x+5=25', '5+4x=25', '25=4x+5', '25=5+4x'],
-        numericAns: 5,
-        displayAns: '€5',
-        steps: 'Subtract 5: 4x = 20 → Divide by 4: x = €5.'
-      },
-      {
-        id: 'two-6',
-        num: 6,
         prompt: 'Maria bought seven boxes. A week later half of all her boxes were destroyed in a fire. There are now only 22 boxes left. With how many did she start?',
-        varPlaceholder: 'e.g., Let x = the number of boxes Maria started with',
-        eqPlaceholder: 'e.g., (x + 7) / 2 = 22',
-        workPlaceholder: 'Multiply both sides by 2 first, then subtract 7...',
-        ansPlaceholder: 'e.g., 37 boxes',
-        modelVar: 'Let x = the number of boxes Maria started with.',
-        modelEq: '(x + 7) / 2 = 22',
-        validEqs: ['(x+7)/2=22', '(7+x)/2=22', '22=(x+7)/2', '0.5(x+7)=22', '1/2(x+7)=22'],
-        numericAns: 37,
-        displayAns: '37 boxes',
-        steps: 'Multiply by 2: x + 7 = 44 → Subtract 7: x = 37 boxes.'
+        varHint: 'e.g., Let b = number of boxes Maria started with',
+        eqHint: 'e.g., (b + 7) / 2 = 22',
+        workHint: 'e.g., b + 7 = 44  →  b = 44 - 7  →  b = 37',
+        ansHint: 'e.g., 37 boxes',
+        sampleVar: 'Let b = number of boxes Maria originally had',
+        sampleEq: '(b + 7) / 2 = 22',
+        validEquations: ['(x+7)/2=22', '(7+x)/2=22', '0.5(x+7)=22', '1/2(x+7)=22'],
+        answerNum: 37,
+        answerDisplay: '37 boxes',
+        workSteps: '(b + 7) / 2 = 22  →  b + 7 = 44  →  b = 37 boxes'
       },
       {
-        id: 'two-7',
-        num: 7,
+        id: 's2_6',
+        num: 6,
         prompt: 'Sumalee won 40 super bouncy balls playing horseshoes at her school\'s game night. Later, she gave two to each of her friends. She only has 8 remaining. How many friends does she have?',
-        varPlaceholder: 'e.g., Let x = the number of friends Sumalee has',
-        eqPlaceholder: 'e.g., 40 - 2x = 8',
-        workPlaceholder: 'Subtract 40 (or add 2x and subtract 8), then divide by 2...',
-        ansPlaceholder: 'e.g., 16 friends',
-        modelVar: 'Let x = the number of friends Sumalee has.',
-        modelEq: '40 − 2x = 8  (or 2x + 8 = 40)',
-        validEqs: ['40-2x=8', '8=40-2x', '2x+8=40', '8+2x=40', '40=2x+8'],
-        numericAns: 16,
-        displayAns: '16 friends',
-        steps: 'Subtract 40: −2x = −32 → Divide by −2: x = 16 friends.'
+        varHint: 'e.g., Let f = number of friends Sumalee has',
+        eqHint: 'e.g., 40 - 2f = 8',
+        workHint: 'e.g., -2f = 8 - 40  →  -2f = -32  →  f = 16',
+        ansHint: 'e.g., 16 friends',
+        sampleVar: 'Let f = number of friends',
+        sampleEq: '40 − 2f = 8',
+        validEquations: ['40-2x=8', '2x+8=40', '8+2x=40', '40-8=2x'],
+        answerNum: 16,
+        answerDisplay: '16 friends',
+        workSteps: '40 − 2f = 8  →  2f = 32  →  f = 16 friends'
       },
       {
-        id: 'two-8',
-        num: 8,
-        prompt: 'Imani spent half of her weekly allowance playing mini-golf. To earn more money her parents let her wash the car for <strong>&euro;4</strong>. What is her weekly allowance if she ended with <strong>&euro;12</strong>?',
-        varPlaceholder: 'e.g., Let x = Imani\'s weekly allowance (€)',
-        eqPlaceholder: 'e.g., x / 2 + 4 = 12',
-        workPlaceholder: 'Subtract 4 from both sides, then multiply by 2...',
-        ansPlaceholder: 'e.g., €16',
-        modelVar: 'Let x = Imani\'s weekly allowance in Euros (€).',
-        modelEq: 'x / 2 + 4 = 12',
-        validEqs: ['x/2+4=12', '4+x/2=12', '12=x/2+4', '0.5x+4=12', '1/2x+4=12'],
-        numericAns: 16,
-        displayAns: '€16',
-        steps: 'Subtract 4: x / 2 = 8 → Multiply by 2: x = €16.'
-      },
-      {
-        id: 'two-9',
-        num: 9,
+        id: 's2_7',
+        num: 7,
         prompt: 'Aliyah had some candy to give to her four children. She first took ten pieces for herself and then evenly divided the rest among her children. Each child received two pieces. With how many pieces did she start?',
-        varPlaceholder: 'e.g., Let x = the number of candy pieces Aliyah started with',
-        eqPlaceholder: 'e.g., (x - 10) / 4 = 2',
-        workPlaceholder: 'Multiply both sides by 4, then add 10...',
-        ansPlaceholder: 'e.g., 18 pieces',
-        modelVar: 'Let x = the total pieces of candy Aliyah started with.',
-        modelEq: '(x − 10) / 4 = 2',
-        validEqs: ['(x-10)/4=2', '2=(x-10)/4', '0.25(x-10)=2', '1/4(x-10)=2'],
-        numericAns: 18,
-        displayAns: '18 pieces',
-        steps: 'Multiply by 4: x − 10 = 8 → Add 10: x = 18 pieces.'
+        varHint: 'e.g., Let c = starting number of candy pieces',
+        eqHint: 'e.g., (c - 10) / 4 = 2',
+        workHint: 'e.g., c - 10 = 8  →  c = 18',
+        ansHint: 'e.g., 18 pieces',
+        sampleVar: 'Let c = starting number of candy pieces',
+        sampleEq: '(c − 10) / 4 = 2',
+        validEquations: ['(x-10)/4=2', 'x-10=8', '4*2+10=x', '10+8=x'],
+        answerNum: 18,
+        answerDisplay: '18 pieces',
+        workSteps: '(c − 10) / 4 = 2  →  c − 10 = 8  →  c = 18 pieces'
       },
       {
-        id: 'two-10',
-        num: 10,
+        id: 's2_8',
+        num: 8,
         prompt: 'How old am I if 400 reduced by 2 times my age is 244?',
-        varPlaceholder: 'e.g., Let x = my age in years',
-        eqPlaceholder: 'e.g., 400 - 2x = 244',
-        workPlaceholder: 'Subtract 400 from both sides, then divide by -2...',
-        ansPlaceholder: 'e.g., 78 years old',
-        modelVar: 'Let x = my current age in years.',
-        modelEq: '400 − 2x = 244',
-        validEqs: ['400-2x=244', '244=400-2x', '-2x+400=244', '2x+244=400'],
-        numericAns: 78,
-        displayAns: '78 years old',
-        steps: 'Subtract 400: −2x = −156 → Divide by −2: x = 78 years old.'
+        varHint: 'e.g., Let a = my current age in years',
+        eqHint: 'e.g., 400 - 2a = 244',
+        workHint: 'e.g., 2a = 400 - 244  →  2a = 156  →  a = 78',
+        ansHint: 'e.g., 78 years old',
+        sampleVar: 'Let a = my age in years',
+        sampleEq: '400 − 2a = 244',
+        validEquations: ['400-2x=244', '244+2x=400', '2x+244=400', '400-244=2x'],
+        answerNum: 78,
+        answerDisplay: '78 years old',
+        workSteps: '400 − 2a = 244  →  2a = 156  →  a = 78 years old'
       }
     ];
 
-    // State tracking
-    const userState = {
-      mcq: {},      // id -> 'a' | 'b' | 'c' | 'd'
-      checked: {},  // id -> boolean (true if correct)
-      attempted: {}, // id -> boolean
-      teacherMode: false
+    // =========================================================================
+    // STATE & RENDERING
+    // =========================================================================
+
+    const TEACHER_PIN = '1964';
+    let teacherMode = false;
+
+    const state = {
+      mcq: {},
+      oneStep: {},
+      twoStep: {}
     };
 
-    const TEACHER_PIN_HASH = '1964';
+    function init() {
+      // Set today's date as default
+      const dateInput = document.getElementById('assignment-date');
+      if (dateInput && !dateInput.value) {
+        dateInput.value = new Date().toISOString().split('T')[0];
+      }
 
-    // ==========================================
-    // TEACHER ANSWER KEY MODE
-    // ==========================================
+      renderSection1();
+      renderWordSection('sec2-container', oneStepQuestions, 'oneStep', false);
+      renderWordSection('sec3-container', twoStepQuestions, 'twoStep', true);
+      updateDashboard();
+    }
 
-    function handleTeacherKeyToggle() {
-      if (userState.teacherMode) {
-        exitTeacherKeyMode();
+    // Teacher Mode Functions
+    function handleTeacherKeyClick() {
+      if (teacherMode) {
+        lockTeacherMode();
       } else {
         openTeacherModal();
       }
@@ -926,673 +970,513 @@
     function openTeacherModal() {
       const modal = document.getElementById('teacher-modal');
       const input = document.getElementById('teacher-pin-input');
-      const errorEl = document.getElementById('teacher-pin-error');
-      errorEl.classList.add('hidden');
+      const error = document.getElementById('teacher-pin-error');
       input.value = '';
+      error.classList.add('hidden');
       modal.classList.remove('hidden');
-      modal.classList.add('flex');
       setTimeout(() => input.focus(), 50);
     }
 
     function closeTeacherModal() {
-      const modal = document.getElementById('teacher-modal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
+      document.getElementById('teacher-modal').classList.add('hidden');
     }
 
     function verifyTeacherPin() {
       const input = document.getElementById('teacher-pin-input');
-      const errorEl = document.getElementById('teacher-pin-error');
-      if (input.value.trim() === TEACHER_PIN_HASH) {
+      const error = document.getElementById('teacher-pin-error');
+      if (input.value.trim() === TEACHER_PIN) {
         closeTeacherModal();
-        enterTeacherKeyMode();
+        unlockTeacherMode();
       } else {
-        errorEl.classList.remove('hidden');
+        error.classList.remove('hidden');
         input.value = '';
         input.focus();
       }
     }
 
-    function enterTeacherKeyMode() {
-      userState.teacherMode = true;
-
-      // Update header toggle button
+    function unlockTeacherMode() {
+      teacherMode = true;
+      document.getElementById('teacher-banner').classList.remove('hidden');
       const btn = document.getElementById('teacher-key-btn');
       const label = document.getElementById('teacher-key-label');
-      const icon = document.getElementById('teacher-key-icon');
-      btn.className = 'no-print px-3 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white border border-amber-700 text-xs sm:text-sm font-bold shadow-sm transition flex items-center gap-1.5';
-      label.textContent = 'Exit Answer Key (Student View)';
-      icon.className = 'w-4 h-4 text-white';
-      icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"/>';
+      const icon = document.getElementById('teacher-lock-icon');
 
-      // Show active banner
-      document.getElementById('teacher-mode-banner').classList.remove('hidden');
+      btn.className = 'no-print inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-600 text-slate-950 border border-amber-600 transition shadow-sm';
+      label.textContent = 'Hide Answer Key';
+      icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"/>';
 
-      // Reveal Section 1 MCQ Answer Key
-      section1Data.forEach(q => {
-        ['a', 'b', 'c', 'd'].forEach(k => {
-          const lbl = document.getElementById(`opt-label-${q.id}-${k}`);
-          if (!lbl) return;
-          if (k === q.correct) {
-            lbl.classList.add('border-emerald-500', 'bg-emerald-50', 'ring-1', 'ring-emerald-500', 'teacher-highlight');
-          }
-        });
-        const keyBox = document.getElementById(`teacher-key-${q.id}`);
-        if (keyBox) keyBox.classList.remove('hidden');
-      });
-
-      // Reveal Section 2 & Section 3 Model Answer Keys without altering student input boxes
-      [...section2Data, ...section3Data].forEach(q => {
-        const keyBox = document.getElementById(`teacher-key-${q.id}`);
-        if (keyBox) keyBox.classList.remove('hidden');
-      });
-
-      showToast('Teacher Answer Key unlocked.');
+      applyTeacherKeyVisibility();
+      showToast('Teacher Answer Key unlocked.', 'success');
     }
 
-    function exitTeacherKeyMode() {
-      userState.teacherMode = false;
-
-      // Restore header toggle button
+    function lockTeacherMode() {
+      teacherMode = false;
+      document.getElementById('teacher-banner').classList.add('hidden');
       const btn = document.getElementById('teacher-key-btn');
       const label = document.getElementById('teacher-key-label');
-      const icon = document.getElementById('teacher-key-icon');
-      btn.className = 'no-print px-3 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 text-xs sm:text-sm font-semibold transition flex items-center gap-1.5';
+      const icon = document.getElementById('teacher-lock-icon');
+
+      btn.className = 'no-print inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 transition shadow-sm';
       label.textContent = 'Teacher Answer Key';
-      icon.className = 'w-4 h-4 text-amber-700';
-      icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>';
+      icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>';
 
-      // Hide active banner
-      document.getElementById('teacher-mode-banner').classList.add('hidden');
-
-      // Hide all Teacher Key boxes & restore Section 1 option highlights to student state
-      section1Data.forEach(q => {
-        const keyBox = document.getElementById(`teacher-key-${q.id}`);
-        if (keyBox) keyBox.classList.add('hidden');
-
-        const selected = userState.mcq[q.id];
-        const isChecked = Object.prototype.hasOwnProperty.call(userState.checked, q.id);
-        ['a', 'b', 'c', 'd'].forEach(k => {
-          const lbl = document.getElementById(`opt-label-${q.id}-${k}`);
-          if (!lbl) return;
-          lbl.classList.remove('border-emerald-500', 'bg-emerald-50', 'ring-1', 'ring-emerald-500', 'teacher-highlight', 'border-indigo-500', 'bg-indigo-50/80', 'ring-indigo-500', 'border-rose-500', 'bg-rose-50');
-          lbl.classList.add('border-slate-200', 'bg-slate-50/60');
-          if (isChecked) {
-            if (k === q.correct) {
-              lbl.classList.remove('border-slate-200', 'bg-slate-50/60');
-              lbl.classList.add('border-emerald-500', 'bg-emerald-50');
-            } else if (k === selected && !userState.checked[q.id]) {
-              lbl.classList.remove('border-slate-200', 'bg-slate-50/60');
-              lbl.classList.add('border-rose-500', 'bg-rose-50');
-            }
-          } else if (k === selected) {
-            lbl.classList.remove('border-slate-200', 'bg-slate-50/60');
-            lbl.classList.add('border-indigo-500', 'bg-indigo-50/80', 'ring-1', 'ring-indigo-500');
-          }
-        });
-      });
-
-      [...section2Data, ...section3Data].forEach(q => {
-        const keyBox = document.getElementById(`teacher-key-${q.id}`);
-        if (keyBox) keyBox.classList.add('hidden');
-      });
-
-      showToast('Returned to Student Worksheet view.');
+      applyTeacherKeyVisibility();
+      showToast('Returned to Student View.', 'info');
     }
 
-    // ==========================================
-    // INITIALIZATION & RENDERING
-    // ==========================================
-
-    window.addEventListener('DOMContentLoaded', () => {
-      // Set default today's date
-      const dateInput = document.getElementById('assignment-date');
-      if (dateInput) {
-        dateInput.valueAsDate = new Date();
-      }
-      renderSection1();
-      renderWordSection(section2Data, 'sec2-container', false);
-      renderWordSection(section3Data, 'sec3-container', true);
-    });
-
-    function renderSection1() {
-      const container = document.getElementById('sec1-container');
-      container.innerHTML = section1Data.map(q => {
-        const optionsHtml = q.options.map(opt => `
-          <label id="opt-label-${q.id}-${opt.key}" onclick="selectMcq('${q.id}', '${opt.key}')"
-            class="cursor-pointer flex items-center gap-3 p-3.5 rounded-xl border border-slate-200 bg-slate-50/60 hover:bg-indigo-50/60 hover:border-indigo-300 transition select-none">
-            <input type="radio" name="${q.id}" value="${opt.key}" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500" />
-            <span class="font-bold text-slate-500 text-sm uppercase">${opt.key})</span>
-            <span class="font-math text-base text-slate-900 font-medium">${opt.html}</span>
-          </label>
-        `).join('');
-
-        return `
-          <div id="card-${q.id}" class="question-card bg-white rounded-2xl border border-slate-200 shadow-sm p-5 transition-all">
-            <div class="flex items-start justify-between gap-3 mb-4">
-              <div class="flex items-start gap-3">
-                <span class="w-7 h-7 rounded-lg bg-indigo-100 text-indigo-700 font-extrabold text-sm flex items-center justify-center shrink-0 mt-0.5">${q.num}</span>
-                <p class="text-slate-800 text-sm sm:text-base leading-relaxed">${q.prompt}</p>
-              </div>
-              <span id="status-${q.id}" class="shrink-0 text-xs font-bold px-2.5 py-1 rounded-full hidden"></span>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
-              ${optionsHtml}
-            </div>
-
-            <div class="no-print flex items-center justify-between pt-2 border-t border-slate-100">
-              <button type="button" onclick="checkMcq('${q.id}')" class="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-indigo-600 text-white text-xs font-semibold transition">
-                Check Question ${q.num}
-              </button>
-              <span class="text-xs text-slate-400">Select one option above</span>
-            </div>
-
-            <div id="feedback-${q.id}" class="hidden mt-3 p-3.5 rounded-xl text-xs sm:text-sm border"></div>
-
-            <!-- Teacher Answer Key Overlay -->
-            <div id="teacher-key-${q.id}" class="teacher-key-box hidden mt-3 p-3.5 rounded-xl bg-amber-50/90 border border-amber-300 text-amber-950 text-xs sm:text-sm space-y-1">
-              <div class="font-extrabold text-amber-900 flex items-center gap-1.5">
-                <span class="px-1.5 py-0.5 rounded bg-amber-200 text-amber-950 text-[10px] uppercase tracking-wider">Answer Key</span>
-                <span>Correct Option: ${q.correct.toUpperCase()}</span>
-              </div>
-              <p class="text-amber-900">${q.explanation}</p>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function renderWordSection(questions, containerId, isTwoStep) {
-      const container = document.getElementById(containerId);
-      const badgeBg = isTwoStep ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800';
-
-      container.innerHTML = questions.map((q, idx) => {
-        const showStepGuidance = idx < 2;
-
-        const step2GuidanceHtml = showStepGuidance
-          ? `<p class="text-xs text-slate-600 mb-2">Translate the key numbers, operations, and total from the story into an algebraic equation using your variable.</p>`
-          : '';
-        const eqPlaceholderAttr = showStepGuidance ? `placeholder="${q.eqPlaceholder}"` : '';
-
-        const step3GuidanceHtml = showStepGuidance
-          ? (isTwoStep
-              ? `<p class="text-xs text-slate-600 mb-2">Undo addition or subtraction first, then undo multiplication or division on both sides to isolate the variable.</p>`
-              : `<p class="text-xs text-slate-600 mb-2">Apply the opposite (inverse) operation to both sides to find the value of your variable, and include units or &euro;.</p>`)
-          : '';
-        const workPlaceholderAttr = showStepGuidance ? `placeholder="${q.workPlaceholder}"` : '';
-        const ansPlaceholderAttr = showStepGuidance ? `placeholder="${q.ansPlaceholder}"` : '';
-
-        const workingStepHtml = isTwoStep ? `
-          <div class="bg-slate-50/90 p-3.5 rounded-xl border border-slate-200/90">
-            <div class="flex items-center justify-between mb-1">
-              <label for="work-${q.id}" class="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                <span class="w-5 h-5 rounded-full bg-slate-200 text-slate-700 inline-flex items-center justify-center text-[11px]">3</span>
-                Working <span class="text-slate-400 font-normal normal-case">(Optional)</span>
-              </label>
-            </div>
-            ${step3GuidanceHtml}
-            <textarea id="work-${q.id}" rows="2" ${workPlaceholderAttr}
-              class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs sm:text-sm font-math focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"></textarea>
-          </div>
-        ` : '';
-
-        const finalStepTitle = `Step 3: Final Answer`;
-        const finalStepGuidanceHtml = (!isTwoStep && showStepGuidance) ? step3GuidanceHtml : '';
-
-        return `
-          <div id="card-${q.id}" class="question-card bg-white rounded-2xl border border-slate-200 shadow-sm p-5 transition-all">
-            <!-- Question Header -->
-            <div class="flex items-start justify-between gap-3 mb-4">
-              <div class="flex items-start gap-3">
-                <span class="w-7 h-7 rounded-lg ${badgeBg} font-extrabold text-sm flex items-center justify-center shrink-0 mt-0.5">${q.num}</span>
-                <p class="text-slate-800 text-sm sm:text-base leading-relaxed font-medium">${q.prompt}</p>
-              </div>
-              <span id="status-${q.id}" class="shrink-0 text-xs font-bold px-2.5 py-1 rounded-full hidden"></span>
-            </div>
-
-            <!-- Scaffolded Guided Boxes -->
-            <div class="space-y-3">
-              <!-- Step 1: Variable Definition (Guidance and placeholder kept for all 10 questions) -->
-              <div class="bg-slate-50/90 p-3.5 rounded-xl border border-slate-200/90">
-                <label for="var-${q.id}" class="block text-xs font-bold uppercase tracking-wider text-indigo-700 mb-1 flex items-center gap-1.5">
-                  <span class="w-5 h-5 rounded-full bg-indigo-100 text-indigo-700 inline-flex items-center justify-center text-[11px]">1</span>
-                  Step 1: Define / Name Your Variable
-                </label>
-                <p class="text-xs text-slate-600 mb-2">Identify the unknown quantity you are solving for and assign it a letter (e.g., <code class="font-math bg-white px-1 rounded border">Let x = ...</code>).</p>
-                <input id="var-${q.id}" type="text" oninput="onInputProgress('${q.id}')" placeholder="${q.varPlaceholder}"
-                  class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition" />
-              </div>
-
-              <!-- Step 2: Form the Equation (Guidance & placeholder on Q1 & Q2 only) -->
-              <div class="bg-slate-50/90 p-3.5 rounded-xl border border-slate-200/90">
-                <div class="flex items-center justify-between mb-1">
-                  <label for="eq-${q.id}" class="text-xs font-bold uppercase tracking-wider text-indigo-700 flex items-center gap-1.5">
-                    <span class="w-5 h-5 rounded-full bg-indigo-100 text-indigo-700 inline-flex items-center justify-center text-[11px]">2</span>
-                    Step 2: Form the Equation
-                  </label>
-                  <span id="eq-badge-${q.id}" class="text-[11px] font-semibold hidden"></span>
-                </div>
-                ${step2GuidanceHtml}
-                <input id="eq-${q.id}" type="text" oninput="onInputProgress('${q.id}')" ${eqPlaceholderAttr}
-                  class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs sm:text-sm font-math focus:outline-none focus:ring-2 focus:ring-indigo-500 transition" />
-              </div>
-
-              <!-- Optional Working Box (Two-Step Only; guidance & placeholder on Q1 & Q2 only) -->
-              ${workingStepHtml}
-
-              <!-- Step 3: Final Answer (Guidance & placeholder on Q1 & Q2 only) -->
-              <div class="bg-indigo-50/40 p-3.5 rounded-xl border border-indigo-100">
-                <div class="flex items-center justify-between mb-1">
-                  <label for="ans-${q.id}" class="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-1.5">
-                    <span class="w-5 h-5 rounded-full bg-indigo-600 text-white inline-flex items-center justify-center text-[11px]">3</span>
-                    ${finalStepTitle}
-                  </label>
-                </div>
-                ${finalStepGuidanceHtml}
-                <div class="flex flex-col sm:flex-row gap-2.5">
-                  <input id="ans-${q.id}" type="text" oninput="onInputProgress('${q.id}')" ${ansPlaceholderAttr}
-                    class="flex-1 rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition" />
-                  <button type="button" onclick="checkWordProblem('${q.id}', ${isTwoStep})"
-                    class="no-print px-4 py-2 rounded-lg bg-slate-800 hover:bg-indigo-600 text-white text-xs font-semibold transition shrink-0">
-                    Check Answer
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Feedback & Model Solution Box -->
-            <div id="feedback-${q.id}" class="hidden mt-3.5 p-4 rounded-xl text-xs sm:text-sm border space-y-1.5"></div>
-
-            <!-- Teacher Answer Key Overlay -->
-            <div id="teacher-key-${q.id}" class="teacher-key-box hidden mt-3.5 p-4 rounded-xl bg-amber-50/90 border border-amber-300 text-amber-950 text-xs sm:text-sm space-y-1.5">
-              <div class="font-extrabold text-amber-900 flex items-center gap-1.5">
-                <span class="px-1.5 py-0.5 rounded bg-amber-200 text-amber-950 text-[10px] uppercase tracking-wider">Model Answer Key</span>
-                <span>Question ${q.num}</span>
-              </div>
-              <div><strong>Step 1 (Variable):</strong> ${q.modelVar}</div>
-              <div><strong>Step 2 (Equation):</strong> <span class="font-math font-semibold">${q.modelEq}</span></div>
-              <div><strong>${isTwoStep ? 'Step 3 (Inverse Operations):' : 'Solution Method:'}</strong> ${q.steps}</div>
-              <div><strong>Final Answer:</strong> <span class="font-bold underline decoration-amber-500">${q.displayAns}</span></div>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    // ==========================================
-    // INTERACTION & VALIDATION LOGIC
-    // ==========================================
-
-    function selectMcq(qId, optionKey) {
-      userState.mcq[qId] = optionKey;
-      userState.attempted[qId] = true;
-
-      // Update visual radio styling
-      ['a', 'b', 'c', 'd'].forEach(k => {
-        const lbl = document.getElementById(`opt-label-${qId}-${k}`);
-        if (!lbl) return;
-        const radio = lbl.querySelector('input[type="radio"]');
-        if (k === optionKey) {
-          radio.checked = true;
-          lbl.classList.add('border-indigo-500', 'bg-indigo-50/80', 'ring-1', 'ring-indigo-500');
-          lbl.classList.remove('border-slate-200', 'bg-slate-50/60');
+    function applyTeacherKeyVisibility() {
+      document.querySelectorAll('.teacher-key-box').forEach(el => {
+        if (teacherMode) {
+          el.classList.remove('hidden');
         } else {
-          radio.checked = false;
-          lbl.classList.remove('border-indigo-500', 'bg-indigo-50/80', 'ring-1', 'ring-indigo-500', 'border-emerald-500', 'bg-emerald-50', 'border-rose-500', 'bg-rose-50');
-          lbl.classList.add('border-slate-200', 'bg-slate-50/60');
+          el.classList.add('hidden');
         }
       });
 
-      updateProgress();
+      mcqQuestions.forEach(q => {
+        q.options.forEach(opt => {
+          const optLabel = document.getElementById(`${q.id}-opt-${opt.key}`);
+          if (!optLabel) return;
+          if (teacherMode && opt.key === q.correct) {
+            optLabel.classList.add('ring-2', 'ring-amber-500', 'bg-amber-50/70', 'border-amber-400');
+          } else {
+            optLabel.classList.remove('ring-2', 'ring-amber-500', 'bg-amber-50/70', 'border-amber-400');
+          }
+        });
+      });
     }
 
-    function checkMcq(qId, silent = false) {
-      const q = section1Data.find(item => item.id === qId);
-      const selected = userState.mcq[qId];
-      const feedbackEl = document.getElementById(`feedback-${qId}`);
-      const statusEl = document.getElementById(`status-${qId}`);
-      const cardEl = document.getElementById(`card-${qId}`);
+    // Render Section 1 (MCQs)
+    function renderSection1() {
+      const container = document.getElementById('sec1-container');
+      container.innerHTML = mcqQuestions.map(q => `
+        <div id="card-${q.id}" class="question-card bg-white rounded-2xl border border-slate-200 shadow-sm p-5 sm:p-6 transition">
+          <div class="flex items-start gap-3.5 mb-4">
+            <span class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-700 font-extrabold text-xs flex items-center justify-center shrink-0 mt-0.5 border border-indigo-100">
+              ${q.num}
+            </span>
+            <p class="text-sm sm:text-base text-slate-800 leading-relaxed">${q.prompt}</p>
+          </div>
 
-      if (!selected) {
-        if (!silent) showToast(`Please select an option (a, b, c, or d) for Question ${q.num} first.`);
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:pl-10 mb-3">
+            ${q.options.map(opt => `
+              <label id="${q.id}-opt-${opt.key}" class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50/30 cursor-pointer transition select-none">
+                <input type="radio" name="${q.id}" value="${opt.key}" onchange="selectMcq('${q.id}', '${opt.key}')" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 border-slate-300" />
+                <span class="text-xs font-bold uppercase text-slate-400 w-4">${opt.key})</span>
+                <span class="font-math text-sm sm:text-base text-slate-800">${opt.html}</span>
+              </label>
+            `).join('')}
+          </div>
+
+          <!-- Teacher Model Answer Key Box -->
+          <div class="teacher-key-box ${teacherMode ? '' : 'hidden'} sm:ml-10 mb-3 p-3 rounded-xl bg-amber-50 border border-amber-300 text-xs text-amber-950">
+            <div class="font-bold uppercase tracking-wider text-[10px] text-amber-800 mb-0.5">Teacher Answer Key</div>
+            <div><strong>Correct Option:</strong> <span class="uppercase font-extrabold">${q.correct})</span> — ${q.explanation}</div>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-between gap-2 sm:pl-10 pt-2">
+            <button type="button" onclick="checkSingleMcq('${q.id}')" class="no-print text-xs font-bold text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition">
+              Check Question ${q.num}
+            </button>
+            <div id="${q.id}-feedback" class="text-xs font-medium hidden"></div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Render Sections 2 & 3 (Word Problems)
+    function renderWordSection(containerId, questions, stateKey, isTwoStep) {
+      const container = document.getElementById(containerId);
+      const badgeColor = isTwoStep ? 'bg-amber-50 text-amber-700 border-amber-200/80' : 'bg-emerald-50 text-emerald-700 border-emerald-200/80';
+
+      container.innerHTML = questions.map((q, idx) => {
+        const showStep23Guidance = idx < 2;
+
+        return `
+        <div id="card-${q.id}" class="question-card bg-white rounded-2xl border border-slate-200 shadow-sm p-5 sm:p-6 transition">
+          <!-- Problem Header -->
+          <div class="flex items-start gap-3.5 mb-5">
+            <span class="w-7 h-7 rounded-lg ${badgeColor} font-extrabold text-xs flex items-center justify-center shrink-0 mt-0.5 border">
+              ${q.num}
+            </span>
+            <p class="text-sm sm:text-base text-slate-800 leading-relaxed font-medium">${q.prompt}</p>
+          </div>
+
+          <!-- Guided Scaffolding Boxes -->
+          <div class="sm:pl-10 space-y-3">
+            <!-- Step 1: Variable Definition (Guidance & placeholder kept on ALL questions) -->
+            <div class="bg-slate-50/90 p-3.5 rounded-xl border border-slate-200/80">
+              <div class="flex items-center justify-between gap-2 mb-1.5">
+                <label for="${q.id}-var" class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                  <span class="w-4 h-4 rounded-full bg-slate-200 text-slate-700 text-[10px] inline-flex items-center justify-center font-extrabold">1</span>
+                  Name Your Variable
+                </label>
+                <span class="text-[11px] text-slate-400">Define what your letter represents</span>
+              </div>
+              <input id="${q.id}-var" type="text" placeholder="${q.varHint}"
+                     oninput="updateWordField('${stateKey}', '${q.id}', 'varText', this.value)"
+                     class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" />
+            </div>
+
+            <!-- Step 2: Form the Equation (Guidance & placeholder only on Q1 & Q2) -->
+            <div class="bg-slate-50/90 p-3.5 rounded-xl border border-slate-200/80">
+              <div class="flex items-center justify-between gap-2 mb-1.5">
+                <label for="${q.id}-eq" class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                  <span class="w-4 h-4 rounded-full bg-slate-200 text-slate-700 text-[10px] inline-flex items-center justify-center font-extrabold">2</span>
+                  Form the Equation
+                </label>
+                ${showStep23Guidance ? '<span class="text-[11px] text-slate-400">Write an equation with an = sign</span>' : ''}
+              </div>
+              <input id="${q.id}-eq" type="text" placeholder="${showStep23Guidance ? q.eqHint : ''}"
+                     oninput="updateWordField('${stateKey}', '${q.id}', 'eqText', this.value)"
+                     class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-math text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" />
+            </div>
+
+            ${isTwoStep ? `
+            <!-- Optional Working Box for Two-Step Equations (Guidance & placeholder only on Q1 & Q2) -->
+            <div class="bg-slate-50/90 p-3.5 rounded-xl border border-slate-200/80">
+              <div class="flex items-center justify-between gap-2 mb-1.5">
+                <label for="${q.id}-work" class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                  <span class="w-4 h-4 rounded-full bg-slate-200 text-slate-700 text-[10px] inline-flex items-center justify-center font-extrabold">↳</span>
+                  Solving Steps / Working
+                </label>
+                ${showStep23Guidance ? '<span class="text-[11px] text-slate-400">Show inverse operations</span>' : ''}
+              </div>
+              <textarea id="${q.id}-work" rows="2" placeholder="${showStep23Guidance ? q.workHint : ''}"
+                        oninput="updateWordField('${stateKey}', '${q.id}', 'workText', this.value)"
+                        class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-math text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"></textarea>
+            </div>
+            ` : ''}
+
+            <!-- Step 3: Final Answer (Guidance & placeholder only on Q1 & Q2) -->
+            <div class="bg-indigo-50/40 p-3.5 rounded-xl border border-indigo-200/70">
+              <div class="flex items-center justify-between gap-2 mb-1.5">
+                <label for="${q.id}-ans" class="text-xs font-bold text-indigo-900 flex items-center gap-1.5">
+                  <span class="w-4 h-4 rounded-full bg-indigo-600 text-white text-[10px] inline-flex items-center justify-center font-extrabold">3</span>
+                  Final Answer
+                </label>
+                ${showStep23Guidance ? '<span class="text-[11px] text-indigo-600/80">Include units (e.g., € or items)</span>' : ''}
+              </div>
+              <input id="${q.id}-ans" type="text" placeholder="${showStep23Guidance ? q.ansHint : ''}"
+                     oninput="updateWordField('${stateKey}', '${q.id}', 'ansText', this.value)"
+                     class="w-full rounded-lg border border-indigo-300 bg-white px-3 py-2 font-semibold text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" />
+            </div>
+
+            <!-- Teacher Model Answer Key Box -->
+            <div class="teacher-key-box ${teacherMode ? '' : 'hidden'} p-3.5 rounded-xl bg-amber-50 border border-amber-300 text-xs text-amber-950 space-y-1">
+              <div class="font-bold uppercase tracking-wider text-[10px] text-amber-800">Teacher Answer Key</div>
+              <div><strong>1. Variable:</strong> ${q.sampleVar}</div>
+              <div><strong>2. Equation:</strong> <span class="font-math font-semibold">${q.sampleEq}</span></div>
+              <div><strong>3. Solution &amp; Answer:</strong> <span class="font-math">${q.workSteps}</span> &rarr; <strong class="underline">${q.answerDisplay}</strong></div>
+            </div>
+
+            <!-- Check & Feedback Row -->
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+              <button type="button" onclick="checkSingleWord('${stateKey}', '${q.id}')" class="no-print text-xs font-bold text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100 px-3.5 py-1.5 rounded-lg transition">
+                Check Question ${q.num}
+              </button>
+              <div id="${q.id}-feedback" class="text-xs font-medium hidden flex-1"></div>
+            </div>
+          </div>
+        </div>
+      `;
+      }).join('');
+    }
+
+    // =========================================================================
+    // INTERACTION & GRADING LOGIC
+    // =========================================================================
+
+    function selectMcq(qId, choice) {
+      state.mcq[qId] = { selected: choice, isCorrect: null };
+      updateDashboard();
+    }
+
+    function updateWordField(sectionKey, qId, field, value) {
+      if (!state[sectionKey][qId]) {
+        state[sectionKey][qId] = { varText: '', eqText: '', workText: '', ansText: '', isCorrect: null };
+      }
+      state[sectionKey][qId][field] = value;
+      updateDashboard();
+    }
+
+    function checkSingleMcq(qId) {
+      const q = mcqQuestions.find(item => item.id === qId);
+      const entry = state.mcq[qId];
+      const fb = document.getElementById(`${qId}-feedback`);
+      const card = document.getElementById(`card-${qId}`);
+
+      if (!entry || !entry.selected) {
+        fb.className = 'text-xs font-semibold text-amber-700 bg-amber-50 px-3 py-1.5 rounded-lg border border-amber-200 block';
+        fb.innerHTML = 'Please select an option (a, b, c, or d) first.';
         return false;
       }
 
-      const isCorrect = selected === q.correct;
-      userState.checked[qId] = isCorrect;
-      userState.attempted[qId] = true;
+      const isCorrect = entry.selected === q.correct;
+      entry.isCorrect = isCorrect;
 
-      // Highlight options
-      ['a', 'b', 'c', 'd'].forEach(k => {
-        const lbl = document.getElementById(`opt-label-${qId}-${k}`);
-        lbl.classList.remove('border-indigo-500', 'bg-indigo-50/80', 'ring-1', 'ring-indigo-500', 'border-emerald-500', 'bg-emerald-50', 'border-rose-500', 'bg-rose-50');
-        if (k === q.correct) {
-          lbl.classList.add('border-emerald-500', 'bg-emerald-50');
-        } else if (k === selected && !isCorrect) {
-          lbl.classList.add('border-rose-500', 'bg-rose-50');
-        } else {
-          lbl.classList.add('border-slate-200', 'bg-slate-50/60');
-        }
+      // Reset option styles
+      q.options.forEach(opt => {
+        const optLabel = document.getElementById(`${qId}-opt-${opt.key}`);
+        optLabel.classList.remove('border-emerald-500', 'bg-emerald-50/70', 'border-rose-400', 'bg-rose-50/70');
       });
 
-      statusEl.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'bg-rose-100', 'text-rose-800');
-      feedbackEl.classList.remove('hidden', 'bg-emerald-50', 'border-emerald-200', 'text-emerald-900', 'bg-rose-50', 'border-rose-200', 'text-rose-900');
-
+      const chosenLabel = document.getElementById(`${qId}-opt-${entry.selected}`);
       if (isCorrect) {
-        statusEl.textContent = '✓ Correct';
-        statusEl.classList.add('bg-emerald-100', 'text-emerald-800');
-        cardEl.classList.remove('border-rose-300');
-        cardEl.classList.add('border-emerald-300');
-        feedbackEl.classList.add('bg-emerald-50', 'border-emerald-200', 'text-emerald-900');
-        feedbackEl.innerHTML = `<strong>Spot on!</strong> ${q.explanation}`;
+        chosenLabel.classList.add('border-emerald-500', 'bg-emerald-50/70');
+        card.classList.remove('border-rose-300');
+        card.classList.add('border-emerald-300');
+        fb.className = 'text-xs text-emerald-800 bg-emerald-50 px-3 py-2 rounded-lg border border-emerald-200 block mt-2 sm:mt-0';
+        fb.innerHTML = `<strong>✓ Correct!</strong> ${q.explanation}`;
       } else {
-        statusEl.textContent = '✗ Review';
-        statusEl.classList.add('bg-rose-100', 'text-rose-800');
-        cardEl.classList.remove('border-emerald-300');
-        cardEl.classList.add('border-rose-300');
-        feedbackEl.classList.add('bg-rose-50', 'border-rose-200', 'text-rose-900');
-        feedbackEl.innerHTML = `<strong>Not quite.</strong> The correct choice is <strong>${q.correct.toUpperCase()}</strong>. ${q.explanation}`;
+        chosenLabel.classList.add('border-rose-400', 'bg-rose-50/70');
+        card.classList.remove('border-emerald-300');
+        card.classList.add('border-rose-300');
+        fb.className = 'text-xs text-rose-800 bg-rose-50 px-3 py-2 rounded-lg border border-rose-200 block mt-2 sm:mt-0';
+        fb.innerHTML = `<strong>✗ Not quite.</strong> Review the wording carefully and try again.`;
       }
 
-      updateProgress();
+      updateDashboard();
       return isCorrect;
     }
 
     function normalizeEquation(raw) {
       if (!raw) return '';
-      return raw
-        .toLowerCase()
-        .replace(/\s+/g, '')
-        .replace(/€|\$/g, '')
-        .replace(/−|–/g, '-')
-        .replace(/×/g, '*')
-        .replace(/÷/g, '/');
+      let s = raw.toLowerCase().replace(/\s+/g, '');
+      s = s.replace(/−|–|—/g, '-');
+      s = s.replace(/[a-z]/g, 'x');
+      s = s.replace(/(\d)\*x/g, '$1x');
+      s = s.replace(/x\*(\d)/g, '$1x');
+      return s;
+    }
+
+    function evaluateEquationMatch(userEq, validList) {
+      const norm = normalizeEquation(userEq);
+      if (!norm || !norm.includes('=')) return false;
+
+      if (validList.some(v => normalizeEquation(v) === norm)) return true;
+
+      const parts = norm.split('=');
+      if (parts.length !== 2) return false;
+      const swapped = `${parts[1]}=${parts[0]}`;
+      if (validList.some(v => normalizeEquation(v) === swapped)) return true;
+
+      return false;
     }
 
     function extractNumber(raw) {
-      if (!raw) return NaN;
-      // Remove currency symbols and commas, match first valid decimal/negative number
-      const cleaned = raw.replace(/€|\$|,/g, '').trim();
+      if (!raw) return null;
+      const cleaned = raw.replace(/€/g, '').replace(/,/g, '.').trim();
       const match = cleaned.match(/-?\d+(\.\d+)?/);
-      return match ? parseFloat(match[0]) : NaN;
+      return match ? parseFloat(match[0]) : null;
     }
 
-    function onInputProgress(qId) {
-      const v = document.getElementById(`var-${qId}`)?.value.trim();
-      const e = document.getElementById(`eq-${qId}`)?.value.trim();
-      const a = document.getElementById(`ans-${qId}`)?.value.trim();
-      if (v || e || a) {
-        userState.attempted[qId] = true;
-      } else {
-        delete userState.attempted[qId];
-      }
-      updateProgress();
-    }
+    function checkSingleWord(sectionKey, qId) {
+      const list = sectionKey === 'oneStep' ? oneStepQuestions : twoStepQuestions;
+      const q = list.find(item => item.id === qId);
+      const entry = state[sectionKey][qId] || { varText: '', eqText: '', workText: '', ansText: '' };
+      const fb = document.getElementById(`${qId}-feedback`);
+      const card = document.getElementById(`card-${qId}`);
 
-    function checkWordProblem(qId, isTwoStep, silent = false) {
-      const dataset = isTwoStep ? section3Data : section2Data;
-      const q = dataset.find(item => item.id === qId);
+      const hasVar = entry.varText.trim().length >= 2;
+      const hasEq = entry.eqText.trim().includes('=');
+      const userNum = extractNumber(entry.ansText);
+      const ansCorrect = userNum !== null && Math.abs(userNum - q.answerNum) < 0.02;
+      const eqRecognized = evaluateEquationMatch(entry.eqText, q.validEquations);
 
-      const varVal = document.getElementById(`var-${qId}`).value.trim();
-      const eqVal = document.getElementById(`eq-${qId}`).value.trim();
-      const ansVal = document.getElementById(`ans-${qId}`).value.trim();
-
-      const statusEl = document.getElementById(`status-${qId}`);
-      const feedbackEl = document.getElementById(`feedback-${qId}`);
-      const cardEl = document.getElementById(`card-${qId}`);
-      const eqBadgeEl = document.getElementById(`eq-badge-${qId}`);
-
-      if (!ansVal && !eqVal && !varVal) {
-        if (!silent) showToast(`Fill in the steps for Question ${q.num} before checking.`);
+      if (!hasVar && !hasEq && userNum === null) {
+        fb.className = 'text-xs font-semibold text-amber-700 bg-amber-50 px-3 py-2 rounded-lg border border-amber-200 block';
+        fb.innerHTML = 'Fill in your variable, equation, and final answer before checking.';
         return false;
       }
 
-      userState.attempted[qId] = true;
+      entry.isCorrect = ansCorrect;
+      state[sectionKey][qId] = entry;
 
-      // Validate equation flexibly
-      const normUserEq = normalizeEquation(eqVal);
-      // Also allow user to pick any single letter variable (e.g., n, c, p, m, b) instead of x
-      let eqMatches = false;
-      if (normUserEq.includes('=')) {
-        const letterMatch = normUserEq.match(/[a-z]/);
-        const userLetter = letterMatch ? letterMatch[0] : 'x';
-        const swappedToX = normUserEq.replace(new RegExp(userLetter, 'g'), 'x');
-        eqMatches = q.validEqs.includes(normUserEq) || q.validEqs.includes(swappedToX);
+      let statusNotes = [];
+      statusNotes.push(hasVar ? '✓ Variable defined' : '⚠ Remember to name your variable in Step 1');
+      if (hasEq) {
+        statusNotes.push(eqRecognized ? '✓ Equation matches' : '• Equation recorded');
+      } else {
+        statusNotes.push('⚠ Write an equation with "=" in Step 2');
       }
 
-      if (eqVal) {
-        eqBadgeEl.classList.remove('hidden', 'text-emerald-600', 'text-amber-600');
-        if (eqMatches) {
-          eqBadgeEl.textContent = '✓ Valid equation';
-          eqBadgeEl.classList.add('text-emerald-600');
-        } else {
-          eqBadgeEl.textContent = 'Check model equation below';
-          eqBadgeEl.classList.add('text-amber-600');
-        }
-      }
-
-      // Validate final numeric answer
-      const userNum = extractNumber(ansVal);
-      const isAnsCorrect = !isNaN(userNum) && Math.abs(userNum - q.numericAns) < 0.015;
-      userState.checked[qId] = isAnsCorrect;
-
-      statusEl.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'bg-rose-100', 'text-rose-800');
-      feedbackEl.classList.remove('hidden', 'bg-emerald-50', 'border-emerald-200', 'text-emerald-900', 'bg-rose-50', 'border-rose-200', 'text-rose-900');
-
-      const varReminder = !varVal
-        ? `<div class="text-amber-800 bg-amber-100/70 px-2.5 py-1 rounded-lg mt-1"><strong>Tip:</strong> Don't forget Step 1 — write down what your variable represents!</div>`
-        : '';
-
-      if (isAnsCorrect) {
-        statusEl.textContent = '✓ Correct';
-        statusEl.classList.add('bg-emerald-100', 'text-emerald-800');
-        cardEl.classList.remove('border-rose-300');
-        cardEl.classList.add('border-emerald-300');
-        feedbackEl.classList.add('bg-emerald-50', 'border-emerald-200', 'text-emerald-900');
-        feedbackEl.innerHTML = `
-          <div class="font-bold text-emerald-800">✓ Great work! Your final answer (${q.displayAns}) is correct.</div>
-          <div><strong>Model Variable:</strong> ${q.modelVar}</div>
-          <div><strong>Model Equation:</strong> <span class="font-math font-semibold">${q.modelEq}</span></div>
-          <div><strong>Solution Steps:</strong> ${q.steps}</div>
-          ${varReminder}
+      if (ansCorrect) {
+        card.classList.remove('border-rose-300');
+        card.classList.add('border-emerald-300');
+        fb.className = 'text-xs text-emerald-800 bg-emerald-50 px-3.5 py-2.5 rounded-xl border border-emerald-200 block leading-relaxed';
+        fb.innerHTML = `
+          <div><strong>✓ Correct Final Answer (${q.answerDisplay})!</strong> <span class="text-emerald-700">[${statusNotes.join(' | ')}]</span></div>
+          <div class="text-[11px] text-emerald-700 mt-1"><strong>Model Solution:</strong> ${q.sampleVar} &bull; <span class="font-math">${q.sampleEq}</span> &rarr; ${q.workSteps}</div>
         `;
       } else {
-        statusEl.textContent = '✗ Try Again';
-        statusEl.classList.add('bg-rose-100', 'text-rose-800');
-        cardEl.classList.remove('border-emerald-300');
-        cardEl.classList.add('border-rose-300');
-        feedbackEl.classList.add('bg-rose-50', 'border-rose-200', 'text-rose-900');
-        feedbackEl.innerHTML = `
-          <div class="font-bold text-rose-800">✗ Not quite right yet. Compare your work with the model solution:</div>
-          <div><strong>Model Variable:</strong> ${q.modelVar}</div>
-          <div><strong>Model Equation:</strong> <span class="font-math font-semibold">${q.modelEq}</span></div>
-          <div><strong>Solution Steps:</strong> ${q.steps}</div>
-          <div><strong>Correct Final Answer:</strong> <span class="font-bold">${q.displayAns}</span></div>
-          ${varReminder}
+        card.classList.remove('border-emerald-300');
+        card.classList.add('border-rose-300');
+        fb.className = 'text-xs text-rose-800 bg-rose-50 px-3.5 py-2.5 rounded-xl border border-rose-200 block leading-relaxed';
+        fb.innerHTML = `
+          <div><strong>✗ Final Answer needs revision.</strong> <span class="text-rose-700">[${statusNotes.join(' | ')}]</span></div>
+          <div class="text-[11px] text-rose-700 mt-1">Check your equation setup and inverse operations, then try again.</div>
         `;
       }
 
-      updateProgress();
-      return isAnsCorrect;
-    }
-
-    function updateProgress() {
-      const totalQuestions = 25;
-      const attemptedCount = Object.keys(userState.attempted).length;
-      const correctIds = Object.keys(userState.checked).filter(id => userState.checked[id]);
-      const score = correctIds.length;
-
-      document.getElementById('live-score').textContent = `${score} / ${totalQuestions}`;
-      document.getElementById('progress-text').textContent = `${attemptedCount}/${totalQuestions} Answered`;
-      const pct = Math.round((attemptedCount / totalQuestions) * 100);
-      document.getElementById('progress-bar').style.width = `${pct}%`;
-
-      // Section badges
-      const s1Score = section1Data.filter(q => userState.checked[q.id]).length;
-      const s2Score = section2Data.filter(q => userState.checked[q.id]).length;
-      const s3Score = section3Data.filter(q => userState.checked[q.id]).length;
-
-      document.getElementById('sec1-badge').textContent = `${s1Score} / 5 Correct`;
-      document.getElementById('sec2-badge').textContent = `${s2Score} / 10 Correct`;
-      document.getElementById('sec3-badge').textContent = `${s3Score} / 10 Correct`;
+      updateDashboard();
+      return ansCorrect;
     }
 
     function gradeAll() {
-      section1Data.forEach(q => {
-        if (userState.mcq[q.id]) {
-          checkMcq(q.id, true);
-        } else {
-          // Reveal unanswered feedback cleanly
-          const feedbackEl = document.getElementById(`feedback-${q.id}`);
-          const statusEl = document.getElementById(`status-${q.id}`);
-          statusEl.textContent = 'Unanswered';
-          statusEl.className = 'shrink-0 text-xs font-bold px-2.5 py-1 rounded-full bg-amber-100 text-amber-800';
-          feedbackEl.className = 'mt-3 p-3.5 rounded-xl text-xs sm:text-sm border bg-amber-50 border-amber-200 text-amber-900';
-          feedbackEl.innerHTML = `<strong>Unanswered.</strong> Correct choice: <strong>${q.correct.toUpperCase()}</strong>. ${q.explanation}`;
-        }
+      let s1Correct = 0;
+      let s2Correct = 0;
+      let s3Correct = 0;
+
+      mcqQuestions.forEach(q => {
+        if (checkSingleMcq(q.id)) s1Correct++;
+      });
+      oneStepQuestions.forEach(q => {
+        if (checkSingleWord('oneStep', q.id)) s2Correct++;
+      });
+      twoStepQuestions.forEach(q => {
+        if (checkSingleWord('twoStep', q.id)) s3Correct++;
       });
 
-      const revealWordMissed = (q, isTwoStep) => {
-        const v = document.getElementById(`var-${q.id}`).value.trim();
-        const e = document.getElementById(`eq-${q.id}`).value.trim();
-        const a = document.getElementById(`ans-${q.id}`).value.trim();
-        if (v || e || a) {
-          checkWordProblem(q.id, isTwoStep, true);
-        } else {
-          const feedbackEl = document.getElementById(`feedback-${q.id}`);
-          const statusEl = document.getElementById(`status-${q.id}`);
-          statusEl.textContent = 'Unanswered';
-          statusEl.className = 'shrink-0 text-xs font-bold px-2.5 py-1 rounded-full bg-amber-100 text-amber-800';
-          feedbackEl.className = 'mt-3.5 p-4 rounded-xl text-xs sm:text-sm border space-y-1 bg-amber-50 border-amber-200 text-amber-900';
-          feedbackEl.innerHTML = `
-            <div class="font-bold">Unanswered — Model Solution:</div>
-            <div><strong>1. Variable:</strong> ${q.modelVar}</div>
-            <div><strong>2. Equation:</strong> <span class="font-math font-semibold">${q.modelEq}</span></div>
-            <div><strong>3. Steps:</strong> ${q.steps}</div>
-            <div><strong>4. Answer:</strong> <span class="font-bold">${q.displayAns}</span></div>
-          `;
-        }
-      };
+      const total = s1Correct + s2Correct + s3Correct;
+      const pct = Math.round((total / 20) * 100);
 
-      section2Data.forEach(q => revealWordMissed(q, false));
-      section3Data.forEach(q => revealWordMissed(q, true));
+      // Show all sections so student can view full results
+      filterSection('all');
 
-      updateProgress();
+      // Populate and reveal the top Toddle screenshot banner
+      const nameInput = document.getElementById('student-name').value.trim();
+      const dateInput = document.getElementById('assignment-date').value;
+      document.getElementById('sub-student-name').textContent = nameInput || 'Student';
+      document.getElementById('sub-score').textContent = total;
+      document.getElementById('sub-percent').textContent = `${pct}%`;
+      document.getElementById('sub-s1').textContent = `${s1Correct}/5`;
+      document.getElementById('sub-s2').textContent = `${s2Correct}/7`;
+      document.getElementById('sub-s3').textContent = `${s3Correct}/8`;
 
-      const score = Object.keys(userState.checked).filter(id => userState.checked[id]).length;
-      const pct = Math.round((score / 25) * 100);
-      const studentName = document.getElementById('student-name').value.trim() || 'Student';
-      const rawDate = document.getElementById('assignment-date').value;
-      const formattedDate = rawDate
-        ? new Date(rawDate + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
-        : new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-      const banner = document.getElementById('summary-banner');
+      const nowStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      document.getElementById('sub-timestamp').textContent = `Submitted on ${dateInput || new Date().toISOString().split('T')[0]} at ${nowStr}`;
 
-      banner.classList.remove('hidden', 'bg-emerald-50', 'border-emerald-400', 'text-emerald-950', 'bg-indigo-50', 'border-indigo-400', 'text-indigo-950');
-      if (pct >= 80) {
-        banner.classList.add('bg-emerald-50', 'border-emerald-400', 'text-emerald-950');
-      } else {
-        banner.classList.add('bg-indigo-50', 'border-indigo-400', 'text-indigo-950');
-      }
+      const banner = document.getElementById('submission-banner');
+      banner.classList.remove('hidden');
 
-      banner.innerHTML = `
-        <div class="space-y-4">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-              <div class="flex items-center gap-2 flex-wrap">
-                <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold uppercase tracking-wider bg-slate-900 text-white">Assignment Submitted</span>
-                <span class="text-xs font-semibold opacity-75">Date: ${escapeHtml(formattedDate)}</span>
-              </div>
-              <h3 class="text-xl sm:text-2xl font-extrabold mt-1.5">${escapeHtml(studentName)} &mdash; Score: ${score} / 25 (${pct}%)</h3>
-              <p class="text-xs sm:text-sm mt-1 opacity-90">
-                Section 1 (MCQ): <strong>${section1Data.filter(q => userState.checked[q.id]).length}/5</strong> &bull;
-                Section 2 (One-Step): <strong>${section2Data.filter(q => userState.checked[q.id]).length}/10</strong> &bull;
-                Section 3 (Two-Step): <strong>${section3Data.filter(q => userState.checked[q.id]).length}/10</strong>
-              </p>
-            </div>
-            <button onclick="window.print()" class="no-print px-4 py-2 rounded-xl bg-slate-900 text-white text-xs sm:text-sm font-bold hover:bg-slate-800 transition shrink-0">
-              Print / Save Graded Sheet
-            </button>
-          </div>
-
-          <div class="p-4 rounded-xl bg-white/95 border-2 border-amber-400 text-slate-900 flex items-start gap-3 shadow-xs">
-            <div class="w-9 h-9 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 mt-0.5">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-            </div>
-            <div>
-              <div class="text-xs font-extrabold uppercase tracking-wider text-amber-800">Next Step: Upload to Toddle</div>
-              <p class="text-sm sm:text-base font-bold text-slate-900 mt-0.5">
-                Well done! Please take a screenshot of this top score banner and upload it to today&apos;s Toddle assignment.
-              </p>
-            </div>
-          </div>
-        </div>
-      `;
-
-      switchSection('all');
+      // Smoothly scroll back to the very top of the page
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      showToast(`Submitted! Score: ${total}/20 — Take a screenshot for Toddle.`, 'success');
     }
 
-    function switchSection(target) {
-      const s1 = document.getElementById('section-1');
-      const s2 = document.getElementById('section-2');
-      const s3 = document.getElementById('section-3');
+    function updateDashboard() {
+      let s1Correct = 0, s2Correct = 0, s3Correct = 0;
+      let completed = 0;
 
-      s1.classList.toggle('hidden', target !== 'all' && target !== 'sec1');
-      s2.classList.toggle('hidden', target !== 'all' && target !== 'sec2');
-      s3.classList.toggle('hidden', target !== 'all' && target !== 'sec3');
-
-      ['all', 'sec1', 'sec2', 'sec3'].forEach(tab => {
-        const btn = document.getElementById(`tab-${tab}`);
-        if (tab === target) {
-          btn.classList.add('bg-indigo-600', 'text-white', 'shadow-sm', 'font-bold');
-          btn.classList.remove('text-slate-600', 'hover:bg-slate-100', 'font-semibold');
-        } else {
-          btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-sm', 'font-bold');
-          btn.classList.add('text-slate-600', 'hover:bg-slate-100', 'font-semibold');
-        }
+      mcqQuestions.forEach(q => {
+        const item = state.mcq[q.id];
+        if (item && item.selected) completed++;
+        if (item && item.isCorrect === true) s1Correct++;
       });
+
+      oneStepQuestions.forEach(q => {
+        const item = state.oneStep[q.id];
+        if (item && (item.varText.trim() || item.eqText.trim() || item.ansText.trim())) completed++;
+        if (item && item.isCorrect === true) s2Correct++;
+      });
+
+      twoStepQuestions.forEach(q => {
+        const item = state.twoStep[q.id];
+        if (item && (item.varText.trim() || item.eqText.trim() || item.workText.trim() || item.ansText.trim())) completed++;
+        if (item && item.isCorrect === true) s3Correct++;
+      });
+
+      const totalScore = s1Correct + s2Correct + s3Correct;
+      document.getElementById('total-score').textContent = totalScore;
+      document.getElementById('completed-count').textContent = completed;
+      document.getElementById('progress-bar').style.width = `${Math.round((completed / 20) * 100)}%`;
+
+      document.getElementById('sec1-badge').textContent = `${s1Correct} / 5 Correct`;
+      document.getElementById('sec2-badge').textContent = `${s2Correct} / 7 Correct`;
+      document.getElementById('sec3-badge').textContent = `${s3Correct} / 8 Correct`;
+    }
+
+    function filterSection(section) {
+      const panels = {
+        sec1: document.getElementById('section-1'),
+        sec2: document.getElementById('section-2'),
+        sec3: document.getElementById('section-3')
+      };
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-sm', 'font-bold');
+        btn.classList.add('text-slate-600', 'hover:bg-slate-100', 'font-semibold');
+      });
+
+      const activeBtn = document.getElementById(`tab-${section}`);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-indigo-600', 'text-white', 'shadow-sm', 'font-bold');
+        activeBtn.classList.remove('text-slate-600', 'hover:bg-slate-100', 'font-semibold');
+      }
+
+      if (section === 'all') {
+        Object.values(panels).forEach(p => p.classList.remove('hidden'));
+      } else {
+        Object.entries(panels).forEach(([key, p]) => {
+          if (key === section) p.classList.remove('hidden');
+          else p.classList.add('hidden');
+        });
+      }
     }
 
     function toggleGuide() {
       const guide = document.getElementById('strategy-guide');
       const chevron = document.getElementById('guide-chevron');
-      const isHidden = guide.classList.contains('hidden');
       guide.classList.toggle('hidden');
-      chevron.textContent = isHidden ? 'Hide Guide ▲' : 'Show Guide ▼';
+      chevron.textContent = guide.classList.contains('hidden') ? '▼' : '▲';
     }
 
-    function resetAssignment() {
-      if (userState.teacherMode) {
-        exitTeacherKeyMode();
-      }
-      userState.mcq = {};
-      userState.checked = {};
-      userState.attempted = {};
-      document.getElementById('summary-banner').classList.add('hidden');
+    function openResetModal() {
+      document.getElementById('reset-modal').classList.remove('hidden');
+    }
+
+    function closeResetModal() {
+      document.getElementById('reset-modal').classList.add('hidden');
+    }
+
+    function confirmResetAll() {
+      closeResetModal();
+      state.mcq = {};
+      state.oneStep = {};
+      state.twoStep = {};
+      document.getElementById('submission-banner').classList.add('hidden');
       renderSection1();
-      renderWordSection(section2Data, 'sec2-container', false);
-      renderWordSection(section3Data, 'sec3-container', true);
-      updateProgress();
-      showToast('All answers and inputs have been cleared.');
+      renderWordSection('sec2-container', oneStepQuestions, 'oneStep', false);
+      renderWordSection('sec3-container', twoStepQuestions, 'twoStep', true);
+      updateDashboard();
+      showToast('All answers have been cleared.', 'info');
     }
 
-    function showToast(msg) {
+    let toastTimeout;
+    function showToast(msg, type = 'info') {
       const toast = document.getElementById('toast');
-      toast.textContent = msg;
-      toast.classList.remove('hidden');
-      clearTimeout(window._toastTimer);
-      window._toastTimer = setTimeout(() => {
-        toast.classList.add('hidden');
-      }, 3200);
+      const inner = document.getElementById('toast-inner');
+      const icon = document.getElementById('toast-icon');
+      const text = document.getElementById('toast-msg');
+
+      text.textContent = msg;
+      if (type === 'success') {
+        inner.className = 'bg-emerald-900 text-white text-xs font-semibold px-4 py-3 rounded-xl shadow-lg flex items-center gap-2.5';
+        icon.textContent = '✓';
+      } else {
+        inner.className = 'bg-slate-900 text-white text-xs font-semibold px-4 py-3 rounded-xl shadow-lg flex items-center gap-2.5';
+        icon.textContent = 'ℹ';
+      }
+
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3800);
     }
 
-    function escapeHtml(str) {
-      return str.replace(/[&<>"']/g, m => ({
-        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-      }[m]));
-    }
+    window.addEventListener('DOMContentLoaded', init);
   </script>
 </body>
 </html>
