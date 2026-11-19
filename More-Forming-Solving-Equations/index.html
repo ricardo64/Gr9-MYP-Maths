@@ -1,1 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>More Forming and Solving Equations — Interactive Lesson</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: #0f172a;
+      overflow-x: hidden;
+    }
+    .font-math {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .slide-panel {
+      display: none;
+      animation: fadeSlideIn 0.28s ease-out forwards;
+    }
+    .slide-panel.active {
+      display: flex;
+    }
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .step-line {
+      transition: all 0.25s ease-out;
+    }
+    .step-line.hidden-step {
+      display: none;
+    }
+    .step-line.revealed-step {
+      display: block;
+      animation: fadeStep 0.25s ease-out forwards;
+    }
+    @keyframes fadeStep {
+      from {
+        opacity: 0;
+        transform: translateX(-6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between text-slate-900 select-none">
 
+  <!-- Top Presentation Control Bar -->
+  <header class="bg-slate-900/95 backdrop-blur border-b border-slate-800 text-slate-100 px-4 sm:px-6 py-3 sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-sky-500/20 border border-sky-400/40 text-sky-400 flex items-center justify-center font-math font-bold text-sm">
+          x=?
+        </div>
+        <div>
+          <h1 class="text-sm sm:text-base font-bold text-white leading-tight">More Forming and Solving Equations</h1>
+          <p class="text-[11px] text-slate-400 hidden sm:block">Grade 9 Mathematics • Interactive Lesson Deck (11 Slides)</p>
+        </div>
+      </div>
+
+      <!-- Slide Selector & Quick Controls -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <label for="slide-selector" class="sr-only">Jump to Slide</label>
+        <select id="slide-selector" onchange="goToSlide(parseInt(this.value, 10))"
+                class="bg-slate-800 border border-slate-700 text-slate-200 text-xs sm:text-sm font-medium rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500 cursor-pointer">
+          <option value="0">Slide 1: Title Slide</option>
+          <option value="1">Slide 2: Starter Questions</option>
+          <option value="2">Slide 3: Starter Solutions</option>
+          <option value="3">Slide 4: Lesson Objectives</option>
+          <option value="4">Slide 5: Example 1 — Number Puzzle</option>
+          <option value="5">Slide 6: Example 2 — Rectangle Perimeter</option>
+          <option value="6">Slide 7: Example 3 — Triangle Perimeter</option>
+          <option value="7">Slide 8: Example 4 — Equal Areas</option>
+          <option value="8">Slide 9: Plenary 1 — Comparing Areas</option>
+          <option value="9">Slide 10: Plenary Super Challenge</option>
+          <option value="10">Slide 11: Lesson Summary</option>
+          <option value="11">Slide 12: Handout — Practice Strips (Red/Yellow/Green)</option>
+          <option value="12">Slide 13: Handout — 12-Question Worksheet</option>
+          <option value="13">Slide 14: Homework — Section A &amp; Section B</option>
+        </select>
+
+        <button type="button" onclick="toggleAllWorkingOnCurrentSlide()" id="global-working-btn"
+                class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-teal-600 hover:bg-teal-500 text-white transition shadow-sm">
+          <i class="fa-solid fa-eye"></i>
+          <span>Expand Slide Working</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="max-w-6xl mx-auto mt-2.5 bg-slate-800 h-1.5 rounded-full overflow-hidden">
+      <div id="deck-progress" class="bg-sky-400 h-1.5 rounded-full transition-all duration-300" style="width: 9.09%;"></div>
+    </div>
+  </header>
+
+  <!-- Main Slide Stage -->
+  <main id="slide-stage" class="flex-1 flex items-center justify-center p-3 sm:p-6 md:p-8">
+    <div class="w-full max-w-6xl min-h-[540px] md:min-h-[600px] rounded-2xl shadow-2xl overflow-hidden border border-slate-700/60 flex flex-col">
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 1: TITLE SLIDE                                                -->
+      <!-- =================================================================== -->
+      <section class="slide-panel active flex-1 bg-slate-900 text-white p-8 sm:p-14 md:p-16 flex-col justify-center" data-has-working="false">
+        <p class="text-xs sm:text-sm font-bold tracking-[0.14em] uppercase text-sky-400 mb-4">
+          Grade 9 Mathematics • Algebra &amp; Geometry
+        </p>
+        <h2 class="text-3xl sm:text-5xl md:text-6xl font-extrabold text-slate-50 leading-tight max-w-4xl">
+          More Forming and Solving Equations
+        </h2>
+        <p class="text-base sm:text-xl md:text-2xl text-slate-400 mt-6 max-w-2xl leading-relaxed">
+          Step-by-step algebraic modelling for worded, perimeter, and area problems
+        </p>
+        <div class="w-16 h-1.5 bg-sky-400 rounded-full mt-8"></div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 2: STARTER QUESTIONS                                          -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between" data-has-working="false">
+        <div>
+          <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Warm-Up Retrieval</p>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mb-2">Starter: Solve Each Equation</h2>
+          <p class="text-sm sm:text-lg text-slate-600 mb-6">Solve each of the equations below using the methods covered in class.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 my-auto">
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8 flex items-center gap-4 shadow-sm">
+            <span class="text-lg sm:text-xl font-extrabold text-sky-600">1)</span>
+            <p class="font-math text-xl sm:text-3xl font-bold text-slate-900">6x + 5 = 47</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8 flex items-center gap-4 shadow-sm">
+            <span class="text-lg sm:text-xl font-extrabold text-sky-600">2)</span>
+            <p class="font-math text-xl sm:text-3xl font-bold text-slate-900">15 = 29 − x</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8 flex items-center gap-4 shadow-sm">
+            <span class="text-lg sm:text-xl font-extrabold text-sky-600">3)</span>
+            <p class="font-math text-xl sm:text-3xl font-bold text-slate-900">8x + 4 = 5x + 22</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8 flex items-center gap-4 shadow-sm">
+            <span class="text-lg sm:text-xl font-extrabold text-sky-600">4)</span>
+            <p class="font-math text-xl sm:text-3xl font-bold text-slate-900">7x − 5 = 10 − 3x</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 3: STARTER SOLUTIONS (COLLAPSIBLE WORKING BOXES)              -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between" data-has-working="true">
+        <div>
+          <p class="text-xs font-bold tracking-widest uppercase text-teal-600 mb-1">Starter Worked Solutions</p>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mb-2">Starter: Line-by-Line Working</h2>
+          <p class="text-sm text-slate-500 mb-5">Click any working box below to expand its step-by-step solution.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 my-auto">
+          <!-- Starter 1 -->
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 flex flex-col justify-between">
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <p class="font-math text-lg sm:text-xl font-bold text-slate-900">1) 6x + 5 = 47</p>
+              <button type="button" onclick="toggleBox('st1-box', this)" class="working-toggle-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-teal-600 hover:bg-teal-700 text-white transition flex items-center gap-1.5">
+                <i class="fa-solid fa-chevron-down"></i> <span>Show Working</span>
+              </button>
+            </div>
+            <div id="st1-box" class="working-collapse hidden bg-teal-50/90 border border-teal-200 rounded-xl p-4 space-y-1.5">
+              <p class="font-math text-base sm:text-lg text-slate-700">6x = 42 <span class="text-xs sm:text-sm text-slate-500">(−5 both sides)</span></p>
+              <p class="font-math text-lg sm:text-xl font-bold text-teal-700">x = 7 <span class="text-xs sm:text-sm font-normal text-slate-500">(÷6)</span></p>
+            </div>
+          </div>
+
+          <!-- Starter 2 -->
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 flex flex-col justify-between">
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <p class="font-math text-lg sm:text-xl font-bold text-slate-900">2) 15 = 29 − x</p>
+              <button type="button" onclick="toggleBox('st2-box', this)" class="working-toggle-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-teal-600 hover:bg-teal-700 text-white transition flex items-center gap-1.5">
+                <i class="fa-solid fa-chevron-down"></i> <span>Show Working</span>
+              </button>
+            </div>
+            <div id="st2-box" class="working-collapse hidden bg-teal-50/90 border border-teal-200 rounded-xl p-4 space-y-1.5">
+              <p class="font-math text-base sm:text-lg text-slate-700">15 + x = 29 <span class="text-xs sm:text-sm text-slate-500">(+x both sides)</span></p>
+              <p class="font-math text-lg sm:text-xl font-bold text-teal-700">x = 14 <span class="text-xs sm:text-sm font-normal text-slate-500">(−15)</span></p>
+            </div>
+          </div>
+
+          <!-- Starter 3 -->
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 flex flex-col justify-between">
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <p class="font-math text-lg sm:text-xl font-bold text-slate-900">3) 8x + 4 = 5x + 22</p>
+              <button type="button" onclick="toggleBox('st3-box', this)" class="working-toggle-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-teal-600 hover:bg-teal-700 text-white transition flex items-center gap-1.5">
+                <i class="fa-solid fa-chevron-down"></i> <span>Show Working</span>
+              </button>
+            </div>
+            <div id="st3-box" class="working-collapse hidden bg-teal-50/90 border border-teal-200 rounded-xl p-4 space-y-1.5">
+              <p class="font-math text-base sm:text-lg text-slate-700">3x + 4 = 22 &rarr; 3x = 18</p>
+              <p class="font-math text-lg sm:text-xl font-bold text-teal-700">x = 6 <span class="text-xs sm:text-sm font-normal text-slate-500">(÷3)</span></p>
+            </div>
+          </div>
+
+          <!-- Starter 4 -->
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 flex flex-col justify-between">
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <p class="font-math text-lg sm:text-xl font-bold text-slate-900">4) 7x − 5 = 10 − 3x</p>
+              <button type="button" onclick="toggleBox('st4-box', this)" class="working-toggle-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-teal-600 hover:bg-teal-700 text-white transition flex items-center gap-1.5">
+                <i class="fa-solid fa-chevron-down"></i> <span>Show Working</span>
+              </button>
+            </div>
+            <div id="st4-box" class="working-collapse hidden bg-teal-50/90 border border-teal-200 rounded-xl p-4 space-y-1.5">
+              <p class="font-math text-base sm:text-lg text-slate-700">10x − 5 = 10 &rarr; 10x = 15</p>
+              <p class="font-math text-lg sm:text-xl font-bold text-teal-700">x = 1.5 <span class="text-xs sm:text-sm font-normal text-slate-500">(÷10)</span></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 4: LESSON OBJECTIVES                                          -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between" data-has-working="false">
+        <div>
+          <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Lesson Focus</p>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mb-6">Forming and Solving Equations</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 my-auto">
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-7 shadow-sm">
+            <div class="w-12 h-12 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center text-xl mb-5">
+              <i class="fa-solid fa-bullseye"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-2">Worded Problems</h3>
+            <p class="text-base text-slate-600 leading-relaxed">Apply equation solving to real-world word problems.</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-7 shadow-sm">
+            <div class="w-12 h-12 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center text-xl mb-5">
+              <i class="fa-solid fa-code-branch"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-2">Algebraic Modelling</h3>
+            <p class="text-base text-slate-600 leading-relaxed">Simplify worded problems by creating clear equations.</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-7 shadow-sm">
+            <div class="w-12 h-12 rounded-xl bg-teal-100 text-teal-600 flex items-center justify-center text-xl mb-5">
+              <i class="fa-solid fa-list-check"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-2">Clear Working</h3>
+            <p class="text-base text-slate-600 leading-relaxed">Show every inverse operation line by line.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 5: EXAMPLE 1 — NUMBER PUZZLE (COLLAPSIBLE WORKING BOX)        -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between" data-has-working="true">
+        <div>
+          <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Example 1 • Number Puzzle</p>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mb-4">Forming and Solving Equations</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start my-auto">
+          <!-- Left: Question -->
+          <div class="lg:col-span-5 bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8">
+            <p class="text-xs font-bold uppercase tracking-wider text-sky-600 mb-3">Question</p>
+            <p class="text-lg sm:text-2xl font-medium text-slate-900 leading-relaxed">
+              I think of a number. I add 3 then divide it by 2. My answer is 12. Form an equation and solve it to find my number.
+            </p>
+          </div>
+
+          <!-- Right: Collapsible Working Box -->
+          <div class="lg:col-span-7 bg-teal-50/70 border border-teal-200 rounded-2xl p-5 sm:p-6">
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-teal-200/80">
+              <span class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-teal-800 flex items-center gap-2">
+                <i class="fa-solid fa-chalkboard-user"></i> Line-by-Line Working
+              </span>
+              <div class="flex items-center gap-2">
+                <button type="button" onclick="revealNextStep('ex1-steps')" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-teal-600 hover:bg-teal-700 text-white transition shadow-sm">
+                  + Next Line
+                </button>
+                <button type="button" onclick="toggleAllSteps('ex1-steps', this)" class="working-toggle-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-white hover:bg-teal-100 text-teal-800 border border-teal-300 transition">
+                  Show All
+                </button>
+              </div>
+            </div>
+
+            <div id="ex1-steps" class="mt-4 space-y-3 min-h-[190px]">
+              <div class="step-line hidden-step text-base sm:text-lg text-slate-900">
+                Let <strong class="font-math text-teal-800">x</strong> = my starting number
+              </div>
+              <div class="step-line hidden-step">
+                <div class="inline-flex items-center gap-3 font-math text-lg sm:text-xl text-slate-900 bg-white px-4 py-2 rounded-xl border border-teal-200">
+                  <table class="border-collapse text-center">
+                    <tr><td class="border-b-2 border-slate-900 px-2 pb-0.5">x + 3</td></tr>
+                    <tr><td class="px-2 pt-0.5">2</td></tr>
+                  </table>
+                  <span>= 12</span>
+                </div>
+              </div>
+              <div class="step-line hidden-step font-math text-base sm:text-xl text-slate-800">
+                x + 3 = 24 <span class="text-xs sm:text-sm text-slate-500">(× 2 both sides)</span>
+              </div>
+              <div class="step-line hidden-step font-math text-xl sm:text-2xl font-bold text-teal-700 pt-1">
+                x = 21 <span class="text-xs sm:text-sm font-normal text-slate-500">(− 3 both sides)</span>
+              </div>
+              <p class="step-placeholder text-xs sm:text-sm text-teal-700/70 italic pt-6">
+                Click <strong>+ Next Line</strong> to reveal the solution step by step, or <strong>Show All</strong> to expand.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 6: EXAMPLE 2 — RECTANGLE PERIMETER                            -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between" data-has-working="true">
+        <div>
+          <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Example 2 • Rectangle Perimeter</p>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mb-4">Forming and Solving Equations</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start my-auto">
+          <!-- Left: Question + SVG -->
+          <div class="lg:col-span-5 flex flex-col gap-4">
+            <p class="text-base sm:text-lg text-slate-900 leading-relaxed">
+              The perimeter of the rectangle below is <strong>42 cm</strong>. Calculate the lengths of the sides by forming an equation and solving it.
+            </p>
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 flex flex-col items-center">
+              <p class="font-math text-lg font-bold text-sky-700 mb-1.5">x + 5</p>
+              <div class="flex items-center gap-3">
+                <svg class="w-48 sm:w-56 h-auto" viewBox="0 0 260 130">
+                  <rect x="4" y="4" width="252" height="122" fill="#e0f2fe" stroke="#0284c7" stroke-width="3" rx="4" />
+                </svg>
+                <p class="font-math text-lg font-bold text-sky-700">x − 2</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Collapsible Working Box -->
+          <div class="lg:col-span-7 bg-teal-50/70 border border-teal-200 rounded-2xl p-5 sm:p-6">
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-teal-200/80">
+              <span class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-teal-800 flex items-center gap-2">
+                <i class="fa-solid fa-chalkboard-user"></i> Line-by-Line Working
+              </span>
+              <div class="flex items-center gap-2">
+                <button type="button" onclick="revealNextStep('ex2-steps')" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-teal-600 hover:bg-teal-700 text-white transition shadow-sm">
+                  + Next Line
+                </button>
+                <button type="button" onclick="toggleAllSteps('ex2-steps', this)" class="working-toggle-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-white hover:bg-teal-100 text-teal-800 border border-teal-300 transition">
+                  Show All
+                </button>
+              </div>
+            </div>
+
+            <div id="ex2-steps" class="mt-4 space-y-2.5 min-h-[210px]">
+              <div class="step-line hidden-step font-math text-base sm:text-lg text-slate-900">2(x + 5) + 2(x − 2) = 42</div>
+              <div class="step-line hidden-step font-math text-base sm:text-lg text-slate-700">2x + 10 + 2x − 4 = 42</div>
+              <div class="step-line hidden-step font-math text-base sm:text-lg text-slate-700">4x + 6 = 42 &rarr; 4x = 36</div>
+              <div class="step-line hidden-step font-math text-lg sm:text-xl font-bold text-teal-700">x = 9</div>
+              <div class="step-line hidden-step text-base sm:text-lg font-bold text-slate-900 bg-white px-4 py-2.5 rounded-xl border border-teal-200">
+                Sides: 9 + 5 = <span class="text-teal-700">14 cm</span> and 9 − 2 = <span class="text-teal-700">7 cm</span>
+              </div>
+              <p class="step-placeholder text-xs sm:text-sm text-teal-700/70 italic pt-6">
+                Click <strong>+ Next Line</strong> to reveal the solution step by step, or <strong>Show All</strong> to expand.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 7: EXAMPLE 3 — TRIANGLE PERIMETER                             -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between" data-has-working="true">
+        <div>
+          <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Example 3 • Triangle Perimeter</p>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mb-4">Forming and Solving Equations</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start my-auto">
+          <!-- Left: Question + SVG -->
+          <div class="lg:col-span-5 flex flex-col gap-4">
+            <p class="text-base sm:text-lg text-slate-900 leading-relaxed">
+              A triangle has 3 sides: <strong>x</strong>, 8 cm more than that, and double the first side. The perimeter is <strong>26 cm</strong>. Sketch and calculate the side lengths.
+            </p>
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col items-center">
+              <div class="flex items-center gap-3">
+                <p class="font-math text-base sm:text-lg font-bold text-sky-700">x + 8</p>
+                <svg class="w-40 sm:w-48 h-auto" viewBox="0 0 200 115">
+                  <polygon points="100,8 12,107 188,107" fill="#e0f2fe" stroke="#0284c7" stroke-width="3" />
+                </svg>
+                <p class="font-math text-base sm:text-lg font-bold text-sky-700">2x</p>
+              </div>
+              <p class="font-math text-base sm:text-lg font-bold text-sky-700 mt-1">x</p>
+            </div>
+          </div>
+
+          <!-- Right: Collapsible Working Box -->
+          <div class="lg:col-span-7 bg-teal-50/70 border border-teal-200 rounded-2xl p-5 sm:p-6">
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-teal-200/80">
+              <span class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-teal-800 flex items-center gap-2">
+                <i class="fa-solid fa-chalkboard-user"></i> Line-by-Line Working
+              </span>
+              <div class="flex items-center gap-2">
+                <button type="button" onclick="revealNextStep('ex3-steps')" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-teal-600 hover:bg-teal-700 text-white transition shadow-sm">
+                  + Next Line
+                </button>
+                <button type="button" onclick="toggleAllSteps('ex3-steps', this)" class="working-toggle-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-white hover:bg-teal-100 text-teal-800 border border-teal-300 transition">
+                  Show All
+                </button>
+              </div>
+            </div>
+
+            <div id="ex3-steps" class="mt-4 space-y-2.5 min-h-[210px]">
+              <div class="step-line hidden-step font-math text-base sm:text-lg text-slate-900">x + (x + 8) + 2x = 26</div>
+              <div class="step-line hidden-step font-math text-base sm:text-lg text-slate-700">4x + 8 = 26</div>
+              <div class="step-line hidden-step font-math text-base sm:text-lg text-slate-700">4x = 18 <span class="text-xs sm:text-sm text-slate-500">(− 8 both sides)</span></div>
+              <div class="step-line hidden-step font-math text-lg sm:text-xl font-bold text-teal-700">x = 4.5</div>
+              <div class="step-line hidden-step text-base sm:text-lg font-bold text-slate-900 bg-white px-4 py-2.5 rounded-xl border border-teal-200">
+                Sides: <span class="text-teal-700">4.5 cm</span>, 4.5 + 8 = <span class="text-teal-700">12.5 cm</span>, 2(4.5) = <span class="text-teal-700">9 cm</span>
+              </div>
+              <p class="step-placeholder text-xs sm:text-sm text-teal-700/70 italic pt-6">
+                Click <strong>+ Next Line</strong> to reveal the solution step by step, or <strong>Show All</strong> to expand.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 8: EXAMPLE 4 — EQUAL AREAS                                    -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between" data-has-working="true">
+        <div>
+          <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Example 4 • Equal Areas</p>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mb-4">Forming and Solving Equations</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start my-auto">
+          <!-- Left: Question + 2 Rectangles -->
+          <div class="lg:col-span-5 flex flex-col gap-4">
+            <p class="text-base sm:text-lg text-slate-900 leading-relaxed">
+              The areas of the two rectangles below are equal. Calculate the lengths of the sides.
+            </p>
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-wrap justify-around items-center gap-4">
+              <!-- Rect 1 -->
+              <div class="flex flex-col items-center">
+                <p class="font-math text-sm sm:text-base font-bold text-sky-700 mb-1">2x − 3</p>
+                <div class="flex items-center gap-2">
+                  <p class="font-math text-sm sm:text-base font-bold text-sky-700">5</p>
+                  <svg class="w-28 h-auto" viewBox="0 0 130 95">
+                    <rect x="3" y="3" width="124" height="89" fill="#e0f2fe" stroke="#0284c7" stroke-width="3" rx="4" />
+                  </svg>
+                </div>
+              </div>
+              <!-- Rect 2 -->
+              <div class="flex flex-col items-center">
+                <p class="font-math text-sm sm:text-base font-bold text-teal-700 mb-1">4x + 2</p>
+                <div class="flex items-center gap-2">
+                  <p class="font-math text-sm sm:text-base font-bold text-teal-700">2</p>
+                  <svg class="w-32 h-auto" viewBox="0 0 150 58">
+                    <rect x="3" y="3" width="144" height="52" fill="#ccfbf1" stroke="#0d9488" stroke-width="3" rx="4" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Collapsible Working Box -->
+          <div class="lg:col-span-7 bg-teal-50/70 border border-teal-200 rounded-2xl p-5 sm:p-6">
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-teal-200/80">
+              <span class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-teal-800 flex items-center gap-2">
+                <i class="fa-solid fa-chalkboard-user"></i> Line-by-Line Working
+              </span>
+              <div class="flex items-center gap-2">
+                <button type="button" onclick="revealNextStep('ex4-steps')" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-teal-600 hover:bg-teal-700 text-white transition shadow-sm">
+                  + Next Line
+                </button>
+                <button type="button" onclick="toggleAllSteps('ex4-steps', this)" class="working-toggle-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-white hover:bg-teal-100 text-teal-800 border border-teal-300 transition">
+                  Show All
+                </button>
+              </div>
+            </div>
+
+            <div id="ex4-steps" class="mt-4 space-y-2.5 min-h-[210px]">
+              <div class="step-line hidden-step font-math text-base sm:text-lg text-slate-900">5(2x − 3) = 2(4x + 2)</div>
+              <div class="step-line hidden-step font-math text-base sm:text-lg text-slate-700">10x − 15 = 8x + 4</div>
+              <div class="step-line hidden-step font-math text-base sm:text-lg text-slate-700">2x − 15 = 4 &rarr; 2x = 19</div>
+              <div class="step-line hidden-step font-math text-lg sm:text-xl font-bold text-teal-700">x = 9.5</div>
+              <div class="step-line hidden-step text-sm sm:text-base font-bold text-slate-900 bg-white px-4 py-2.5 rounded-xl border border-teal-200">
+                Rect 1: 5 cm × <span class="text-teal-700">16 cm</span> • Rect 2: 2 cm × <span class="text-teal-700">40 cm</span> (Area = 80 cm²)
+              </div>
+              <p class="step-placeholder text-xs sm:text-sm text-teal-700/70 italic pt-6">
+                Click <strong>+ Next Line</strong> to reveal the solution step by step, or <strong>Show All</strong> to expand.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 9: PLENARY PART D — COMPARING AREAS                           -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between" data-has-working="true">
+        <div>
+          <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Plenary • Problem 1</p>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mb-4">Comparing Rectangle Areas</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start my-auto">
+          <!-- Left: Question -->
+          <div class="lg:col-span-5 bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-7">
+            <p class="text-xs font-bold uppercase tracking-wider text-sky-600 mb-2">Question d)</p>
+            <p class="text-base sm:text-xl text-slate-900 leading-relaxed">
+              Rectangle X measures 7 cm by (x + 1) cm. Rectangle Y has dimensions (3x + 6) cm and 4 cm. The area of Rectangle X is half the area of Rectangle Y. Calculate the side lengths and areas.
+            </p>
+          </div>
+
+          <!-- Right: Collapsible Working Box -->
+          <div class="lg:col-span-7 bg-teal-50/70 border border-teal-200 rounded-2xl p-5 sm:p-6">
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-teal-200/80">
+              <span class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-teal-800 flex items-center gap-2">
+                <i class="fa-solid fa-chalkboard-user"></i> Line-by-Line Working
+              </span>
+              <div class="flex items-center gap-2">
+                <button type="button" onclick="revealNextStep('pl1-steps')" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-teal-600 hover:bg-teal-700 text-white transition shadow-sm">
+                  + Next Line
+                </button>
+                <button type="button" onclick="toggleAllSteps('pl1-steps', this)" class="working-toggle-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-white hover:bg-teal-100 text-teal-800 border border-teal-300 transition">
+                  Show All
+                </button>
+              </div>
+            </div>
+
+            <div id="pl1-steps" class="mt-4 space-y-2.5 min-h-[210px]">
+              <div class="step-line hidden-step font-math text-base sm:text-lg text-slate-900">2 × 7(x + 1) = 4(3x + 6)</div>
+              <div class="step-line hidden-step font-math text-base sm:text-lg text-slate-700">14x + 14 = 12x + 24</div>
+              <div class="step-line hidden-step font-math text-base sm:text-lg text-slate-700">2x = 10 &rarr; <strong class="text-teal-700">x = 5</strong></div>
+              <div class="step-line hidden-step text-base sm:text-lg font-bold text-slate-900 bg-white px-4 py-2 rounded-xl border border-teal-200">
+                Rect X: 7 cm × 6 cm = <span class="text-teal-700">42 cm²</span>
+              </div>
+              <div class="step-line hidden-step text-base sm:text-lg font-bold text-slate-900 bg-white px-4 py-2 rounded-xl border border-teal-200">
+                Rect Y: 21 cm × 4 cm = <span class="text-teal-700">84 cm²</span>
+              </div>
+              <p class="step-placeholder text-xs sm:text-sm text-teal-700/70 italic pt-6">
+                Click <strong>+ Next Line</strong> to reveal the solution step by step, or <strong>Show All</strong> to expand.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 10: PLENARY SUPER CHALLENGE — ISOSCELES TRIANGLE              -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between" data-has-working="true">
+        <div>
+          <p class="text-xs font-bold tracking-widest uppercase text-amber-600 mb-1">Plenary • Super Challenge Question</p>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mb-3">Isosceles Triangle Stick Lengths</h2>
+          <p class="text-base sm:text-lg text-slate-800 leading-relaxed mb-5">
+            Adam has sticks of lengths <strong class="font-math text-sky-700">(3x + 4) cm</strong>, <strong class="font-math text-sky-700">(2x + 10) cm</strong>, and <strong class="font-math text-sky-700">(x + 12) cm</strong> to make an <strong>isosceles triangle</strong>. Calculate the 3 possible values of x.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 my-auto">
+          <!-- Case 1 -->
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 flex flex-col justify-between">
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <h3 class="text-base sm:text-lg font-bold text-sky-700">Case 1: Stick 1 = Stick 2</h3>
+              <button type="button" onclick="toggleBox('sc1-box', this)" class="working-toggle-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-teal-600 hover:bg-teal-700 text-white transition">
+                Working
+              </button>
+            </div>
+            <div id="sc1-box" class="working-collapse hidden bg-teal-50 border border-teal-200 rounded-xl p-4 space-y-1.5">
+              <p class="font-math text-base text-slate-800">3x + 4 = 2x + 10</p>
+              <p class="font-math text-lg font-bold text-teal-700">x = 6</p>
+            </div>
+          </div>
+
+          <!-- Case 2 -->
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 flex flex-col justify-between">
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <h3 class="text-base sm:text-lg font-bold text-sky-700">Case 2: Stick 1 = Stick 3</h3>
+              <button type="button" onclick="toggleBox('sc2-box', this)" class="working-toggle-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-teal-600 hover:bg-teal-700 text-white transition">
+                Working
+              </button>
+            </div>
+            <div id="sc2-box" class="working-collapse hidden bg-teal-50 border border-teal-200 rounded-xl p-4 space-y-1.5">
+              <p class="font-math text-base text-slate-800">3x + 4 = x + 12</p>
+              <p class="font-math text-lg font-bold text-teal-700">2x = 8 &rarr; x = 4</p>
+            </div>
+          </div>
+
+          <!-- Case 3 -->
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 flex flex-col justify-between">
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <h3 class="text-base sm:text-lg font-bold text-sky-700">Case 3: Stick 2 = Stick 3</h3>
+              <button type="button" onclick="toggleBox('sc3-box', this)" class="working-toggle-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-teal-600 hover:bg-teal-700 text-white transition">
+                Working
+              </button>
+            </div>
+            <div id="sc3-box" class="working-collapse hidden bg-teal-50 border border-teal-200 rounded-xl p-4 space-y-1.5">
+              <p class="font-math text-base text-slate-800">2x + 10 = x + 12</p>
+              <p class="font-math text-lg font-bold text-teal-700">x = 2</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 11: LESSON SUMMARY                                            -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-slate-900 text-white p-8 sm:p-14 md:p-16 flex-col justify-center items-center text-center" data-has-working="false">
+        <p class="text-xs sm:text-sm font-bold tracking-[0.14em] uppercase text-sky-400 mb-3">
+          Lesson Summary
+        </p>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-50 mb-8">
+          Key Takeaways
+        </h2>
+        <ul class="space-y-4 max-w-2xl text-left text-base sm:text-xl text-slate-300 leading-relaxed">
+          <li class="flex items-start gap-3">
+            <span class="text-sky-400 font-bold mt-1">✓</span>
+            <span><strong class="text-sky-400">Equation Fluency:</strong> Recapped solving multi-step and two-sided linear equations.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-sky-400 font-bold mt-1">✓</span>
+            <span><strong class="text-sky-400">Worded &amp; Geometric Models:</strong> Formed equations from number, perimeter, and area clues.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-sky-400 font-bold mt-1">✓</span>
+            <span><strong class="text-sky-400">Extended Reasoning:</strong> Solved multi-case isosceles triangle equations in the plenary.</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 12: HANDOUT 1 — PRACTICE STRIPS (RED, YELLOW, GREEN)          -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between" data-has-working="false">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <div>
+            <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Classroom Activity • Differentiated Practice</p>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Handout</h2>
+          </div>
+          <span class="px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-300 text-xs font-bold text-slate-700">
+            Choose Red, Yellow, or Green Strip
+          </span>
+        </div>
+
+        <!-- Visual Replica of the Red, Yellow & Green Practice Strips Worksheet -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-auto">
+          <!-- RED BOX (Worded Problems) -->
+          <div class="rounded-2xl border-2 border-rose-500 bg-rose-50/60 p-4 sm:p-5 flex flex-col justify-between shadow-sm">
+            <div>
+              <div class="bg-rose-600 text-white text-center font-extrabold text-xs sm:text-sm uppercase tracking-wider py-1.5 px-3 rounded-lg mb-3">
+                Red • Forming and Solving Equations
+              </div>
+              <div class="space-y-3 text-xs sm:text-sm text-slate-800 leading-relaxed">
+                <p><strong>(a)</strong> Lily, Tia and Seher have a combined age of 53. Tia is twice as old as Lily. Seher is five years older than Lily. Form an equation and solve it to find Lily's age.</p>
+                <p><strong>(b)</strong> Bruno is thinking of a number. If he triples the number, then subtracts seven the answer he gets is 35. Form an equation and solve it to find Bruno's number.</p>
+              </div>
+            </div>
+            <div class="mt-4 pt-2 border-t border-rose-200 text-[11px] font-bold text-rose-700 text-right">
+              Worded Models
+            </div>
+          </div>
+
+          <!-- YELLOW BOX (Angle Diagrams) -->
+          <div class="rounded-2xl border-2 border-amber-400 bg-amber-50/60 p-4 sm:p-5 flex flex-col justify-between shadow-sm">
+            <div>
+              <div class="bg-amber-500 text-slate-950 text-center font-extrabold text-xs sm:text-sm uppercase tracking-wider py-1.5 px-3 rounded-lg mb-2.5">
+                Yellow • Angle Diagrams
+              </div>
+              <p class="text-xs text-slate-800 mb-2">For each of the angle diagrams, form an equation and solve to find the value of <span class="font-math font-bold">x</span>.</p>
+              <div class="space-y-2 bg-white/90 rounded-xl p-2.5 border border-amber-200">
+                <!-- (a) Straight line angles -->
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-slate-700">(a)</span>
+                  <svg class="w-36 h-12" viewBox="0 0 160 54">
+                    <line x1="8" y1="44" x2="152" y2="48" stroke="#111827" stroke-width="1.8" />
+                    <line x1="78" y1="46" x2="45" y2="10" stroke="#111827" stroke-width="1.6" />
+                    <line x1="78" y1="46" x2="128" y2="14" stroke="#111827" stroke-width="1.6" />
+                    <text x="42" y="39" font-size="10" font-weight="700">2x</text>
+                    <text x="68" y="25" font-size="10" font-weight="700">x−15</text>
+                    <text x="102" y="41" font-size="10" font-weight="700">3x</text>
+                  </svg>
+                </div>
+                <!-- (b) Parallel lines & (c) Right angle -->
+                <div class="grid grid-cols-2 gap-2 pt-1 border-t border-amber-100">
+                  <div class="flex flex-col items-center">
+                    <span class="text-[11px] font-bold text-slate-700 self-start">(b)</span>
+                    <svg class="w-24 h-16" viewBox="0 0 100 68">
+                      <line x1="15" y1="20" x2="90" y2="10" stroke="#111827" stroke-width="1.6" />
+                      <line x1="10" y1="54" x2="85" y2="44" stroke="#111827" stroke-width="1.6" />
+                      <line x1="48" y1="4" x2="32" y2="64" stroke="#111827" stroke-width="1.6" />
+                      <text x="47" y="29" font-size="9.5" font-weight="700">x+30</text>
+                      <text x="41" y="46" font-size="9.5" font-weight="700">4x</text>
+                    </svg>
+                  </div>
+                  <div class="flex flex-col items-center">
+                    <span class="text-[11px] font-bold text-slate-700 self-start">(c)</span>
+                    <svg class="w-24 h-16" viewBox="0 0 100 68">
+                      <polyline points="22,12 22,56 82,56" fill="none" stroke="#111827" stroke-width="1.8" />
+                      <rect x="22" y="46" width="10" height="10" fill="none" stroke="#111827" stroke-width="1.2" />
+                      <line x1="22" y1="56" x2="74" y2="22" stroke="#111827" stroke-width="1.6" />
+                      <text x="30" y="32" font-size="9.5" font-weight="700">x+15</text>
+                      <text x="52" y="51" font-size="9.5" font-weight="700">2x</text>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-3 pt-2 border-t border-amber-200 text-[11px] font-bold text-amber-800 text-right">
+              Geometric Angles
+            </div>
+          </div>
+
+          <!-- GREEN BOX (Perimeter & Area Shapes) -->
+          <div class="rounded-2xl border-2 border-emerald-500 bg-emerald-50/60 p-4 sm:p-5 flex flex-col justify-between shadow-sm">
+            <div>
+              <div class="bg-emerald-600 text-white text-center font-extrabold text-xs sm:text-sm uppercase tracking-wider py-1.5 px-3 rounded-lg mb-2.5">
+                Green • Perimeter &amp; Area
+              </div>
+              <p class="text-xs text-slate-800 mb-2">For each shape, form an equation from its perimeter or area and solve to find <span class="font-math font-bold">x</span>.</p>
+              <div class="space-y-2 bg-white/90 rounded-xl p-2.5 border border-emerald-200 text-[11px]">
+                <div class="flex items-center justify-between">
+                  <span><strong>(a)</strong> P = 31 cm</span>
+                  <span class="font-math font-bold text-emerald-800">Rect: (2x + 3) by (x − 1)</span>
+                </div>
+                <div class="flex items-center justify-between border-t border-emerald-100 pt-1.5">
+                  <span><strong>(b)</strong> A = 25.2 cm²</span>
+                  <span class="font-math font-bold text-emerald-800">Triangle: base 14, h = 3x</span>
+                </div>
+                <div class="flex items-center justify-between border-t border-emerald-100 pt-1.5">
+                  <span><strong>(c)</strong> P = 78 mm</span>
+                  <span class="font-math font-bold text-emerald-800">Isosceles: 2(5x−4) + (2x+1)</span>
+                </div>
+              </div>
+            </div>
+            <div class="mt-3 pt-2 border-t border-emerald-200 text-[11px] font-bold text-emerald-800 text-right">
+              Perimeter &amp; Area Extension
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 13: HANDOUT 2 — 12-QUESTION WORKSHEET (PAGE 1 PREVIEW)        -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between" data-has-working="false">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div>
+            <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Independent Practice • 12 Questions (MYP Year 4)</p>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Handout</h2>
+          </div>
+          <span class="px-3.5 py-1.5 rounded-full bg-sky-50 border border-sky-200 text-xs font-bold text-sky-800">
+            Complete Questions 1–12 in Your Booklet
+          </span>
+        </div>
+
+        <!-- Crisp Mockup of Page 1 of the 12-Question Worksheet -->
+        <div class="max-w-4xl w-full mx-auto bg-white border-2 border-slate-800 rounded-xl shadow-lg p-4 sm:p-5 my-auto">
+          <!-- Worksheet Header Strip -->
+          <div class="border border-slate-800 bg-slate-50 px-3.5 py-2 mb-3">
+            <div class="flex justify-between items-baseline border-b border-slate-400 pb-1 mb-1.5">
+              <span class="text-sm sm:text-base font-extrabold text-slate-900">Forming and Solving Equations</span>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-slate-700">Grade 9 Mathematics • MYP Year 4</span>
+            </div>
+            <div class="flex gap-6 text-xs font-semibold text-slate-700">
+              <div class="flex-1 flex items-baseline gap-1.5"><span>Student Name:</span><span class="flex-1 border-b border-slate-700"></span></div>
+              <div class="w-36 flex items-baseline gap-1.5"><span>Date:</span><span class="flex-1 border-b border-slate-700"></span></div>
+            </div>
+          </div>
+
+          <!-- Question 1 Preview -->
+          <div class="border border-slate-700 p-3 mb-2.5 flex items-center justify-between gap-3">
+            <div class="text-xs sm:text-sm text-slate-800 space-y-1">
+              <div>
+                <span class="inline-block bg-slate-900 text-white font-extrabold text-xs px-1.5 py-0.5 rounded mr-1.5">1</span>
+                <span class="text-[10px] font-bold uppercase border border-slate-400 px-1.5 py-0.5 rounded text-slate-600">MYP Criterion A: Levels 1–2 • Angles on a Line</span>
+              </div>
+              <p>Three angles make up a straight line: <strong>2x</strong>, <strong>x</strong>, and <strong>3x</strong>.</p>
+              <p class="text-xs text-slate-600">(a) Form an equation in <em>x</em>. &nbsp; (b) Solve for <em>x</em>. &nbsp; (c) Work out the largest angle.</p>
+            </div>
+            <svg class="w-36 h-16 shrink-0" viewBox="0 0 215 90">
+              <line x1="10" y1="78" x2="205" y2="78" stroke="#111827" stroke-width="2.2" />
+              <line x1="108" y1="78" x2="45" y2="20" stroke="#111827" stroke-width="2" />
+              <line x1="108" y1="78" x2="128" y2="14" stroke="#111827" stroke-width="2" />
+              <text x="58" y="68" font-size="13" font-weight="700">2x</text>
+              <text x="98" y="45" font-size="13" font-weight="700">x</text>
+              <text x="135" y="65" font-size="13" font-weight="700">3x</text>
+            </svg>
+          </div>
+
+          <!-- Question 2 Preview -->
+          <div class="border border-slate-700 p-3 flex items-center justify-between gap-3">
+            <div class="text-xs sm:text-sm text-slate-800 space-y-1">
+              <div>
+                <span class="inline-block bg-slate-900 text-white font-extrabold text-xs px-1.5 py-0.5 rounded mr-1.5">2</span>
+                <span class="text-[10px] font-bold uppercase border border-slate-400 px-1.5 py-0.5 rounded text-slate-600">MYP Criterion A: Levels 1–2 • Triangle Perimeter</span>
+              </div>
+              <p>The perimeter of the triangle with sides <strong>2x</strong>, <strong>x + 4</strong>, and <strong>x + 5</strong> is <strong>61 cm</strong>.</p>
+              <p class="text-xs text-slate-600">(a) Write an expression for the perimeter. &nbsp; (b) Write an equation. &nbsp; (c) Solve to find <em>x</em>.</p>
+            </div>
+            <svg class="w-36 h-20 shrink-0" viewBox="0 0 215 105">
+              <polygon points="48,12 80,82 185,82" fill="none" stroke="#111827" stroke-width="2.2" />
+              <text x="18" y="54" font-size="13" font-weight="700">x + 4</text>
+              <text x="122" y="42" font-size="13" font-weight="700">2x</text>
+              <text x="112" y="99" font-size="13" font-weight="700">x + 5</text>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 14: HOMEWORK — SECTION A & SECTION B WORKSHEET PREVIEW        -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-slate-900 text-white p-6 sm:p-10 md:p-12 flex-col justify-between" data-has-working="false">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div>
+            <p class="text-xs font-bold tracking-widest uppercase text-sky-400 mb-1">Home Learning Assignment</p>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-white">Homework</h2>
+          </div>
+          <span class="px-3.5 py-1.5 rounded-full bg-sky-500/20 border border-sky-400/40 text-xs font-bold text-sky-300">
+            Complete Section A, Section B &amp; Super Challenge
+          </span>
+        </div>
+
+        <!-- Clean Worksheet Screenshot Preview of Section A & Section B -->
+        <div class="max-w-5xl w-full mx-auto bg-white text-slate-900 rounded-xl shadow-2xl border border-slate-300 p-4 sm:p-5 my-auto">
+          <div class="border-b-2 border-slate-900 pb-1.5 mb-3 flex justify-between items-baseline">
+            <h3 class="text-base sm:text-lg font-extrabold text-slate-900">Forming and Solving Equations</h3>
+            <span class="text-xs font-bold text-slate-500">Homework Worksheet</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs leading-relaxed">
+            <!-- Section A Column -->
+            <div class="bg-slate-50 border border-slate-200 rounded-lg p-3 space-y-2">
+              <div class="font-extrabold text-sky-700 uppercase tracking-wider border-b border-slate-200 pb-1">
+                Section A – Unknown on One Side
+              </div>
+              <p><strong>1.</strong> I think of a number. I multiply it by 6 and add 3. If my answer is 75, calculate the number I started with.</p>
+              <p><strong>2.</strong> There are ‘b’ daffodil bulbs in a bag. I buy 4 bags, but 5 bulbs have gone bad. If I still have 55 bulbs that will grow, find the bulbs in each bag.</p>
+              <p><strong>3.</strong> The mean of 3 numbers is 12. If one number is 5 and the other is 11, write an equation and solve it to find the third number.</p>
+              <div class="flex items-center justify-between gap-2 pt-0.5">
+                <p><strong>4.</strong> The triangle is Isosceles. Find the side lengths if the perimeter is 68 cm.</p>
+                <svg class="w-24 h-12 shrink-0" viewBox="0 0 165 82">
+                  <polygon points="82,8 28,68 136,68" fill="none" stroke="#111827" stroke-width="2" />
+                  <text x="10" y="38" font-size="12" font-weight="700">2x−1</text>
+                  <text x="118" y="38" font-size="12" font-weight="700">2x−1</text>
+                  <text x="78" y="80" font-size="12" font-weight="700">x</text>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Section B Column -->
+            <div class="bg-slate-50 border border-slate-200 rounded-lg p-3 space-y-2">
+              <div class="font-extrabold text-teal-700 uppercase tracking-wider border-b border-slate-200 pb-1">
+                Section B – Unknown on Both Sides
+              </div>
+              <p><strong>1.</strong> Tom multiplies his money by 4 and adds 50 cents. Ellie multiplies hers by 9 and subtracts €3. They end up with the same amount. Calculate what they started with.</p>
+              <p><strong>2.</strong> Alex adds 18 to his number then divides by 2. He gets the same answer as multiplying the original number by 5. Find the mystery number.</p>
+              <p><strong>3.</strong> Rectangle A (6 cm by x+2 cm) and Rectangle B (2x+1 cm by 3 cm) have the same perimeter. Find x and the side lengths.</p>
+              <p><strong>4.</strong> Rectangle X (7 cm by x+1 cm) has half the area of Rectangle Y (3x+6 cm by 4 cm). Find the side lengths and areas.</p>
+            </div>
+          </div>
+
+          <!-- Super Challenge Footer Strip -->
+          <div class="mt-3 bg-amber-50 border border-amber-300 rounded-lg px-3 py-2 text-xs text-slate-800">
+            <strong class="text-amber-800">Super Challenge Question:</strong> Adam has sticks of lengths <strong>(3x + 4) cm</strong>, <strong>(2x + 10) cm</strong>, and <strong>(x + 12) cm</strong> to make an <strong>Isosceles triangle</strong>. Calculate the 3 possible values of x.
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Bottom Slide Navigation Bar -->
+  <footer class="bg-slate-900/95 backdrop-blur border-t border-slate-800 text-slate-200 px-4 sm:px-6 py-3 sticky bottom-0 z-40">
+    <div class="max-w-6xl mx-auto flex items-center justify-between gap-4">
+      <button type="button" id="prev-btn" onclick="changeSlide(-1)"
+              class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-slate-800 hover:bg-slate-700 disabled:opacity-40 disabled:pointer-events-none text-white border border-slate-700 transition flex items-center gap-2">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Previous</span>
+      </button>
+
+      <!-- Dot Indicators -->
+      <div class="flex items-center gap-1.5 sm:gap-2" id="dot-indicators" aria-label="Slide indicators"></div>
+
+      <button type="button" id="next-btn" onclick="changeSlide(1)"
+              class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-sky-600 hover:bg-sky-500 disabled:opacity-40 disabled:pointer-events-none text-white transition flex items-center gap-2 shadow-sm">
+        <span>Next</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </footer>
+
+  <script>
+    let currentSlide = 0;
+    const slides = Array.from(document.querySelectorAll('.slide-panel'));
+    const totalSlides = slides.length;
+
+    function initDeck() {
+      const dotsContainer = document.getElementById('dot-indicators');
+      dotsContainer.innerHTML = slides.map((_, idx) => `
+        <button type="button" onclick="goToSlide(${idx})" aria-label="Go to slide ${idx + 1}"
+                class="slide-dot w-2.5 h-2.5 rounded-full transition-all ${idx === 0 ? 'bg-sky-400 w-6' : 'bg-slate-600 hover:bg-slate-500'}"></button>
+      `).join('');
+      updateSlideUI();
+    }
+
+    function changeSlide(delta) {
+      const next = currentSlide + delta;
+      if (next >= 0 && next < totalSlides) {
+        goToSlide(next);
+      }
+    }
+
+    function goToSlide(index) {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = index;
+      slides[currentSlide].classList.add('active');
+      updateSlideUI();
+    }
+
+    function updateSlideUI() {
+      document.getElementById('slide-selector').value = currentSlide;
+      document.getElementById('prev-btn').disabled = currentSlide === 0;
+      document.getElementById('next-btn').disabled = currentSlide === totalSlides - 1;
+
+      const pct = ((currentSlide + 1) / totalSlides) * 100;
+      document.getElementById('deck-progress').style.width = `${pct}%`;
+
+      document.querySelectorAll('.slide-dot').forEach((dot, idx) => {
+        if (idx === currentSlide) {
+          dot.className = 'slide-dot h-2.5 w-6 rounded-full bg-sky-400 transition-all';
+        } else {
+          dot.className = 'slide-dot h-2.5 w-2.5 rounded-full bg-slate-600 hover:bg-slate-500 transition-all';
+        }
+      });
+
+      const hasWorking = slides[currentSlide].dataset.hasWorking === 'true';
+      const globalBtn = document.getElementById('global-working-btn');
+      if (hasWorking) {
+        globalBtn.classList.remove('hidden');
+        globalBtn.classList.add('inline-flex');
+      } else {
+        globalBtn.classList.add('hidden');
+        globalBtn.classList.remove('inline-flex');
+      }
+    }
+
+    // Toggle individual simple working boxes (Slides 3 & 10)
+    function toggleBox(boxId, btn) {
+      const box = document.getElementById(boxId);
+      if (!box) return;
+      const isHidden = box.classList.contains('hidden');
+      if (isHidden) {
+        box.classList.remove('hidden');
+        if (btn) btn.innerHTML = '<i class="fa-solid fa-chevron-up"></i> <span>Hide</span>';
+      } else {
+        box.classList.add('hidden');
+        if (btn) btn.innerHTML = '<i class="fa-solid fa-chevron-down"></i> <span>Working</span>';
+      }
+    }
+
+    // Reveal next line in multi-line worked example boxes (Slides 5, 6, 7, 8, 9)
+    function revealNextStep(containerId) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      const nextHidden = container.querySelector('.step-line.hidden-step');
+      const placeholder = container.querySelector('.step-placeholder');
+      if (placeholder) placeholder.style.display = 'none';
+
+      if (nextHidden) {
+        nextHidden.classList.remove('hidden-step');
+        nextHidden.classList.add('revealed-step');
+      }
+    }
+
+    // Expand or collapse all lines in a multi-line worked example box
+    function toggleAllSteps(containerId, btn) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      const allSteps = Array.from(container.querySelectorAll('.step-line'));
+      const placeholder = container.querySelector('.step-placeholder');
+      const anyHidden = allSteps.some(s => s.classList.contains('hidden-step'));
+
+      if (anyHidden) {
+        if (placeholder) placeholder.style.display = 'none';
+        allSteps.forEach(s => {
+          s.classList.remove('hidden-step');
+          s.classList.add('revealed-step');
+        });
+        if (btn) btn.textContent = 'Collapse All';
+      } else {
+        allSteps.forEach(s => {
+          s.classList.add('hidden-step');
+          s.classList.remove('revealed-step');
+        });
+        if (placeholder) placeholder.style.display = 'block';
+        if (btn) btn.textContent = 'Show All';
+      }
+    }
+
+    // Top bar helper: expand/collapse all working on the currently visible slide
+    function toggleAllWorkingOnCurrentSlide() {
+      const activeSlide = slides[currentSlide];
+      // Multi-line step containers
+      const stepContainers = activeSlide.querySelectorAll('[id$="-steps"]');
+      stepContainers.forEach(c => {
+        const btn = c.parentElement.querySelector('.working-toggle-btn');
+        toggleAllSteps(c.id, btn);
+      });
+      // Simple working boxes
+      const simpleBoxes = activeSlide.querySelectorAll('.working-collapse');
+      simpleBoxes.forEach(b => {
+        const btn = b.parentElement.querySelector('.working-toggle-btn');
+        toggleBox(b.id, btn);
+      });
+    }
+
+    // Keyboard navigation (Left/Right arrow keys)
+    document.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') return;
+      if (e.key === 'ArrowRight') changeSlide(1);
+      if (e.key === 'ArrowLeft') changeSlide(-1);
+    });
+
+    // Touch swipe navigation for tablets/smartboards
+    let touchStartX = 0;
+    const stage = document.getElementById('slide-stage');
+    stage.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    stage.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].screenX - touchStartX;
+      if (Math.abs(dx) > 60) {
+        if (dx < 0) changeSlide(1);
+        else changeSlide(-1);
+      }
+    }, { passive: true });
+
+    window.addEventListener('DOMContentLoaded', initDeck);
+  </script>
+</body>
+</html>
