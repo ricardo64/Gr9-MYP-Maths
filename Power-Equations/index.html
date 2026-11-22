@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Power Equations — Interactive Lesson</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: #0f172a;
+      overflow-x: hidden;
+    }
+    .font-math {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .slide-panel {
+      display: none;
+      animation: fadeSlideIn 0.28s ease-out forwards;
+    }
+    .slide-panel.active {
+      display: flex;
+    }
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    /* Fraction styling */
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      line-height: 1.05;
+      margin: 0 3px;
+      font-size: 0.92em;
+    }
+    .frac > span:first-child {
+      border-bottom: 1.8px solid currentColor;
+      padding: 0 5px 1px 5px;
+    }
+    .frac > span:last-child {
+      padding: 1px 5px 0 5px;
+    }
+    /* Radical overbar */
+    .rad {
+      border-top: 1.8px solid currentColor;
+      padding: 0 2px;
+      display: inline-block;
+    }
+    /* Canvas scratchpad grid background */
+    .writing-canvas {
+      background-color: #ffffff;
+      background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+      background-size: 16px 16px;
+      touch-action: none;
+      cursor: crosshair;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between text-slate-900 select-none">
+
+  <!-- Top Presentation Control Bar -->
+  <header class="bg-slate-900/95 backdrop-blur border-b border-slate-800 text-slate-100 px-4 sm:px-6 py-3 sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-sky-500/20 border border-sky-400/40 text-sky-400 flex items-center justify-center font-math font-bold text-sm">
+          x<sup class="text-[10px]">n</sup>
+        </div>
+        <div>
+          <h1 class="text-sm sm:text-base font-bold text-white leading-tight">Power Equations</h1>
+          <p class="text-[11px] text-slate-400 hidden sm:block">Grade 9 Mathematics • Powers, Roots &amp; Handouts</p>
+        </div>
+      </div>
+
+      <!-- Slide Selector -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <label for="slide-selector" class="sr-only">Jump to Slide</label>
+        <select id="slide-selector" onchange="goToSlide(parseInt(this.value, 10))"
+                class="bg-slate-800 border border-slate-700 text-slate-200 text-xs sm:text-sm font-medium rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500 cursor-pointer max-w-[230px] sm:max-w-none">
+          <option value="0">Slide 1: Starter</option>
+          <option value="1">Slide 2: Title — Power Equations</option>
+          <option value="2">Slide 3: Example 1 — Solve x² = 25</option>
+          <option value="3">Slide 4: Key Rule — x² = k vs √25</option>
+          <option value="4">Slide 5: Example 2 — Solve x³ = 8</option>
+          <option value="5">Slide 6: Example 3 — Solve x⁴ = 10,000</option>
+          <option value="6">Slide 7: Summary Rules (Odd vs Even n)</option>
+          <option value="7">Slide 8: Calculator Practice (a, b, c)</option>
+          <option value="8">Slide 9: Example 4 — Solve x/2 = 5/x</option>
+          <option value="9">Slide 10: Example 5 — Negative Powers (x² = −25, x³ = −8)</option>
+          <option value="10">Slide 11: Handout — Page 88 Exercise 3E</option>
+          <option value="11">Slide 12: Handout — Solving Equations with Powers &amp; Roots</option>
+          <option value="12">Slide 13: Handout — Homework Sheet</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="max-w-6xl mx-auto mt-2.5 bg-slate-800 h-1.5 rounded-full overflow-hidden">
+      <div id="deck-progress" class="bg-sky-400 h-1.5 rounded-full transition-all duration-300" style="width: 7.69%;"></div>
+    </div>
+  </header>
+
+  <!-- Main Slide Stage -->
+  <main id="slide-stage" class="flex-1 flex items-center justify-center p-3 sm:p-6 md:p-8">
+    <div class="w-full max-w-6xl min-h-[540px] md:min-h-[600px] rounded-2xl shadow-2xl overflow-hidden border border-slate-700/60 flex flex-col">
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 1: STARTER                                                    -->
+      <!-- =================================================================== -->
+      <section class="slide-panel active flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <div>
+            <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Warm-Up Retrieval</p>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Starter: Find the Value Of</h2>
+          </div>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="togglePad('pad-s1', this)" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-white transition flex items-center gap-1.5">
+              <i class="fa-solid fa-pen"></i> <span>Writing Pad</span>
+            </button>
+            <button type="button" onclick="toggleSimpleAnswer('ans-s1', this)" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5">
+              <i class="fa-solid fa-eye"></i> <span>Reveal Answers</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 my-auto">
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center shadow-sm">
+            <span class="text-sm font-extrabold text-sky-600 block mb-2">A)</span>
+            <p class="font-math text-3xl sm:text-4xl font-bold text-slate-900">8<sup>2</sup></p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center shadow-sm">
+            <span class="text-sm font-extrabold text-sky-600 block mb-2">B)</span>
+            <p class="font-math text-3xl sm:text-4xl font-bold text-slate-900">5<sup>3</sup></p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center shadow-sm">
+            <span class="text-sm font-extrabold text-sky-600 block mb-2">C)</span>
+            <p class="font-math text-3xl sm:text-4xl font-bold text-slate-900"><sup>3</sup>&radic;<span class="rad">64</span></p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center shadow-sm">
+            <span class="text-sm font-extrabold text-sky-600 block mb-2">D)</span>
+            <p class="font-math text-3xl sm:text-4xl font-bold text-slate-900">&radic;<span class="rad">16</span></p>
+          </div>
+        </div>
+
+        <!-- Collapsible Writing Pad -->
+        <div id="pad-s1" class="hidden mt-4 border border-slate-300 rounded-2xl overflow-hidden bg-slate-100"></div>
+
+        <!-- Reveal Answers Box -->
+        <div id="ans-s1" class="hidden mt-4 bg-emerald-50 border border-emerald-300 rounded-2xl p-4 sm:p-5">
+          <p class="text-xs font-extrabold uppercase tracking-wider text-emerald-800 mb-2">Starter Answers</p>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-math text-base sm:text-lg font-bold text-emerald-950">
+            <div>A) 8<sup>2</sup> = 64</div>
+            <div>B) 5<sup>3</sup> = 125</div>
+            <div>C) <sup>3</sup>&radic;<span class="rad">64</span> = 4</div>
+            <div>D) &radic;<span class="rad">16</span> = 4</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 2: TITLE SLIDE                                                -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-slate-900 text-white p-8 sm:p-14 md:p-16 flex-col justify-center">
+        <p class="text-xs sm:text-sm font-bold tracking-[0.14em] uppercase text-sky-400 mb-4">
+          Grade 9 Mathematics • Algebra
+        </p>
+        <h2 class="text-4xl sm:text-6xl md:text-7xl font-extrabold text-slate-50 leading-tight max-w-4xl">
+          Power Equations
+        </h2>
+        <p class="text-base sm:text-xl md:text-2xl text-slate-400 mt-6 max-w-2xl leading-relaxed">
+          Solving equations involving integer powers, roots, rational proportions, and calculator approximations
+        </p>
+        <div class="w-16 h-1.5 bg-sky-400 rounded-full mt-8"></div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 3: EXAMPLE 1 — SOLVE x² = 25 (WORKING PAD + REVEAL ANSWER)    -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <div>
+            <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Example 1 • Even Power</p>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Solving Basic Power Equations</h2>
+          </div>
+          <div class="flex items-center gap-2">
+            <button type="button" id="btn-work-ex1" onclick="toggleExampleWorking('ex1')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-white transition flex items-center gap-1.5">
+              <i class="fa-solid fa-pen"></i> <span>Open Working Box</span>
+            </button>
+            <button type="button" id="btn-ans-ex1" onclick="revealExampleAnswer('ex1')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5">
+              <i class="fa-solid fa-check-circle"></i> <span>Reveal Answer</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="my-auto space-y-5">
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-8 text-center">
+            <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Solve for x</p>
+            <p class="font-math text-4xl sm:text-6xl font-bold text-slate-900">x<sup>2</sup> = 25</p>
+          </div>
+
+          <!-- Collapsible Working Box (Auto-hides when Reveal Answer is clicked) -->
+          <div id="work-ex1" class="hidden border border-slate-300 rounded-2xl overflow-hidden bg-slate-100"></div>
+
+          <!-- Final Answer Box -->
+          <div id="ans-ex1" class="hidden bg-emerald-50 border-2 border-emerald-400 rounded-2xl p-6 text-center space-y-2">
+            <p class="text-xs font-extrabold uppercase tracking-wider text-emerald-700">Solution</p>
+            <p class="font-math text-2xl sm:text-3xl font-bold text-emerald-950">x = &plusmn;&radic;<span class="rad">25</span> = &plusmn;5</p>
+            <p class="text-sm text-emerald-800">Both <strong>5<sup>2</sup> = 25</strong> and <strong>(&minus;5)<sup>2</sup> = 25</strong> are valid solutions.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 4: KEY CONCEPT — x² = k VS √25                                -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between">
+        <div>
+          <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Key Distinction</p>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mb-6">Equation vs. Principal Square Root</h2>
+        </div>
+
+        <div class="space-y-6 my-auto">
+          <div class="bg-sky-50 border-l-4 border-sky-600 rounded-r-2xl p-6 sm:p-8">
+            <p class="text-xl sm:text-3xl font-bold text-slate-900 leading-relaxed">
+              If <span class="font-math text-sky-700">x<sup>2</sup> = k</span> where <span class="font-math text-sky-700">k &gt; 0</span>, then <span class="font-math text-sky-700">x = &plusmn;&radic;<span class="rad">k</span></span>.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-11 gap-4 items-center">
+            <div class="md:col-span-5 bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8 text-center">
+              <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 block mb-2">Solving an Equation</span>
+              <p class="font-math text-3xl sm:text-4xl font-bold text-slate-900 mb-3">x<sup>2</sup> = 25</p>
+              <p class="font-math text-xl sm:text-2xl font-bold text-indigo-700">x = &plusmn;5</p>
+              <p class="text-xs sm:text-sm text-slate-500 mt-2">Two solutions (positive and negative)</p>
+            </div>
+
+            <div class="md:col-span-1 text-center font-extrabold text-2xl text-slate-400">VS</div>
+
+            <div class="md:col-span-5 bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8 text-center">
+              <span class="text-xs font-bold uppercase tracking-wider text-teal-600 block mb-2">Principal Square Root</span>
+              <p class="font-math text-3xl sm:text-4xl font-bold text-slate-900 mb-3">&radic;<span class="rad">25</span></p>
+              <p class="font-math text-xl sm:text-2xl font-bold text-teal-700">= 5</p>
+              <p class="text-xs sm:text-sm text-slate-500 mt-2">Refers only to the positive root</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 5: EXAMPLE 2 — SOLVE x³ = 8                                   -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <div>
+            <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Example 2 • Odd Power</p>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Solving Cubic Power Equations</h2>
+          </div>
+          <div class="flex items-center gap-2">
+            <button type="button" id="btn-work-ex2" onclick="toggleExampleWorking('ex2')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-white transition flex items-center gap-1.5">
+              <i class="fa-solid fa-pen"></i> <span>Open Working Box</span>
+            </button>
+            <button type="button" id="btn-ans-ex2" onclick="revealExampleAnswer('ex2')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5">
+              <i class="fa-solid fa-check-circle"></i> <span>Reveal Answer</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="my-auto space-y-5">
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-8 text-center space-y-3">
+            <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Solve</p>
+            <p class="font-math text-4xl sm:text-6xl font-bold text-slate-900">x<sup>3</sup> = 8</p>
+            <p class="text-base sm:text-xl font-bold text-amber-600 pt-2">*Does this require &plusmn; ?</p>
+          </div>
+
+          <!-- Collapsible Working Box -->
+          <div id="work-ex2" class="hidden border border-slate-300 rounded-2xl overflow-hidden bg-slate-100"></div>
+
+          <!-- Final Answer Box -->
+          <div id="ans-ex2" class="hidden bg-emerald-50 border-2 border-emerald-400 rounded-2xl p-6 text-center space-y-2">
+            <p class="text-xs font-extrabold uppercase tracking-wider text-emerald-700">Solution</p>
+            <p class="font-math text-2xl sm:text-3xl font-bold text-emerald-950">x = <sup>3</sup>&radic;<span class="rad">8</span> = 2</p>
+            <p class="text-sm text-emerald-800"><strong>No &plusmn; required!</strong> Because (&minus;2)<sup>3</sup> = &minus;8 &ne; 8, there is only one real solution.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 6: EXAMPLE 3 — SOLVE x⁴ = 10,000                              -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <div>
+            <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Example 3 • Higher Even Power</p>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Fourth Power Equations</h2>
+          </div>
+          <div class="flex items-center gap-2">
+            <button type="button" id="btn-work-ex3" onclick="toggleExampleWorking('ex3')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-white transition flex items-center gap-1.5">
+              <i class="fa-solid fa-pen"></i> <span>Open Working Box</span>
+            </button>
+            <button type="button" id="btn-ans-ex3" onclick="revealExampleAnswer('ex3')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5">
+              <i class="fa-solid fa-check-circle"></i> <span>Reveal Answer</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="my-auto space-y-5">
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-8 text-center space-y-3">
+            <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Solve</p>
+            <p class="font-math text-4xl sm:text-6xl font-bold text-slate-900">x<sup>4</sup> = 10,000</p>
+            <p class="text-base sm:text-xl font-bold text-amber-600 pt-2">*Does this require &plusmn; ?</p>
+          </div>
+
+          <!-- Collapsible Working Box -->
+          <div id="work-ex3" class="hidden border border-slate-300 rounded-2xl overflow-hidden bg-slate-100"></div>
+
+          <!-- Final Answer Box -->
+          <div id="ans-ex3" class="hidden bg-emerald-50 border-2 border-emerald-400 rounded-2xl p-6 text-center space-y-2">
+            <p class="text-xs font-extrabold uppercase tracking-wider text-emerald-700">Solution</p>
+            <p class="font-math text-2xl sm:text-3xl font-bold text-emerald-950">x = &plusmn;<sup>4</sup>&radic;<span class="rad">10,000</span> = &plusmn;10</p>
+            <p class="text-sm text-emerald-800"><strong>Yes, &plusmn; is required!</strong> Since the exponent 4 is even, both 10<sup>4</sup> = 10,000 and (&minus;10)<sup>4</sup> = 10,000.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 7: GENERAL RULES (ODD VS EVEN N)                              -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between">
+        <div>
+          <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Core Algebraic Rules</p>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mb-6">General Rules for <span class="font-math text-sky-700">x<sup>n</sup> = k</span></h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-auto">
+          <div class="bg-slate-50 border-2 border-indigo-200 rounded-2xl p-7 sm:p-9 space-y-4">
+            <span class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-800 text-xs font-extrabold uppercase tracking-wider">Odd Exponent (n = 3, 5, 7...)</span>
+            <p class="text-xl sm:text-2xl font-bold text-slate-900 leading-relaxed">
+              If <span class="font-math text-indigo-700">n</span> is odd and <span class="font-math text-indigo-700">x<sup>n</sup> = k</span>, then:
+            </p>
+            <div class="bg-white border border-indigo-200 rounded-xl p-5 text-center">
+              <p class="font-math text-2xl sm:text-4xl font-bold text-indigo-700">x = <sup>n</sup>&radic;<span class="rad">k</span></p>
+            </div>
+            <p class="text-sm text-slate-600">Works for positive, zero, and negative values of <span class="font-math">k</span>. Single unique solution.</p>
+          </div>
+
+          <div class="bg-slate-50 border-2 border-teal-200 rounded-2xl p-7 sm:p-9 space-y-4">
+            <span class="px-3 py-1 rounded-full bg-teal-100 text-teal-800 text-xs font-extrabold uppercase tracking-wider">Even Exponent (n = 2, 4, 6...)</span>
+            <p class="text-xl sm:text-2xl font-bold text-slate-900 leading-relaxed">
+              If <span class="font-math text-teal-700">n</span> is even and <span class="font-math text-teal-700">x<sup>n</sup> = k</span> where <span class="font-math text-teal-700">k &gt; 0</span>, then:
+            </p>
+            <div class="bg-white border border-teal-200 rounded-xl p-5 text-center">
+              <p class="font-math text-2xl sm:text-4xl font-bold text-teal-700">x = &plusmn;<sup>n</sup>&radic;<span class="rad">k</span></p>
+            </div>
+            <p class="text-sm text-slate-600">Always produces two opposite solutions when <span class="font-math">k &gt; 0</span>.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 8: CALCULATOR PRACTICE (BUTTON TO REVEAL SOLUTIONS)           -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <div>
+            <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Technology &amp; Rounding</p>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Use Your Calculator to Solve for x</h2>
+            <p class="text-sm sm:text-base text-slate-600 mt-1">Give your answers correct to <strong>3 significant figures</strong>.</p>
+          </div>
+          <button type="button" onclick="toggleSimpleAnswer('calc-solutions', this)" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition shadow-sm flex items-center gap-2">
+            <i class="fa-solid fa-eye"></i> <span>Reveal Solutions</span>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center my-auto">
+          <!-- Left: Casio Calculator Tip Card -->
+          <div class="lg:col-span-4 bg-slate-900 text-white rounded-2xl p-5 space-y-3 border border-slate-700">
+            <div class="flex items-center justify-between">
+              <span class="font-extrabold tracking-widest text-xs text-slate-300">CASIO GDC</span>
+              <span class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 text-[11px] font-bold">nth Root Key</span>
+            </div>
+            <div class="bg-slate-100 text-slate-900 rounded-xl p-4 font-math text-center space-y-2">
+              <div class="text-[10px] text-slate-500 flex justify-between border-b border-slate-300 pb-1">
+                <span>Math</span><span>Deg</span><span>Norm1</span><span>Real</span>
+              </div>
+              <div class="text-2xl font-bold py-2">
+                <sup>&#9744;</sup>&radic;<span class="rad">&#9744;</span>
+              </div>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Press <span class="px-1.5 py-0.5 bg-amber-500 text-slate-950 font-bold rounded">SHIFT</span> then <span class="px-1.5 py-0.5 bg-slate-700 border border-emerald-400 text-white font-math font-bold rounded">^</span> to access <span class="font-math text-sky-300"><sup>&#9744;</sup>&radic;&#9744;</span> on your Casio calculator.
+            </p>
+          </div>
+
+          <!-- Right: Problems a, b, c + Revealed Solutions -->
+          <div class="lg:col-span-8 space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 text-center">
+                <span class="text-xs font-extrabold uppercase text-sky-600 block mb-1">a)</span>
+                <p class="font-math text-2xl sm:text-3xl font-bold text-slate-900">x<sup>2</sup> = 6</p>
+              </div>
+              <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 text-center">
+                <span class="text-xs font-extrabold uppercase text-sky-600 block mb-1">b)</span>
+                <p class="font-math text-2xl sm:text-3xl font-bold text-slate-900">x<sup>2</sup> = 13</p>
+                <p class="font-math text-sm font-bold text-indigo-600 mt-1">x &gt; 0</p>
+              </div>
+              <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 text-center">
+                <span class="text-xs font-extrabold uppercase text-sky-600 block mb-1">c)</span>
+                <p class="font-math text-2xl sm:text-3xl font-bold text-slate-900">x<sup>3</sup> = 31</p>
+              </div>
+            </div>
+
+            <!-- Revealed Solutions Panel -->
+            <div id="calc-solutions" class="hidden bg-emerald-50 border-2 border-emerald-300 rounded-2xl p-5">
+              <p class="text-xs font-extrabold uppercase tracking-wider text-emerald-800 mb-3">Worked Solutions (3 s.f.)</p>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 font-math text-sm sm:text-base">
+                <div class="bg-white rounded-xl p-3.5 border border-emerald-200 space-y-1">
+                  <div class="font-bold text-slate-500 text-xs">a) x<sup>2</sup> = 6</div>
+                  <div class="text-slate-800">x = &plusmn;&radic;<span class="rad">6</span></div>
+                  <div class="font-bold text-emerald-700 text-lg">x &approx; &plusmn;2.45</div>
+                </div>
+                <div class="bg-white rounded-xl p-3.5 border border-emerald-200 space-y-1">
+                  <div class="font-bold text-slate-500 text-xs">b) x<sup>2</sup> = 13, x &gt; 0</div>
+                  <div class="text-slate-800">x = &radic;<span class="rad">13</span></div>
+                  <div class="font-bold text-emerald-700 text-lg">x &approx; 3.61</div>
+                </div>
+                <div class="bg-white rounded-xl p-3.5 border border-emerald-200 space-y-1">
+                  <div class="font-bold text-slate-500 text-xs">c) x<sup>3</sup> = 31</div>
+                  <div class="text-slate-800">x = <sup>3</sup>&radic;<span class="rad">31</span></div>
+                  <div class="font-bold text-emerald-700 text-lg">x &approx; 3.14</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 9: EXAMPLE 4 — RATIONAL EQUATION x/2 = 5/x                    -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <div>
+            <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Example 4 • Algebraic Fractions</p>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Equations Leading to Powers</h2>
+          </div>
+          <div class="flex items-center gap-2">
+            <button type="button" id="btn-work-ex4" onclick="toggleExampleWorking('ex4')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-white transition flex items-center gap-1.5">
+              <i class="fa-solid fa-pen"></i> <span>Open Working Box</span>
+            </button>
+            <button type="button" id="btn-ans-ex4" onclick="revealExampleAnswer('ex4')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5">
+              <i class="fa-solid fa-check-circle"></i> <span>Reveal Answer</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="my-auto space-y-5">
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-8 text-center">
+            <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">Solve for x</p>
+            <div class="font-math text-3xl sm:text-5xl font-bold text-slate-900">
+              <span class="frac"><span>x</span><span>2</span></span> = <span class="frac"><span>5</span><span>x</span></span>
+            </div>
+          </div>
+
+          <!-- Collapsible Working Box -->
+          <div id="work-ex4" class="hidden border border-slate-300 rounded-2xl overflow-hidden bg-slate-100"></div>
+
+          <!-- Final Answer Box -->
+          <div id="ans-ex4" class="hidden bg-emerald-50 border-2 border-emerald-400 rounded-2xl p-6 space-y-2.5">
+            <p class="text-xs font-extrabold uppercase tracking-wider text-emerald-700">Step-by-Step Solution</p>
+            <div class="font-math text-base sm:text-xl text-slate-800 space-y-2">
+              <div><span class="frac"><span>x &times; x</span><span>2 &times; x</span></span> = <span class="frac"><span>5 &times; 2</span><span>x &times; 2</span></span> <span class="text-xs sm:text-sm text-slate-500 font-sans italic">{LCD = 2x, common denominator}</span></div>
+              <div>x<sup>2</sup> = 10 <span class="text-xs sm:text-sm text-slate-500 font-sans italic">{equating numerators / cross-multiplying}</span></div>
+              <div class="text-xl sm:text-2xl font-bold text-emerald-800 pt-1">x = &plusmn;&radic;<span class="rad">10</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 10: EXAMPLE 5 — NEGATIVE CONSTANTS (x² = -25, x³ = -8)        -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <div>
+            <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Example 5 • Negative Values</p>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Even vs. Odd Powers with Negatives</h2>
+          </div>
+          <div class="flex items-center gap-2">
+            <button type="button" id="btn-work-ex5" onclick="toggleExampleWorking('ex5')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-white transition flex items-center gap-1.5">
+              <i class="fa-solid fa-pen"></i> <span>Open Working Box</span>
+            </button>
+            <button type="button" id="btn-ans-ex5" onclick="revealExampleAnswer('ex5')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5">
+              <i class="fa-solid fa-check-circle"></i> <span>Reveal Answer</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="my-auto space-y-5">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-8 text-center">
+              <span class="text-xs font-bold uppercase tracking-wider text-rose-600 block mb-2">Part A (Even Power)</span>
+              <p class="font-math text-3xl sm:text-5xl font-bold text-slate-900">x<sup>2</sup> = &minus;25</p>
+            </div>
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-8 text-center">
+              <span class="text-xs font-bold uppercase tracking-wider text-teal-600 block mb-2">Part B (Odd Power)</span>
+              <p class="font-math text-3xl sm:text-5xl font-bold text-slate-900">x<sup>3</sup> = &minus;8</p>
+            </div>
+          </div>
+
+          <!-- Collapsible Working Box -->
+          <div id="work-ex5" class="hidden border border-slate-300 rounded-2xl overflow-hidden bg-slate-100"></div>
+
+          <!-- Final Answer Box -->
+          <div id="ans-ex5" class="hidden bg-emerald-50 border-2 border-emerald-400 rounded-2xl p-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="bg-white rounded-xl p-4 border border-emerald-200">
+                <p class="font-math text-lg font-bold text-rose-700">x<sup>2</sup> = &minus;25 &rarr; No real solutions exist</p>
+                <p class="text-xs sm:text-sm text-slate-600 mt-1">Squaring any real number always gives a result &ge; 0.</p>
+              </div>
+              <div class="bg-white rounded-xl p-4 border border-emerald-200">
+                <p class="font-math text-lg font-bold text-emerald-800">x<sup>3</sup> = &minus;8 &rarr; x = &minus;2</p>
+                <p class="text-xs sm:text-sm text-slate-600 mt-1">Because (&minus;2) &times; (&minus;2) &times; (&minus;2) = &minus;8.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 11: HANDOUT — PAGE 88 EXERCISE 3E                             -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div>
+            <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Page 88 • Exercise 3E</p>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Handout</h2>
+          </div>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="togglePad('pad-ex3e', this)" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-white transition flex items-center gap-1.5">
+              <i class="fa-solid fa-pen"></i> <span>Writing Pad</span>
+            </button>
+            <button type="button" onclick="toggleSimpleAnswer('sol-ex3e', this)" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5">
+              <i class="fa-solid fa-eye"></i> <span>Reveal Solutions</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Exercise 3E Problems -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 my-auto text-xs sm:text-sm">
+          <!-- Question 1 -->
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5">
+            <p class="font-extrabold text-slate-900 mb-3"><span class="px-2 py-0.5 bg-sky-600 text-white rounded mr-1.5">1</span> Solve for x, giving your answers correct to 3 significant figures:</p>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 font-math text-slate-800">
+              <div><strong>a</strong> x<sup>2</sup> = 11</div>
+              <div><strong>b</strong> x<sup>2</sup> = &minus;5</div>
+              <div><strong>c</strong> x<sup>2</sup> = 71</div>
+              <div><strong>d</strong> x<sup>2</sup> = 89, x &gt; 0</div>
+              <div><strong>e</strong> x<sup>3</sup> = 8</div>
+              <div><strong>f</strong> x<sup>3</sup> = 11</div>
+              <div><strong>g</strong> x<sup>3</sup> = &minus;11</div>
+              <div><strong>h</strong> x<sup>4</sup> = 81</div>
+              <div><strong>i</strong> x<sup>4</sup> = &minus;1</div>
+              <div><strong>j</strong> x<sup>5</sup> = 23</div>
+              <div><strong>k</strong> x<sup>5</sup> = &minus;113</div>
+              <div><strong>l</strong> x<sup>6</sup> = 39.2, x &gt; 0</div>
+            </div>
+          </div>
+
+          <!-- Question 2 -->
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5">
+            <p class="font-extrabold text-slate-900 mb-3"><span class="px-2 py-0.5 bg-sky-600 text-white rounded mr-1.5">2</span> Solve for x:</p>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-math text-slate-800 items-center">
+              <div><strong>a</strong> <span class="frac"><span>x</span><span>3</span></span> = <span class="frac"><span>4</span><span>x</span></span></div>
+              <div><strong>b</strong> <span class="frac"><span>x</span><span>6</span></span> = <span class="frac"><span>6</span><span>x</span></span></div>
+              <div><strong>c</strong> <span class="frac"><span>1</span><span>x</span></span> = <span class="frac"><span>x</span><span>3</span></span></div>
+              <div><strong>d</strong> <span class="frac"><span>x</span><span>7</span></span> = <span class="frac"><span>7</span><span>x</span></span></div>
+              <div><strong>e</strong> <span class="frac"><span>2</span><span>x</span></span> = <span class="frac"><span>x</span><span>5</span></span></div>
+              <div><strong>f</strong> <span class="frac"><span>7</span><span>x</span></span> = <span class="frac"><span>x</span><span>5</span></span></div>
+              <div><strong>g</strong> <span class="frac"><span>x</span><span>2</span></span> = <span class="frac"><span>8</span><span>x</span></span></div>
+              <div><strong>h</strong> <span class="frac"><span>x</span><span>5</span></span> = <span class="frac"><span>&minus;2</span><span>x</span></span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Collapsible Writing Pad -->
+        <div id="pad-ex3e" class="hidden mt-3 border border-slate-300 rounded-2xl overflow-hidden bg-slate-100"></div>
+
+        <!-- Reveal Solutions Panel -->
+        <div id="sol-ex3e" class="hidden mt-3 bg-emerald-50 border-2 border-emerald-300 rounded-2xl p-4 text-xs sm:text-sm">
+          <p class="font-extrabold uppercase tracking-wider text-emerald-800 mb-2">Exercise 3E Solutions</p>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 font-math text-emerald-950">
+            <div>
+              <p class="font-sans font-bold text-emerald-800 mb-1">Question 1:</p>
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
+                <div><strong>a</strong> x &approx; &plusmn;3.32</div>
+                <div><strong>b</strong> no solutions</div>
+                <div><strong>c</strong> x &approx; &plusmn;8.43</div>
+                <div><strong>d</strong> x &approx; 9.43</div>
+                <div><strong>e</strong> x = 2</div>
+                <div><strong>f</strong> x &approx; 2.22</div>
+                <div><strong>g</strong> x &approx; &minus;2.22</div>
+                <div><strong>h</strong> x = &plusmn;3</div>
+                <div><strong>i</strong> no solutions</div>
+                <div><strong>j</strong> x &approx; 1.87</div>
+                <div><strong>k</strong> x &approx; &minus;2.57</div>
+                <div><strong>l</strong> x &approx; 1.84</div>
+              </div>
+            </div>
+            <div>
+              <p class="font-sans font-bold text-emerald-800 mb-1">Question 2:</p>
+              <div class="grid grid-cols-2 gap-1.5">
+                <div><strong>a</strong> x = &plusmn;&radic;<span class="rad">12</span> (&plusmn;2&radic;<span class="rad">3</span>)</div>
+                <div><strong>b</strong> x = &plusmn;6</div>
+                <div><strong>c</strong> x = &plusmn;&radic;<span class="rad">3</span></div>
+                <div><strong>d</strong> x = &plusmn;7</div>
+                <div><strong>e</strong> x = &plusmn;&radic;<span class="rad">10</span></div>
+                <div><strong>f</strong> x = &plusmn;&radic;<span class="rad">35</span></div>
+                <div><strong>g</strong> x = &plusmn;4</div>
+                <div><strong>h</strong> no solutions exist</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 12: HANDOUT — SOLVING EQUATIONS WITH POWERS & ROOTS           -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-8 md:p-10 flex-col justify-between">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div>
+            <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Solving Equations with Powers &amp; Roots</p>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Handout</h2>
+          </div>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="togglePad('pad-pr', this)" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-white transition flex items-center gap-1.5">
+              <i class="fa-solid fa-pen"></i> <span>Writing Pad</span>
+            </button>
+            <button type="button" onclick="toggleSimpleAnswer('sol-pr', this)" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5">
+              <i class="fa-solid fa-eye"></i> <span>Reveal Solutions</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 5 Sections Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 my-auto text-xs">
+          <!-- Box 1: Basic Powers -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5">
+            <p class="font-extrabold text-sky-700 uppercase tracking-wider mb-2">1. Solve</p>
+            <div class="grid grid-cols-2 gap-1.5 font-math text-slate-800">
+              <div>(a) x<sup>2</sup> = 9</div>
+              <div>(b) x<sup>2</sup> = 12.25</div>
+              <div>(c) x<sup>2</sup> = 64</div>
+              <div>(d) x<sup>3</sup> = 64</div>
+              <div>(e) 27 = x<sup>3</sup></div>
+              <div>(f) x<sup>3</sup> = &minus;8</div>
+            </div>
+          </div>
+
+          <!-- Box 2: Basic Roots -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5">
+            <p class="font-extrabold text-sky-700 uppercase tracking-wider mb-2">2. Solve</p>
+            <div class="grid grid-cols-2 gap-1.5 font-math text-slate-800">
+              <div>(a) &radic;<span class="rad">x</span> = 4</div>
+              <div>(b) &radic;<span class="rad">x</span> = &minus;4</div>
+              <div>(c) 9 = &radic;<span class="rad">x</span></div>
+              <div>(d) <sup>3</sup>&radic;<span class="rad">x</span> = 3</div>
+              <div>(e) <sup>3</sup>&radic;<span class="rad">x</span> = &minus;2</div>
+              <div>(f) <sup>3</sup>&radic;<span class="rad">x</span> = 7.5</div>
+            </div>
+          </div>
+
+          <!-- Box 3: Multi-Step Powers -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5">
+            <p class="font-extrabold text-sky-700 uppercase tracking-wider mb-2">3. Solve</p>
+            <div class="grid grid-cols-2 gap-1.5 font-math text-slate-800">
+              <div>(a) 10 + x<sup>2</sup> = 26</div>
+              <div>(b) x<sup>2</sup> &minus; 24 = 120</div>
+              <div>(c) x<sup>3</sup> &minus; 3 = 24</div>
+              <div>(d) 18 + x<sup>3</sup> = 10</div>
+              <div>(e) 2x<sup>2</sup> &minus; 5 = 13</div>
+              <div>(f) 50 + 7x<sup>2</sup> = 78</div>
+              <div>(g) 5x<sup>3</sup> + 7.4 = 12.4</div>
+              <div>(h) 1 &minus; 2x<sup>3</sup> = 129</div>
+            </div>
+          </div>
+
+          <!-- Box 4: Multi-Step Roots -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5">
+            <p class="font-extrabold text-sky-700 uppercase tracking-wider mb-2">4. Solve</p>
+            <div class="space-y-1 font-math text-slate-800">
+              <div>(a) 8 + &radic;<span class="rad">x</span> = 11</div>
+              <div>(b) <sup>3</sup>&radic;<span class="rad">x</span> &minus; 5 = 2</div>
+              <div>(c) 4&radic;<span class="rad">x</span> + 25 = 5</div>
+              <div>(d) 47 &minus; 3<sup>3</sup>&radic;<span class="rad">x</span> = 17</div>
+              <div>(e) 6 = 3&radic;<span class="rad">x</span> &minus; 1.5</div>
+            </div>
+          </div>
+
+          <!-- Box 5: L-Shape Area Problem -->
+          <div class="md:col-span-2 bg-slate-50 border border-slate-200 rounded-xl p-3.5 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="space-y-1 text-slate-800">
+              <p class="font-extrabold text-sky-700 uppercase tracking-wider">5. Geometric Application</p>
+              <p class="text-xs sm:text-sm leading-relaxed">
+                Given that the area of the shape shown is <strong>108 cm<sup>2</sup></strong>, form an equation in <span class="font-math font-bold">x</span> and use it to find the value of <span class="font-math font-bold">x</span>.
+              </p>
+            </div>
+            <!-- L-Shape SVG -->
+            <svg class="w-44 h-28 shrink-0" viewBox="0 0 180 115">
+              <polygon points="45,10 95,10 95,75 165,75 165,102 45,102" fill="#e0f2fe" stroke="#0f172a" stroke-width="2" />
+              <text x="6" y="55" font-size="11" font-weight="700">3x cm</text>
+              <text x="58" y="24" font-size="11" font-weight="700">x cm</text>
+              <text x="132" y="92" font-size="11" font-weight="700">3 cm</text>
+              <text x="85" y="113" font-size="11" font-weight="700">11 cm</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Collapsible Writing Pad -->
+        <div id="pad-pr" class="hidden mt-3 border border-slate-300 rounded-2xl overflow-hidden bg-slate-100"></div>
+
+        <!-- Reveal Solutions Panel -->
+        <div id="sol-pr" class="hidden mt-3 bg-emerald-50 border-2 border-emerald-300 rounded-2xl p-3.5 text-xs">
+          <p class="font-extrabold uppercase tracking-wider text-emerald-800 mb-2">Solutions — Solving Equations with Powers &amp; Roots</p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 font-math text-emerald-950">
+            <div class="bg-white p-2.5 rounded-lg border border-emerald-200">
+              <span class="font-sans font-bold text-emerald-800 block mb-1">1. Powers:</span>
+              (a) x = &plusmn;3 &nbsp; (b) x = &plusmn;3.5 &nbsp; (c) x = &plusmn;8<br />
+              (d) x = 4 &nbsp; (e) x = 3 &nbsp; (f) x = &minus;2
+            </div>
+            <div class="bg-white p-2.5 rounded-lg border border-emerald-200">
+              <span class="font-sans font-bold text-emerald-800 block mb-1">2. Roots:</span>
+              (a) x = 16 &nbsp; (b) no real sol. &nbsp; (c) x = 81<br />
+              (d) x = 27 &nbsp; (e) x = &minus;8 &nbsp; (f) x = 421.875
+            </div>
+            <div class="bg-white p-2.5 rounded-lg border border-emerald-200">
+              <span class="font-sans font-bold text-emerald-800 block mb-1">3. Multi-Step Powers:</span>
+              (a) &plusmn;4 &nbsp; (b) &plusmn;12 &nbsp; (c) 3 &nbsp; (d) &minus;2<br />
+              (e) &plusmn;3 &nbsp; (f) &plusmn;2 &nbsp; (g) 1 &nbsp; (h) &minus;4
+            </div>
+            <div class="bg-white p-2.5 rounded-lg border border-emerald-200">
+              <span class="font-sans font-bold text-emerald-800 block mb-1">4. Multi-Step Roots:</span>
+              (a) x = 9 &nbsp; (b) x = 343 &nbsp; (c) no real sol.<br />
+              (d) x = 1000 &nbsp; (e) x = 6.25
+            </div>
+            <div class="md:col-span-2 bg-white p-2.5 rounded-lg border border-emerald-200">
+              <span class="font-sans font-bold text-emerald-800 block mb-1">5. L-Shape Area Working:</span>
+              3x<sup>2</sup> + 33 = 108 &rarr; 3x<sup>2</sup> = 75 &rarr; x<sup>2</sup> = 25 &rarr; x = &plusmn;5. Since x &gt; 0, <strong>x = 5</strong>.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 13: HANDOUT — HOMEWORK SHEET (NO SOLUTIONS SHOWN HERE)        -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-slate-900 text-white p-6 sm:p-10 md:p-12 flex-col justify-between">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <div>
+            <p class="text-xs font-bold tracking-widest uppercase text-sky-400 mb-1">Homework • Solving Equations with Powers and Roots</p>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-white">Handout</h2>
+          </div>
+          <span class="px-3.5 py-1.5 rounded-full bg-sky-500/20 border border-sky-400/40 text-xs font-bold text-sky-300">
+            Complete (a)–(l) for Next Lesson
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 my-auto text-slate-900">
+          <!-- (a) -->
+          <div class="bg-white rounded-xl p-3.5 border border-slate-300">
+            <span class="text-xs font-extrabold text-sky-700 block mb-1">(a)</span>
+            <p class="font-math text-xs sm:text-sm font-semibold">Solve 3x<sup>2</sup> &minus; 25 = 2x<sup>2</sup></p>
+          </div>
+          <!-- (b) -->
+          <div class="bg-white rounded-xl p-3.5 border border-slate-300">
+            <span class="text-xs font-extrabold text-sky-700 block mb-1">(b)</span>
+            <p class="font-math text-xs sm:text-sm font-semibold">Solve 4&radic;<span class="rad">x</span> + 3 = 5&radic;<span class="rad">x</span></p>
+          </div>
+          <!-- (c) -->
+          <div class="bg-white rounded-xl p-3.5 border border-slate-300">
+            <span class="text-xs font-extrabold text-sky-700 block mb-1">(c)</span>
+            <p class="font-math text-xs sm:text-sm font-semibold">Solve 7x<sup>3</sup> + 16 = 5x<sup>3</sup></p>
+          </div>
+          <!-- (d) -->
+          <div class="bg-white rounded-xl p-3.5 border border-slate-300">
+            <span class="text-xs font-extrabold text-sky-700 block mb-1">(d)</span>
+            <p class="font-math text-xs sm:text-sm font-semibold">Solve 9 &minus; <sup>3</sup>&radic;<span class="rad">x</span> = 2<sup>3</sup>&radic;<span class="rad">x</span></p>
+          </div>
+          <!-- (e) -->
+          <div class="bg-white rounded-xl p-3.5 border border-slate-300">
+            <span class="text-xs font-extrabold text-sky-700 block mb-1">(e)</span>
+            <p class="font-math text-xs sm:text-sm font-semibold">Solve 4 + 5&radic;<span class="rad">x</span> = 2&radic;<span class="rad">x</span> + 16</p>
+          </div>
+          <!-- (f) -->
+          <div class="bg-white rounded-xl p-3.5 border border-slate-300">
+            <span class="text-xs font-extrabold text-sky-700 block mb-1">(f)</span>
+            <p class="font-math text-xs sm:text-sm font-semibold">Solve 6x<sup>3</sup> &minus; 1 = 4 + x<sup>3</sup></p>
+          </div>
+          <!-- (g) -->
+          <div class="bg-white rounded-xl p-3.5 border border-slate-300">
+            <span class="text-xs font-extrabold text-sky-700 block mb-1">(g)</span>
+            <p class="font-math text-xs sm:text-sm font-semibold">Solve 72 &minus; x<sup>2</sup> = x<sup>2</sup> &minus; 26</p>
+          </div>
+          <!-- (h) -->
+          <div class="bg-white rounded-xl p-3.5 border border-slate-300">
+            <span class="text-xs font-extrabold text-sky-700 block mb-1">(h)</span>
+            <p class="font-math text-xs sm:text-sm font-semibold">Solve 3 &minus; 2&radic;<span class="rad">x</span> = &radic;<span class="rad">x</span> &minus; 21</p>
+          </div>
+          <!-- (i) -->
+          <div class="bg-white rounded-xl p-3.5 border border-slate-300">
+            <span class="text-xs font-extrabold text-sky-700 block mb-1">(i)</span>
+            <p class="font-math text-xs sm:text-sm font-semibold">Solve 7(<sup>3</sup>&radic;<span class="rad">x</span> &minus; 1) = 13 + 3<sup>3</sup>&radic;<span class="rad">x</span></p>
+          </div>
+          <!-- (j) -->
+          <div class="bg-white rounded-xl p-3.5 border border-slate-300">
+            <span class="text-xs font-extrabold text-sky-700 block mb-1">(j)</span>
+            <p class="font-math text-xs sm:text-sm font-semibold">Solve 5x<sup>2</sup> &minus; 48 = 2(30 + x<sup>2</sup>)</p>
+          </div>
+          <!-- (k) -->
+          <div class="bg-white rounded-xl p-3.5 border border-slate-300">
+            <span class="text-xs font-extrabold text-sky-700 block mb-1">(k)</span>
+            <p class="font-math text-xs sm:text-sm font-semibold">Solve 3(21 &minus; x<sup>3</sup>) = 9 &minus; 5x<sup>3</sup></p>
+          </div>
+          <!-- (l) -->
+          <div class="bg-white rounded-xl p-3.5 border border-slate-300">
+            <span class="text-xs font-extrabold text-sky-700 block mb-1">(l)</span>
+            <p class="font-math text-xs sm:text-sm font-semibold">Solve 3(&radic;<span class="rad">x</span> &minus; 4) = 2(8 &minus; &radic;<span class="rad">x</span>) + &radic;<span class="rad">x</span></p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Bottom Slide Navigation Bar -->
+  <footer class="bg-slate-900/95 backdrop-blur border-t border-slate-800 text-slate-200 px-4 sm:px-6 py-3 sticky bottom-0 z-40">
+    <div class="max-w-6xl mx-auto flex items-center justify-between gap-4">
+      <button type="button" id="prev-btn" onclick="changeSlide(-1)"
+              class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-slate-800 hover:bg-slate-700 disabled:opacity-40 disabled:pointer-events-none text-white border border-slate-700 transition flex items-center gap-2">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Previous</span>
+      </button>
+
+      <!-- Dot Indicators -->
+      <div class="flex items-center gap-1.5 sm:gap-2" id="dot-indicators" aria-label="Slide indicators"></div>
+
+      <button type="button" id="next-btn" onclick="changeSlide(1)"
+              class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-sky-600 hover:bg-sky-500 disabled:opacity-40 disabled:pointer-events-none text-white transition flex items-center gap-2 shadow-sm">
+        <span>Next</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </footer>
+
+  <script>
+    let currentSlide = 0;
+    const slides = Array.from(document.querySelectorAll('.slide-panel'));
+    const totalSlides = slides.length;
+    const initializedPads = new Set();
+
+    function initDeck() {
+      const dotsContainer = document.getElementById('dot-indicators');
+      dotsContainer.innerHTML = slides.map((_, idx) => `
+        <button type="button" onclick="goToSlide(${idx})" aria-label="Go to slide ${idx + 1}"
+                class="slide-dot w-2.5 h-2.5 rounded-full transition-all ${idx === 0 ? 'bg-sky-400 w-6' : 'bg-slate-600 hover:bg-slate-500'}"></button>
+      `).join('');
+      updateSlideUI();
+    }
+
+    function changeSlide(delta) {
+      const next = currentSlide + delta;
+      if (next >= 0 && next < totalSlides) {
+        goToSlide(next);
+      }
+    }
+
+    function goToSlide(index) {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = index;
+      slides[currentSlide].classList.add('active');
+      updateSlideUI();
+    }
+
+    function updateSlideUI() {
+      document.getElementById('slide-selector').value = currentSlide;
+      document.getElementById('prev-btn').disabled = currentSlide === 0;
+      document.getElementById('next-btn').disabled = currentSlide === totalSlides - 1;
+
+      const pct = ((currentSlide + 1) / totalSlides) * 100;
+      document.getElementById('deck-progress').style.width = `${pct}%`;
+
+      document.querySelectorAll('.slide-dot').forEach((dot, idx) => {
+        if (idx === currentSlide) {
+          dot.className = 'slide-dot h-2.5 w-6 rounded-full bg-sky-400 transition-all';
+        } else {
+          dot.className = 'slide-dot h-2.5 w-2.5 rounded-full bg-slate-600 hover:bg-slate-500 transition-all';
+        }
+      });
+    }
+
+    // =========================================================================
+    // INTERACTIVE WRITING PAD (CANVAS SCRATCHPAD)
+    // =========================================================================
+    function buildCanvasPad(containerId) {
+      const container = document.getElementById(containerId);
+      if (!container || initializedPads.has(containerId)) return;
+      initializedPads.add(containerId);
+
+      container.innerHTML = `
+        <div class="bg-slate-800 text-slate-200 px-3.5 py-2 flex flex-wrap items-center justify-between gap-2 text-xs">
+          <span class="font-bold flex items-center gap-1.5 text-sky-300">
+            <i class="fa-solid fa-pen-nib"></i> Interactive Writing Pad
+          </span>
+          <div class="flex items-center gap-1.5">
+            <button type="button" data-color="#0f172a" class="pen-btn w-5 h-5 rounded-full bg-slate-900 border-2 border-white" title="Black Ink"></button>
+            <button type="button" data-color="#0284c7" class="pen-btn w-5 h-5 rounded-full bg-sky-500 border border-slate-500" title="Blue Ink"></button>
+            <button type="button" data-color="#e11d48" class="pen-btn w-5 h-5 rounded-full bg-rose-600 border border-slate-500" title="Red Ink"></button>
+            <button type="button" data-color="#059669" class="pen-btn w-5 h-5 rounded-full bg-emerald-600 border border-slate-500" title="Green Ink"></button>
+            <span class="h-4 w-px bg-slate-600 mx-1"></span>
+            <button type="button" class="eraser-btn px-2 py-1 rounded bg-slate-700 hover:bg-slate-600 font-semibold">
+              <i class="fa-solid fa-eraser"></i> Eraser
+            </button>
+            <button type="button" class="clear-btn px-2 py-1 rounded bg-rose-700 hover:bg-rose-600 font-semibold">
+              Clear
+            </button>
+          </div>
+        </div>
+        <div class="w-full h-44 sm:h-52 relative">
+          <canvas class="writing-canvas w-full h-full block"></canvas>
+        </div>
+      `;
+
+      const canvas = container.querySelector('canvas');
+      const ctx = canvas.getContext('2d');
+      let drawing = false;
+      let strokeColor = '#0f172a';
+      let lineWidth = 2.6;
+      let isEraser = false;
+
+      function resizeCanvas() {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        if (rect.width === 0 || rect.height === 0) return;
+        const temp = document.createElement('canvas');
+        temp.width = canvas.width;
+        temp.height = canvas.height;
+        if (canvas.width > 0 && canvas.height > 0) {
+          temp.getContext('2d').drawImage(canvas, 0, 0);
+        }
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+        ctx.drawImage(temp, 0, 0);
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+      }
+
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      function getPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return {
+          x: clientX - rect.left,
+          y: clientY - rect.top
+        };
+      }
+
+      function startDraw(e) {
+        drawing = true;
+        const pos = getPos(e);
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y);
+      }
+
+      function draw(e) {
+        if (!drawing) return;
+        const pos = getPos(e);
+        ctx.lineWidth = isEraser ? 18 : lineWidth;
+        if (isEraser) {
+          ctx.globalCompositeOperation = 'destination-out';
+        } else {
+          ctx.globalCompositeOperation = 'source-over';
+          ctx.strokeStyle = strokeColor;
+        }
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+      }
+
+      function endDraw() {
+        drawing = false;
+        ctx.closePath();
+      }
+
+      canvas.addEventListener('mousedown', startDraw);
+      canvas.addEventListener('mousemove', draw);
+      window.addEventListener('mouseup', endDraw);
+
+      canvas.addEventListener('touchstart', (e) => { startDraw(e); }, { passive: true });
+      canvas.addEventListener('touchmove', (e) => { draw(e); }, { passive: true });
+      canvas.addEventListener('touchend', endDraw);
+
+      container.querySelectorAll('.pen-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          isEraser = false;
+          strokeColor = btn.dataset.color;
+          container.querySelectorAll('.pen-btn').forEach(b => b.classList.remove('border-2', 'border-white'));
+          btn.classList.add('border-2', 'border-white');
+        });
+      });
+
+      container.querySelector('.eraser-btn').addEventListener('click', () => {
+        isEraser = true;
+      });
+
+      container.querySelector('.clear-btn').addEventListener('click', () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      });
+
+      canvas._resizePad = resizeCanvas;
+    }
+
+    function togglePad(padId, btn) {
+      const pad = document.getElementById(padId);
+      if (!pad) return;
+      const isHidden = pad.classList.contains('hidden');
+      if (isHidden) {
+        pad.classList.remove('hidden');
+        buildCanvasPad(padId);
+        const canvas = pad.querySelector('canvas');
+        if (canvas && canvas._resizePad) canvas._resizePad();
+        if (btn) btn.innerHTML = '<i class="fa-solid fa-xmark"></i> <span>Hide Pad</span>';
+      } else {
+        pad.classList.add('hidden');
+        if (btn) btn.innerHTML = '<i class="fa-solid fa-pen"></i> <span>Writing Pad</span>';
+      }
+    }
+
+    // =========================================================================
+    // EXAMPLE SLIDE LOGIC (WORKING BOX AUTO-HIDES ON REVEAL ANSWER)
+    // =========================================================================
+    function toggleExampleWorking(exKey) {
+      const workBox = document.getElementById(`work-${exKey}`);
+      const workBtn = document.getElementById(`btn-work-${exKey}`);
+      const isHidden = workBox.classList.contains('hidden');
+
+      if (isHidden) {
+        workBox.classList.remove('hidden');
+        buildCanvasPad(`work-${exKey}`);
+        const canvas = workBox.querySelector('canvas');
+        if (canvas && canvas._resizePad) canvas._resizePad();
+        workBtn.innerHTML = '<i class="fa-solid fa-xmark"></i> <span>Hide Working Box</span>';
+      } else {
+        workBox.classList.add('hidden');
+        workBtn.innerHTML = '<i class="fa-solid fa-pen"></i> <span>Open Working Box</span>';
+      }
+    }
+
+    function revealExampleAnswer(exKey) {
+      const workBox = document.getElementById(`work-${exKey}`);
+      const workBtn = document.getElementById(`btn-work-${exKey}`);
+      const ansBox = document.getElementById(`ans-${exKey}`);
+      const ansBtn = document.getElementById(`btn-ans-${exKey}`);
+
+      const isAnsHidden = ansBox.classList.contains('hidden');
+      if (isAnsHidden) {
+        // Hide the working box when Reveal Answer is clicked
+        workBox.classList.add('hidden');
+        workBtn.innerHTML = '<i class="fa-solid fa-pen"></i> <span>Open Working Box</span>';
+
+        // Reveal the answer box
+        ansBox.classList.remove('hidden');
+        ansBtn.innerHTML = '<i class="fa-solid fa-eye-slash"></i> <span>Hide Answer</span>';
+      } else {
+        ansBox.classList.add('hidden');
+        ansBtn.innerHTML = '<i class="fa-solid fa-check-circle"></i> <span>Reveal Answer</span>';
+      }
+    }
+
+    // Simple toggle for Starter, Calculator, and Handout solutions
+    function toggleSimpleAnswer(boxId, btn) {
+      const box = document.getElementById(boxId);
+      if (!box) return;
+      const isHidden = box.classList.contains('hidden');
+      if (isHidden) {
+        box.classList.remove('hidden');
+        if (btn) btn.innerHTML = '<i class="fa-solid fa-eye-slash"></i> <span>Hide Solutions</span>';
+      } else {
+        box.classList.add('hidden');
+        if (btn) btn.innerHTML = '<i class="fa-solid fa-eye"></i> <span>Reveal Solutions</span>';
+      }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') return;
+      if (e.key === 'ArrowRight') changeSlide(1);
+      if (e.key === 'ArrowLeft') changeSlide(-1);
+    });
+
+    // Touch swipe navigation (ignores swipes inside canvas writing pads)
+    let touchStartX = 0;
+    let touchOnCanvas = false;
+    const stage = document.getElementById('slide-stage');
+    stage.addEventListener('touchstart', (e) => {
+      touchOnCanvas = e.target.tagName === 'CANVAS';
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    stage.addEventListener('touchend', (e) => {
+      if (touchOnCanvas) return;
+      const dx = e.changedTouches[0].screenX - touchStartX;
+      if (Math.abs(dx) > 65) {
+        if (dx < 0) changeSlide(1);
+        else changeSlide(-1);
+      }
+    }, { passive: true });
+
+    window.addEventListener('DOMContentLoaded', initDeck);
+  </script>
+</body>
+</html>
