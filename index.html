@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Grade 9 MYP Mathematics</title>
+
+  <!-- iPad Home Screen App Configuration -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Gr9 Maths" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%230f172a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='180' height='180' rx='40' fill='url(%23g)'/%3E%3Ctext x='90' y='82' font-family='-apple-system, sans-serif' font-size='44' font-weight='800' fill='%23ffffff' text-anchor='middle'%3EMYP 4%3C/text%3E%3Ctext x='90' y='132' font-family='-apple-system, sans-serif' font-size='34' font-weight='600' fill='%2393c5fd' text-anchor='middle'%3Ex%C2%B2 = k%3C/text%3E%3C/svg%3E" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+      min-height: 100vh;
+    }
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .lesson-card {
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .lesson-card:hover, .lesson-card:active {
+      transform: translateY(-3px);
+      border-color: #38bdf8;
+      box-shadow: 0 12px 28px -8px rgba(14, 165, 233, 0.28);
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 antialiased selection:bg-sky-500 selection:text-white">
+
+  <div class="max-w-5xl mx-auto px-5 py-10 sm:py-14">
+    <!-- Header -->
+    <header class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-slate-800 pb-6 mb-8">
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-400 text-xs font-semibold tracking-wider uppercase mb-3">
+          <i class="fa-solid fa-compass"></i> IB MYP Year 4 &bull; Grade 9
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+          Grade 9 Mathematics
+        </h1>
+        <p class="text-slate-400 mt-1 text-base">
+          Interactive Presentations, Handouts &amp; Lesson Resources
+        </p>
+      </div>
+
+      <!-- Search Filter -->
+      <div class="relative w-full sm:w-64">
+        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Filter lessons..."
+          class="w-full bg-slate-800/90 border border-slate-700 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-sky-500 transition"
+        />
+      </div>
+    </header>
+
+    <!-- Lesson Grid -->
+    <main id="lessonGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></main>
+
+    <!-- Footer -->
+    <footer class="mt-14 pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
+      <span>ricardo64.github.io/Gr9-MYP-Maths</span>
+      <span id="lessonCount"></span>
+    </footer>
+  </div>
+
+  <script>
+    // =========================================================================
+    // ADD NEW LESSONS HERE:
+    // Just add a new object to this list whenever you create a new folder!
+    // =========================================================================
+    const lessons = [
+      {
+        number: "01",
+        title: "Forming & Solving Equations",
+        subtitle: "Algebraic word problems, geometry & Criterion A practice",
+        folder: "./Forming-Solving-Equations/",
+        tag: "Algebra",
+        icon: "fa-scale-balanced",
+        accent: "sky"
+      },
+      {
+        number: "02",
+        title: "More Forming & Solving Equations",
+        subtitle: "Interactive slides, collapsible working & differentiated strips",
+        folder: "./More-Forming-Solving-Equations/",
+        tag: "Algebra",
+        icon: "fa-layer-group",
+        accent: "indigo"
+      },
+      {
+        number: "03",
+        title: "Power Equations",
+        subtitle: "Powers, roots, GDC solutions & Ex 3E handouts",
+        folder: "./Power-Equations/",
+        tag: "Equations",
+        icon: "fa-superscript",
+        accent: "emerald"
+      }
+    ];
+
+    const accentStyles = {
+      sky: "bg-sky-500/15 text-sky-400 border-sky-500/30",
+      indigo: "bg-indigo-500/15 text-indigo-400 border-indigo-500/30",
+      emerald: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
+      amber: "bg-amber-500/15 text-amber-400 border-amber-500/30",
+      rose: "bg-rose-500/15 text-rose-400 border-rose-500/30"
+    };
+
+    const grid = document.getElementById("lessonGrid");
+    const countEl = document.getElementById("lessonCount");
+    const searchInput = document.getElementById("searchInput");
+
+    function renderLessons(filter = "") {
+      const query = filter.trim().toLowerCase();
+      const filtered = lessons.filter(l =>
+        l.title.toLowerCase().includes(query) ||
+        l.subtitle.toLowerCase().includes(query) ||
+        l.tag.toLowerCase().includes(query)
+      );
+
+      grid.innerHTML = filtered.map(lesson => {
+        const badgeClass = accentStyles[lesson.accent] || accentStyles.sky;
+        return `
+          <a href="${lesson.folder}" class="lesson-card group block bg-slate-800/75 border border-slate-700/80 rounded-2xl p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="mono text-xs font-bold px-2.5 py-1 rounded-lg border ${badgeClass}">
+                  LESSON ${lesson.number}
+                </span>
+                <div class="w-10 h-10 rounded-xl bg-slate-900/80 border border-slate-700 flex items-center justify-center text-slate-300 group-hover:text-sky-400 transition">
+                  <i class="fa-solid ${lesson.icon}"></i>
+                </div>
+              </div>
+              <h2 class="text-xl font-bold text-white group-hover:text-sky-300 transition leading-snug">
+                ${lesson.title}
+              </h2>
+              <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+                ${lesson.subtitle}
+              </p>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-slate-700/60 flex items-center justify-between text-xs font-semibold">
+              <span class="text-slate-400 uppercase tracking-wider">${lesson.tag}</span>
+              <span class="text-sky-400 inline-flex items-center gap-1.5 group-hover:translate-x-1 transition-transform">
+                Open Lesson <i class="fa-solid fa-arrow-right"></i>
+              </span>
+            </div>
+          </a>
+        `;
+      }).join("");
+
+      countEl.textContent = `${filtered.length} ${filtered.length === 1 ? "Lesson" : "Lessons"} Available`;
+    }
+
+    searchInput.addEventListener("input", (e) => renderLessons(e.target.value));
+    renderLessons();
+  </script>
+</body>
+</html>
