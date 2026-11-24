@@ -2,171 +2,160 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Grade 9 MYP Mathematics</title>
-
-  <!-- iPad Home Screen App Configuration -->
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Gr9 Maths" />
-  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%230f172a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='180' height='180' rx='40' fill='url(%23g)'/%3E%3Ctext x='90' y='82' font-family='-apple-system, sans-serif' font-size='44' font-weight='800' fill='%23ffffff' text-anchor='middle'%3EMYP 4%3C/text%3E%3Ctext x='90' y='132' font-family='-apple-system, sans-serif' font-size='34' font-weight='600' fill='%2393c5fd' text-anchor='middle'%3Ex%C2%B2 = k%3C/text%3E%3C/svg%3E" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grade 9 MYP Mathematics — Interactive Lessons</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-
   <style>
     body {
       font-family: 'DM Sans', sans-serif;
       background-color: #0f172a;
       color: #f8fafc;
-      min-height: 100vh;
     }
-    .mono {
+    .font-math {
       font-family: 'JetBrains Mono', monospace;
-    }
-    .lesson-card {
-      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-    .lesson-card:hover, .lesson-card:active {
-      transform: translateY(-3px);
-      border-color: #38bdf8;
-      box-shadow: 0 12px 28px -8px rgba(14, 165, 233, 0.28);
     }
   </style>
 </head>
-<body class="bg-slate-900 text-slate-100 antialiased selection:bg-sky-500 selection:text-white">
+<body class="min-h-screen flex flex-col justify-between">
 
-  <div class="max-w-5xl mx-auto px-5 py-10 sm:py-14">
-    <!-- Header -->
-    <header class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-slate-800 pb-6 mb-8">
-      <div>
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-400 text-xs font-semibold tracking-wider uppercase mb-3">
-          <i class="fa-solid fa-compass"></i> IB MYP Year 4 &bull; Grade 9
+  <!-- Header -->
+  <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-30">
+    <div class="max-w-5xl mx-auto px-5 py-5 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3.5">
+        <div class="w-11 h-11 rounded-2xl bg-sky-500/20 border border-sky-400/40 text-sky-400 flex items-center justify-center font-math font-bold text-lg">
+          G9
         </div>
-        <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-          Grade 9 Mathematics
-        </h1>
-        <p class="text-slate-400 mt-1 text-base">
-          Interactive Presentations, Handouts &amp; Lesson Resources
-        </p>
+        <div>
+          <p class="text-xs font-bold uppercase tracking-widest text-sky-400">MYP Mathematics</p>
+          <h1 class="text-xl sm:text-2xl font-extrabold text-white">Grade 9 Interactive Lesson Hub</h1>
+        </div>
       </div>
+      <span class="text-xs font-semibold text-slate-400 bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-full">
+        Algebra &amp; Equations Unit
+      </span>
+    </div>
+  </header>
 
-      <!-- Search Filter -->
-      <div class="relative w-full sm:w-64">
-        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-        <input
-          id="searchInput"
-          type="text"
-          placeholder="Filter lessons..."
-          class="w-full bg-slate-800/90 border border-slate-700 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-sky-500 transition"
-        />
-      </div>
-    </header>
+  <!-- Main Lesson Grid -->
+  <main class="max-w-5xl w-full mx-auto px-5 py-10 flex-1">
+    <div class="mb-6">
+      <h2 class="text-lg font-bold text-slate-200">Select a Lesson</h2>
+      <p class="text-sm text-slate-400">Tap any lesson card below to launch the interactive presentation.</p>
+    </div>
 
-    <!-- Lesson Grid -->
-    <main id="lessonGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></main>
+    <div id="lessons-grid" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
+  </main>
 
-    <!-- Footer -->
-    <footer class="mt-14 pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
-      <span>ricardo64.github.io/Gr9-MYP-Maths</span>
-      <span id="lessonCount"></span>
-    </footer>
-  </div>
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 text-slate-500 text-xs py-5 px-5 text-center">
+    Grade 9 MYP Mathematics • Interactive Whiteboard &amp; Student Resources
+  </footer>
 
   <script>
-    // =========================================================================
-    // ADD NEW LESSONS HERE:
-    // Just add a new object to this list whenever you create a new folder!
-    // =========================================================================
     const lessons = [
       {
         number: "01",
         title: "Forming & Solving Equations",
-        subtitle: "Algebraic word problems, geometry & Criterion A practice",
+        subtitle: "Translating word problems into linear equations and solving step-by-step",
         folder: "./Forming-Solving-Equations/",
-        tag: "Algebra",
-        icon: "fa-scale-balanced",
+        tag: "Equations",
+        icon: "fa-equals",
         accent: "sky"
       },
       {
         number: "02",
         title: "More Forming & Solving Equations",
-        subtitle: "Interactive slides, collapsible working & differentiated strips",
+        subtitle: "Multi-step equations, brackets, unknowns on both sides & geometric applications",
         folder: "./More-Forming-Solving-Equations/",
-        tag: "Algebra",
-        icon: "fa-layer-group",
-        accent: "indigo"
+        tag: "Equations",
+        icon: "fa-scale-balanced",
+        accent: "emerald"
       },
       {
         number: "03",
         title: "Power Equations",
-        subtitle: "Powers, roots, GDC solutions & Ex 3E handouts",
+        subtitle: "Solving equations involving squares, cubes, square roots & cube roots",
         folder: "./Power-Equations/",
-        tag: "Equations",
+        tag: "Powers & Roots",
         icon: "fa-superscript",
-        accent: "emerald"
+        accent: "purple"
+      },
+      {
+        number: "04",
+        title: "Interpreting & Representing Inequalities",
+        subtitle: "Number lines, double & compound inequalities, plus self-check Toddle homework",
+        folder: "./Interpreting-Inequalities/",
+        homework: "./Interpreting-Inequalities/homework.html",
+        tag: "Inequalities",
+        icon: "fa-less-than-equal",
+        accent: "amber"
       }
     ];
 
     const accentStyles = {
-      sky: "bg-sky-500/15 text-sky-400 border-sky-500/30",
-      indigo: "bg-indigo-500/15 text-indigo-400 border-indigo-500/30",
-      emerald: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
-      amber: "bg-amber-500/15 text-amber-400 border-amber-500/30",
-      rose: "bg-rose-500/15 text-rose-400 border-rose-500/30"
+      sky: {
+        badge: "bg-sky-500/15 text-sky-300 border-sky-400/30",
+        iconBox: "bg-sky-500/20 text-sky-400 border-sky-400/30",
+        hover: "hover:border-sky-400/60"
+      },
+      emerald: {
+        badge: "bg-emerald-500/15 text-emerald-300 border-emerald-400/30",
+        iconBox: "bg-emerald-500/20 text-emerald-400 border-emerald-400/30",
+        hover: "hover:border-emerald-400/60"
+      },
+      purple: {
+        badge: "bg-purple-500/15 text-purple-300 border-purple-400/30",
+        iconBox: "bg-purple-500/20 text-purple-400 border-purple-400/30",
+        hover: "hover:border-purple-400/60"
+      },
+      amber: {
+        badge: "bg-amber-500/15 text-amber-300 border-amber-400/30",
+        iconBox: "bg-amber-500/20 text-amber-400 border-amber-400/30",
+        hover: "hover:border-amber-400/60"
+      }
     };
 
-    const grid = document.getElementById("lessonGrid");
-    const countEl = document.getElementById("lessonCount");
-    const searchInput = document.getElementById("searchInput");
+    const grid = document.getElementById("lessons-grid");
+    grid.innerHTML = lessons.map(lesson => {
+      const st = accentStyles[lesson.accent] || accentStyles.sky;
+      const hwLink = lesson.homework
+        ? `<a href="${lesson.homework}" class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-300 hover:text-amber-200 bg-amber-500/15 border border-amber-400/30 px-3 py-1.5 rounded-lg transition">
+             <i class="fa-solid fa-clipboard-check"></i> Homework Quiz
+           </a>`
+        : "";
 
-    function renderLessons(filter = "") {
-      const query = filter.trim().toLowerCase();
-      const filtered = lessons.filter(l =>
-        l.title.toLowerCase().includes(query) ||
-        l.subtitle.toLowerCase().includes(query) ||
-        l.tag.toLowerCase().includes(query)
-      );
-
-      grid.innerHTML = filtered.map(lesson => {
-        const badgeClass = accentStyles[lesson.accent] || accentStyles.sky;
-        return `
-          <a href="${lesson.folder}" class="lesson-card group block bg-slate-800/75 border border-slate-700/80 rounded-2xl p-6 flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between mb-4">
-                <span class="mono text-xs font-bold px-2.5 py-1 rounded-lg border ${badgeClass}">
-                  LESSON ${lesson.number}
-                </span>
-                <div class="w-10 h-10 rounded-xl bg-slate-900/80 border border-slate-700 flex items-center justify-center text-slate-300 group-hover:text-sky-400 transition">
+      return `
+        <div class="bg-slate-900/90 border border-slate-800 ${st.hover} rounded-2xl p-6 flex flex-col justify-between transition shadow-lg">
+          <div>
+            <div class="flex items-center justify-between gap-3 mb-4">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl border ${st.iconBox} flex items-center justify-center text-sm">
                   <i class="fa-solid ${lesson.icon}"></i>
                 </div>
+                <span class="font-math text-xs font-bold text-slate-400">LESSON ${lesson.number}</span>
               </div>
-              <h2 class="text-xl font-bold text-white group-hover:text-sky-300 transition leading-snug">
-                ${lesson.title}
-              </h2>
-              <p class="text-slate-400 text-sm mt-2 leading-relaxed">
-                ${lesson.subtitle}
-              </p>
-            </div>
-
-            <div class="mt-6 pt-4 border-t border-slate-700/60 flex items-center justify-between text-xs font-semibold">
-              <span class="text-slate-400 uppercase tracking-wider">${lesson.tag}</span>
-              <span class="text-sky-400 inline-flex items-center gap-1.5 group-hover:translate-x-1 transition-transform">
-                Open Lesson <i class="fa-solid fa-arrow-right"></i>
+              <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${st.badge}">
+                ${lesson.tag}
               </span>
             </div>
-          </a>
-        `;
-      }).join("");
 
-      countEl.textContent = `${filtered.length} ${filtered.length === 1 ? "Lesson" : "Lessons"} Available`;
-    }
+            <h3 class="text-xl font-extrabold text-white mb-2">${lesson.title}</h3>
+            <p class="text-sm text-slate-400 leading-relaxed mb-6">${lesson.subtitle}</p>
+          </div>
 
-    searchInput.addEventListener("input", (e) => renderLessons(e.target.value));
-    renderLessons();
+          <div class="flex flex-wrap items-center justify-between gap-2 pt-4 border-t border-slate-800">
+            <a href="${lesson.folder}" class="inline-flex items-center gap-2 text-sm font-bold text-white bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-xl transition">
+              <span>Open Lesson</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            ${hwLink}
+          </div>
+        </div>
+      `;
+    }).join("");
   </script>
 </body>
 </html>
