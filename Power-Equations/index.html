@@ -98,16 +98,15 @@
           <option value="7">Slide 8: Calculator Practice (a, b, c)</option>
           <option value="8">Slide 9: Example 4 — Solve x/2 = 5/x</option>
           <option value="9">Slide 10: Example 5 — Negative Powers (x² = −25, x³ = −8)</option>
-          <option value="10">Slide 11: Handout — Page 88 Exercise 3E</option>
-          <option value="11">Slide 12: Handout — Solving Equations with Powers &amp; Roots</option>
-          <option value="12">Slide 13: Handout — Homework Sheet</option>
+          <option value="10">Slide 11: Handout — Solving Equations with Powers &amp; Roots</option>
+          <option value="11">Slide 12: Handout — Homework Sheet</option>
         </select>
       </div>
     </div>
 
     <!-- Progress Bar -->
     <div class="max-w-6xl mx-auto mt-2.5 bg-slate-800 h-1.5 rounded-full overflow-hidden">
-      <div id="deck-progress" class="bg-sky-400 h-1.5 rounded-full transition-all duration-300" style="width: 7.69%;"></div>
+      <div id="deck-progress" class="bg-sky-400 h-1.5 rounded-full transition-all duration-300" style="width: 8.33%;"></div>
     </div>
   </header>
 
@@ -538,104 +537,7 @@
       </section>
 
       <!-- =================================================================== -->
-      <!-- SLIDE 11: HANDOUT — PAGE 88 EXERCISE 3E                             -->
-      <!-- =================================================================== -->
-      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between">
-        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <div>
-            <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Page 88 • Exercise 3E</p>
-            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Handout</h2>
-          </div>
-          <div class="flex items-center gap-2">
-            <button type="button" onclick="togglePad('pad-ex3e', this)" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-white transition flex items-center gap-1.5">
-              <i class="fa-solid fa-pen"></i> <span>Writing Pad</span>
-            </button>
-            <button type="button" onclick="toggleSimpleAnswer('sol-ex3e', this)" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5">
-              <i class="fa-solid fa-eye"></i> <span>Reveal Solutions</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Exercise 3E Problems -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 my-auto text-xs sm:text-sm">
-          <!-- Question 1 -->
-          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5">
-            <p class="font-extrabold text-slate-900 mb-3"><span class="px-2 py-0.5 bg-sky-600 text-white rounded mr-1.5">1</span> Solve for x, giving your answers correct to 3 significant figures:</p>
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 font-math text-slate-800">
-              <div><strong>a</strong> x<sup>2</sup> = 11</div>
-              <div><strong>b</strong> x<sup>2</sup> = &minus;5</div>
-              <div><strong>c</strong> x<sup>2</sup> = 71</div>
-              <div><strong>d</strong> x<sup>2</sup> = 89, x &gt; 0</div>
-              <div><strong>e</strong> x<sup>3</sup> = 8</div>
-              <div><strong>f</strong> x<sup>3</sup> = 11</div>
-              <div><strong>g</strong> x<sup>3</sup> = &minus;11</div>
-              <div><strong>h</strong> x<sup>4</sup> = 81</div>
-              <div><strong>i</strong> x<sup>4</sup> = &minus;1</div>
-              <div><strong>j</strong> x<sup>5</sup> = 23</div>
-              <div><strong>k</strong> x<sup>5</sup> = &minus;113</div>
-              <div><strong>l</strong> x<sup>6</sup> = 39.2, x &gt; 0</div>
-            </div>
-          </div>
-
-          <!-- Question 2 -->
-          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5">
-            <p class="font-extrabold text-slate-900 mb-3"><span class="px-2 py-0.5 bg-sky-600 text-white rounded mr-1.5">2</span> Solve for x:</p>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-math text-slate-800 items-center">
-              <div><strong>a</strong> <span class="frac"><span>x</span><span>3</span></span> = <span class="frac"><span>4</span><span>x</span></span></div>
-              <div><strong>b</strong> <span class="frac"><span>x</span><span>6</span></span> = <span class="frac"><span>6</span><span>x</span></span></div>
-              <div><strong>c</strong> <span class="frac"><span>1</span><span>x</span></span> = <span class="frac"><span>x</span><span>3</span></span></div>
-              <div><strong>d</strong> <span class="frac"><span>x</span><span>7</span></span> = <span class="frac"><span>7</span><span>x</span></span></div>
-              <div><strong>e</strong> <span class="frac"><span>2</span><span>x</span></span> = <span class="frac"><span>x</span><span>5</span></span></div>
-              <div><strong>f</strong> <span class="frac"><span>7</span><span>x</span></span> = <span class="frac"><span>x</span><span>5</span></span></div>
-              <div><strong>g</strong> <span class="frac"><span>x</span><span>2</span></span> = <span class="frac"><span>8</span><span>x</span></span></div>
-              <div><strong>h</strong> <span class="frac"><span>x</span><span>5</span></span> = <span class="frac"><span>&minus;2</span><span>x</span></span></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Collapsible Writing Pad -->
-        <div id="pad-ex3e" class="hidden mt-3 border border-slate-300 rounded-2xl overflow-hidden bg-slate-100"></div>
-
-        <!-- Reveal Solutions Panel -->
-        <div id="sol-ex3e" class="hidden mt-3 bg-emerald-50 border-2 border-emerald-300 rounded-2xl p-4 text-xs sm:text-sm">
-          <p class="font-extrabold uppercase tracking-wider text-emerald-800 mb-2">Exercise 3E Solutions</p>
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 font-math text-emerald-950">
-            <div>
-              <p class="font-sans font-bold text-emerald-800 mb-1">Question 1:</p>
-              <div class="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
-                <div><strong>a</strong> x &approx; &plusmn;3.32</div>
-                <div><strong>b</strong> no solutions</div>
-                <div><strong>c</strong> x &approx; &plusmn;8.43</div>
-                <div><strong>d</strong> x &approx; 9.43</div>
-                <div><strong>e</strong> x = 2</div>
-                <div><strong>f</strong> x &approx; 2.22</div>
-                <div><strong>g</strong> x &approx; &minus;2.22</div>
-                <div><strong>h</strong> x = &plusmn;3</div>
-                <div><strong>i</strong> no solutions</div>
-                <div><strong>j</strong> x &approx; 1.87</div>
-                <div><strong>k</strong> x &approx; &minus;2.57</div>
-                <div><strong>l</strong> x &approx; 1.84</div>
-              </div>
-            </div>
-            <div>
-              <p class="font-sans font-bold text-emerald-800 mb-1">Question 2:</p>
-              <div class="grid grid-cols-2 gap-1.5">
-                <div><strong>a</strong> x = &plusmn;&radic;<span class="rad">12</span> (&plusmn;2&radic;<span class="rad">3</span>)</div>
-                <div><strong>b</strong> x = &plusmn;6</div>
-                <div><strong>c</strong> x = &plusmn;&radic;<span class="rad">3</span></div>
-                <div><strong>d</strong> x = &plusmn;7</div>
-                <div><strong>e</strong> x = &plusmn;&radic;<span class="rad">10</span></div>
-                <div><strong>f</strong> x = &plusmn;&radic;<span class="rad">35</span></div>
-                <div><strong>g</strong> x = &plusmn;4</div>
-                <div><strong>h</strong> no solutions exist</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- =================================================================== -->
-      <!-- SLIDE 12: HANDOUT — SOLVING EQUATIONS WITH POWERS & ROOTS           -->
+      <!-- SLIDE 11: HANDOUT — SOLVING EQUATIONS WITH POWERS & ROOTS           -->
       <!-- =================================================================== -->
       <section class="slide-panel flex-1 bg-white p-6 sm:p-8 md:p-10 flex-col justify-between">
         <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
@@ -763,7 +665,7 @@
       </section>
 
       <!-- =================================================================== -->
-      <!-- SLIDE 13: HANDOUT — HOMEWORK SHEET (NO SOLUTIONS SHOWN HERE)        -->
+      <!-- SLIDE 12: HANDOUT — HOMEWORK SHEET (NO SOLUTIONS SHOWN HERE)        -->
       <!-- =================================================================== -->
       <section class="slide-panel flex-1 bg-slate-900 text-white p-6 sm:p-10 md:p-12 flex-col justify-between">
         <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
