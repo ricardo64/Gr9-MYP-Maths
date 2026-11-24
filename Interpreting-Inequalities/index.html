@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interpreting &amp; Representing Inequalities — Grade 9 Interactive Lesson</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: #0f172a;
+      overflow-x: hidden;
+    }
+    .font-math {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .slide-panel {
+      display: none;
+      animation: fadeSlideIn 0.25s ease-out forwards;
+    }
+    .slide-panel.active {
+      display: flex;
+    }
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      line-height: 1.05;
+      margin: 0 3px;
+      font-size: 0.92em;
+    }
+    .frac > span:first-child {
+      border-bottom: 1.8px solid currentColor;
+      padding: 0 5px 1px 5px;
+    }
+    .frac > span:last-child {
+      padding: 1px 5px 0 5px;
+    }
+    .rad {
+      border-top: 1.8px solid currentColor;
+      padding: 0 2px;
+      display: inline-block;
+    }
+    .writing-canvas {
+      background-color: #ffffff;
+      background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+      background-size: 16px 16px;
+      touch-action: none;
+      cursor: crosshair;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between text-slate-900 select-none">
+
+  <!-- Top Presentation Control Bar -->
+  <header class="bg-slate-900/95 backdrop-blur border-b border-slate-800 text-slate-100 px-4 sm:px-6 py-3 sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-sky-500/20 border border-sky-400/40 text-sky-400 flex items-center justify-center font-math font-bold text-sm">
+          &le; &ge;
+        </div>
+        <div>
+          <h1 class="text-sm sm:text-base font-bold text-white leading-tight">Interpreting &amp; Representing Inequalities</h1>
+          <p class="text-[11px] text-slate-400 hidden sm:block">Grade 9 MYP Mathematics • Number Lines &amp; Double Inequalities</p>
+        </div>
+      </div>
+
+      <!-- Slide Selector -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <select id="slide-selector" onchange="goToSlide(parseInt(this.value, 10))"
+                class="bg-slate-800 border border-slate-700 text-slate-200 text-xs sm:text-sm font-medium rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500 cursor-pointer max-w-[240px] sm:max-w-none">
+          <option value="0">Slide 1: 5-Min Starter — Power Equations</option>
+          <option value="1">Slide 2: Previous Homework Solutions</option>
+          <option value="2">Slide 3: Concept Discussion (x = 5, x &lt; 5, x &ge; 5)</option>
+          <option value="3">Slide 4: Title — Linear Inequalities</option>
+          <option value="4">Slide 5: Number Lines 1 (x &gt; 2 and x &ge; 2)</option>
+          <option value="5">Slide 6: Number Lines 2 (x &lt; −2 and x &le; 3)</option>
+          <option value="6">Slide 7: Number Lines 3 (x &lt; −1 and x &ge; 0)</option>
+          <option value="7">Slide 8: Double Inequalities (−2 &lt; x &le; 3 &amp; 0 &le; x &le; 4)</option>
+          <option value="8">Slide 9: Compound 'Or' Inequalities</option>
+          <option value="9">Slide 10: Reading Inequalities from Number Lines</option>
+          <option value="10">Slide 11: Handout 1 — Representing Inequalities (a–t)</option>
+          <option value="11">Slide 12: Handout 2 — Double Inequalities (a–p)</option>
+          <option value="12">Slide 13: Kahoot! &amp; Interactive Homework</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="max-w-6xl mx-auto mt-2.5 bg-slate-800 h-1.5 rounded-full overflow-hidden">
+      <div id="deck-progress" class="bg-sky-400 h-1.5 rounded-full transition-all duration-300" style="width: 7.69%;"></div>
+    </div>
+  </header>
+
+  <!-- Main Slide Stage -->
+  <main id="slide-stage" class="flex-1 flex items-center justify-center p-3 sm:p-6 md:p-8">
+    <div class="w-full max-w-6xl min-h-[550px] md:min-h-[610px] rounded-2xl shadow-2xl overflow-hidden border border-slate-700/60 flex flex-col">
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 1: 5-MINUTE STARTER — POWER EQUATIONS                         -->
+      <!-- =================================================================== -->
+      <section class="slide-panel active flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <div>
+            <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">5-Minute Retrieval Starter</p>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Starter — Power Equations</h2>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <!-- 5-Minute Countdown Timer -->
+            <div class="flex items-center gap-2 bg-slate-900 text-white px-3 py-1.5 rounded-xl border border-slate-700">
+              <i class="fa-regular fa-clock text-sky-400"></i>
+              <span id="starter-timer" class="font-math font-bold text-sm sm:text-base tracking-wider">05:00</span>
+              <button type="button" id="timer-toggle-btn" onclick="toggleStarterTimer()" class="px-2 py-0.5 rounded bg-sky-600 hover:bg-sky-500 text-xs font-bold">Start</button>
+              <button type="button" onclick="resetStarterTimer()" class="px-2 py-0.5 rounded bg-slate-700 hover:bg-slate-600 text-xs font-bold">Reset</button>
+            </div>
+
+            <button type="button" onclick="togglePad('pad-s1', this)" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-white transition flex items-center gap-1.5">
+              <i class="fa-solid fa-pen"></i> <span>Writing Pad</span>
+            </button>
+            <button type="button" onclick="toggleBox('ans-s1', this, 'Reveal Answers', 'Hide Answers')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5">
+              <i class="fa-solid fa-eye"></i> <span>Reveal Answers</span>
+            </button>
+          </div>
+        </div>
+
+        <p class="text-sm text-slate-600 mb-4">Solve each equation for <span class="font-math font-bold">x</span>. Give exact answers (or 3 s.f. where needed).</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-auto">
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 text-center shadow-sm">
+            <span class="text-xs font-extrabold text-sky-600 block mb-1">1)</span>
+            <p class="font-math text-2xl sm:text-3xl font-bold text-slate-900">x<sup>2</sup> = 49</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 text-center shadow-sm">
+            <span class="text-xs font-extrabold text-sky-600 block mb-1">2)</span>
+            <p class="font-math text-2xl sm:text-3xl font-bold text-slate-900">x<sup>3</sup> = &minus;27</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 text-center shadow-sm">
+            <span class="text-xs font-extrabold text-sky-600 block mb-1">3)</span>
+            <p class="font-math text-2xl sm:text-3xl font-bold text-slate-900">x<sup>2</sup> = &minus;16</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 text-center shadow-sm">
+            <span class="text-xs font-extrabold text-sky-600 block mb-1">4)</span>
+            <p class="font-math text-2xl sm:text-3xl font-bold text-slate-900">2x<sup>2</sup> &minus; 3 = 29</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 text-center shadow-sm">
+            <span class="text-xs font-extrabold text-sky-600 block mb-1">5)</span>
+            <p class="font-math text-2xl sm:text-3xl font-bold text-slate-900">3&radic;<span class="rad">x</span> + 1 = 13</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 text-center shadow-sm">
+            <span class="text-xs font-extrabold text-sky-600 block mb-1">6)</span>
+            <div class="font-math text-2xl sm:text-3xl font-bold text-slate-900">
+              <span class="frac"><span>x</span><span>3</span></span> = <span class="frac"><span>12</span><span>x</span></span>
+            </div>
+          </div>
+        </div>
+
+        <div id="pad-s1" class="hidden mt-4 border border-slate-300 rounded-2xl overflow-hidden bg-slate-100"></div>
+
+        <div id="ans-s1" class="hidden mt-4 bg-emerald-50 border-2 border-emerald-300 rounded-2xl p-4 sm:p-5">
+          <p class="text-xs font-extrabold uppercase tracking-wider text-emerald-800 mb-2">Starter Answers</p>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 font-math text-sm sm:text-base font-bold text-emerald-950">
+            <div>1) x = &plusmn;7</div>
+            <div>2) x = &minus;3</div>
+            <div>3) No real solutions</div>
+            <div>4) x<sup>2</sup> = 16 &rarr; x = &plusmn;4</div>
+            <div>5) &radic;<span class="rad">x</span> = 4 &rarr; x = 16</div>
+            <div>6) x<sup>2</sup> = 36 &rarr; x = &plusmn;6</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 2: HOMEWORK SOLUTIONS (FROM POWER EQUATIONS LESSON)           -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <div>
+            <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Previous Lesson Review • Powers &amp; Roots</p>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Homework — Solutions</h2>
+          </div>
+          <button type="button" onclick="toggleBox('hw-prev-sols', this, 'Reveal All Answers', 'Hide Answers')" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-2">
+            <i class="fa-solid fa-eye"></i> <span>Reveal All Answers</span>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 my-auto">
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5">
+            <span class="text-xs font-extrabold text-sky-700 block mb-1">(a)</span>
+            <p class="font-math text-xs sm:text-sm font-semibold text-slate-800">3x<sup>2</sup> &minus; 25 = 2x<sup>2</sup></p>
+            <p class="hw-prev-ans hidden font-math text-sm font-bold text-emerald-700 mt-2 pt-1.5 border-t border-slate-200">x = &plusmn;5</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5">
+            <span class="text-xs font-extrabold text-sky-700 block mb-1">(b)</span>
+            <p class="font-math text-xs sm:text-sm font-semibold text-slate-800">4&radic;<span class="rad">x</span> + 3 = 5&radic;<span class="rad">x</span></p>
+            <p class="hw-prev-ans hidden font-math text-sm font-bold text-emerald-700 mt-2 pt-1.5 border-t border-slate-200">x = 9</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5">
+            <span class="text-xs font-extrabold text-sky-700 block mb-1">(c)</span>
+            <p class="font-math text-xs sm:text-sm font-semibold text-slate-800">7x<sup>3</sup> + 16 = 5x<sup>3</sup></p>
+            <p class="hw-prev-ans hidden font-math text-sm font-bold text-emerald-700 mt-2 pt-1.5 border-t border-slate-200">x = &minus;2</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5">
+            <span class="text-xs font-extrabold text-sky-700 block mb-1">(d)</span>
+            <p class="font-math text-xs sm:text-sm font-semibold text-slate-800">9 &minus; <sup>3</sup>&radic;<span class="rad">x</span> = 2<sup>3</sup>&radic;<span class="rad">x</span></p>
+            <p class="hw-prev-ans hidden font-math text-sm font-bold text-emerald-700 mt-2 pt-1.5 border-t border-slate-200">x = 27</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5">
+            <span class="text-xs font-extrabold text-sky-700 block mb-1">(e)</span>
+            <p class="font-math text-xs sm:text-sm font-semibold text-slate-800">4 + 5&radic;<span class="rad">x</span> = 2&radic;<span class="rad">x</span> + 16</p>
+            <p class="hw-prev-ans hidden font-math text-sm font-bold text-emerald-700 mt-2 pt-1.5 border-t border-slate-200">x = 16</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5">
+            <span class="text-xs font-extrabold text-sky-700 block mb-1">(f)</span>
+            <p class="font-math text-xs sm:text-sm font-semibold text-slate-800">6x<sup>3</sup> &minus; 1 = 4 + x<sup>3</sup></p>
+            <p class="hw-prev-ans hidden font-math text-sm font-bold text-emerald-700 mt-2 pt-1.5 border-t border-slate-200">x = 1</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5">
+            <span class="text-xs font-extrabold text-sky-700 block mb-1">(g)</span>
+            <p class="font-math text-xs sm:text-sm font-semibold text-slate-800">72 &minus; x<sup>2</sup> = x<sup>2</sup> &minus; 26</p>
+            <p class="hw-prev-ans hidden font-math text-sm font-bold text-emerald-700 mt-2 pt-1.5 border-t border-slate-200">x = &plusmn;7</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5">
+            <span class="text-xs font-extrabold text-sky-700 block mb-1">(h)</span>
+            <p class="font-math text-xs sm:text-sm font-semibold text-slate-800">3 &minus; 2&radic;<span class="rad">x</span> = &radic;<span class="rad">x</span> &minus; 21</p>
+            <p class="hw-prev-ans hidden font-math text-sm font-bold text-emerald-700 mt-2 pt-1.5 border-t border-slate-200">x = 64</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5">
+            <span class="text-xs font-extrabold text-sky-700 block mb-1">(i)</span>
+            <p class="font-math text-xs sm:text-sm font-semibold text-slate-800">7(<sup>3</sup>&radic;<span class="rad">x</span> &minus; 1) = 13 + 3<sup>3</sup>&radic;<span class="rad">x</span></p>
+            <p class="hw-prev-ans hidden font-math text-sm font-bold text-emerald-700 mt-2 pt-1.5 border-t border-slate-200">x = 125</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5">
+            <span class="text-xs font-extrabold text-sky-700 block mb-1">(j)</span>
+            <p class="font-math text-xs sm:text-sm font-semibold text-slate-800">5x<sup>2</sup> &minus; 48 = 2(30 + x<sup>2</sup>)</p>
+            <p class="hw-prev-ans hidden font-math text-sm font-bold text-emerald-700 mt-2 pt-1.5 border-t border-slate-200">x = &plusmn;6</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5">
+            <span class="text-xs font-extrabold text-sky-700 block mb-1">(k)</span>
+            <p class="font-math text-xs sm:text-sm font-semibold text-slate-800">3(21 &minus; x<sup>3</sup>) = 9 &minus; 5x<sup>3</sup></p>
+            <p class="hw-prev-ans hidden font-math text-sm font-bold text-emerald-700 mt-2 pt-1.5 border-t border-slate-200">x = &minus;3</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5">
+            <span class="text-xs font-extrabold text-sky-700 block mb-1">(l)</span>
+            <p class="font-math text-xs sm:text-sm font-semibold text-slate-800">3(&radic;<span class="rad">x</span> &minus; 4) = 2(8 &minus; &radic;<span class="rad">x</span>) + &radic;<span class="rad">x</span></p>
+            <p class="hw-prev-ans hidden font-math text-sm font-bold text-emerald-700 mt-2 pt-1.5 border-t border-slate-200">x = 49</p>
+          </div>
+        </div>
+        <div id="hw-prev-sols" class="hidden"></div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 3: CONCEPT DISCUSSION HOOK                                    -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <div>
+            <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Think • Pair • Share</p>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Comparing Mathematical Statements</h2>
+          </div>
+          <button type="button" onclick="toggleBox('hook-answers', this, 'Reveal Discussion Points', 'Hide Discussion Points')" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-2">
+            <i class="fa-solid fa-eye"></i> <span>Reveal Discussion Points</span>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 my-4">
+          <div class="bg-slate-900 text-white rounded-2xl p-6 text-center shadow-md">
+            <p class="font-math text-3xl sm:text-5xl font-bold text-sky-400">x = 5</p>
+          </div>
+          <div class="bg-slate-900 text-white rounded-2xl p-6 text-center shadow-md">
+            <p class="font-math text-3xl sm:text-5xl font-bold text-amber-400">x &lt; 5</p>
+          </div>
+          <div class="bg-slate-900 text-white rounded-2xl p-6 text-center shadow-md">
+            <p class="font-math text-3xl sm:text-5xl font-bold text-emerald-400">x &ge; 5</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-auto">
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+            <h3 class="font-extrabold text-slate-900 text-base sm:text-lg mb-2">1. What do these statements mean?</h3>
+            <div class="hook-ans hidden text-sm text-slate-700 space-y-1.5 pt-2 border-t border-slate-200">
+              <p><strong class="font-math">x = 5:</strong> <span class="font-math">x</span> is strictly equal to 5.</p>
+              <p><strong class="font-math">x &lt; 5:</strong> <span class="font-math">x</span> is strictly less than 5 (not including 5).</p>
+              <p><strong class="font-math">x &ge; 5:</strong> <span class="font-math">x</span> is greater than or equal to 5 (includes 5).</p>
+            </div>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+            <h3 class="font-extrabold text-slate-900 text-base sm:text-lg mb-2">2. What do they have in common?</h3>
+            <div class="hook-ans hidden text-sm text-slate-700 space-y-1.5 pt-2 border-t border-slate-200">
+              <p>All three compare the variable <span class="font-math font-bold">x</span> against the boundary value <strong>5</strong> on a number line.</p>
+            </div>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+            <h3 class="font-extrabold text-slate-900 text-base sm:text-lg mb-2">3. Which one is the odd one out?</h3>
+            <div class="hook-ans hidden text-sm text-slate-700 space-y-1.5 pt-2 border-t border-slate-200">
+              <p><strong class="font-math">x = 5</strong> is an <em>equation</em> (1 single value), whereas <span class="font-math">x &lt; 5</span> and <span class="font-math">x &ge; 5</span> are <em>inequalities</em> (infinitely many values).</p>
+              <p class="text-xs text-slate-500"><em>(Or <span class="font-math">x &lt; 5</span> because it does not include 5!)</em></p>
+            </div>
+          </div>
+        </div>
+        <div id="hook-answers" class="hidden"></div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 4: TITLE SLIDE — LINEAR INEQUALITIES                          -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-slate-900 text-white p-8 sm:p-14 md:p-16 flex-col justify-center">
+        <p class="text-xs sm:text-sm font-bold tracking-[0.14em] uppercase text-sky-400 mb-4">
+          Grade 9 MYP Mathematics • Algebra
+        </p>
+        <h2 class="text-4xl sm:text-6xl md:text-7xl font-extrabold text-slate-50 leading-tight max-w-4xl">
+          Linear Inequalities
+        </h2>
+        <p class="text-base sm:text-xl md:text-2xl text-slate-400 mt-6 max-w-2xl leading-relaxed">
+          Representing single, double, and compound inequalities on number lines using open and closed endpoints
+        </p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-10 max-w-3xl text-xs sm:text-sm">
+          <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-3.5">
+            <span class="font-math font-bold text-sky-400 text-lg block">&lt; &nbsp; &gt;</span>
+            <span class="text-slate-300">Open circle (not included)</span>
+          </div>
+          <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-3.5">
+            <span class="font-math font-bold text-emerald-400 text-lg block">&le; &nbsp; &ge;</span>
+            <span class="text-slate-300">Solid circle (included)</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 5: NUMBER LINES 1 (x > 2 AND x >= 2)                          -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <div>
+            <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Guided Examples • Open vs. Closed Circle</p>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Show on the Number Line</h2>
+          </div>
+          <button type="button" onclick="revealSlideNumberLines(this, ['nl-s5-a', 'nl-s5-b'])" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-2">
+            <i class="fa-solid fa-eye"></i> <span>Reveal Solutions</span>
+          </button>
+        </div>
+
+        <p class="text-xs sm:text-sm text-slate-500 mb-3">
+          <i class="fa-solid fa-hand-pointer text-sky-600 mr-1"></i> <strong>Interactive Tip:</strong> Click any dot below a number to cycle open/closed circles and directions, or click <strong>Reveal Solutions</strong>.
+        </p>
+
+        <div class="space-y-6 my-auto">
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-6">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <p class="text-lg sm:text-2xl font-bold text-slate-900">Show on the number line: <span class="font-math text-sky-700 text-2xl sm:text-3xl ml-2">x &gt; 2</span></p>
+              <button type="button" onclick="resetSingleNL('nl-s5-a')" class="text-xs font-semibold text-slate-500 hover:text-slate-800 underline">Clear line</button>
+            </div>
+            <div id="nl-s5-a" class="interactive-nl" data-nl-type="single" data-min="-5" data-max="5" data-sol='[{"type":"ray","at":2,"dir":"right","closed":false}]'></div>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-6">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <p class="text-lg sm:text-2xl font-bold text-slate-900">Show on the number line: <span class="font-math text-sky-700 text-2xl sm:text-3xl ml-2">x &ge; 2</span></p>
+              <button type="button" onclick="resetSingleNL('nl-s5-b')" class="text-xs font-semibold text-slate-500 hover:text-slate-800 underline">Clear line</button>
+            </div>
+            <div id="nl-s5-b" class="interactive-nl" data-nl-type="single" data-min="-5" data-max="5" data-sol='[{"type":"ray","at":2,"dir":"right","closed":true}]'></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 6: NUMBER LINES 2 (x < -2 AND x <= 3)                         -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <div>
+            <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Guided Examples • Left-Pointing Rays</p>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Show on the Number Line</h2>
+          </div>
+          <button type="button" onclick="revealSlideNumberLines(this, ['nl-s6-a', 'nl-s6-b'])" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-2">
+            <i class="fa-solid fa-eye"></i> <span>Reveal Solutions</span>
+          </button>
+        </div>
+
+        <div class="space-y-6 my-auto">
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-6">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <p class="text-lg sm:text-2xl font-bold text-slate-900">Show on the number line: <span class="font-math text-sky-700 text-2xl sm:text-3xl ml-2">x &lt; &minus;2</span></p>
+              <button type="button" onclick="resetSingleNL('nl-s6-a')" class="text-xs font-semibold text-slate-500 hover:text-slate-800 underline">Clear line</button>
+            </div>
+            <div id="nl-s6-a" class="interactive-nl" data-nl-type="single" data-min="-5" data-max="5" data-sol='[{"type":"ray","at":-2,"dir":"left","closed":false}]'></div>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-6">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <p class="text-lg sm:text-2xl font-bold text-slate-900">Show on the number line: <span class="font-math text-sky-700 text-2xl sm:text-3xl ml-2">x &le; 3</span></p>
+              <button type="button" onclick="resetSingleNL('nl-s6-b')" class="text-xs font-semibold text-slate-500 hover:text-slate-800 underline">Clear line</button>
+            </div>
+            <div id="nl-s6-b" class="interactive-nl" data-nl-type="single" data-min="-5" data-max="5" data-sol='[{"type":"ray","at":3,"dir":"left","closed":true}]'></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 7: NUMBER LINES 3 (x < -1 AND x >= 0)                         -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <div>
+            <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Quick Check • Single Inequalities</p>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Show on the Number Line</h2>
+          </div>
+          <button type="button" onclick="revealSlideNumberLines(this, ['nl-s7-a', 'nl-s7-b'])" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-2">
+            <i class="fa-solid fa-eye"></i> <span>Reveal Solutions</span>
+          </button>
+        </div>
+
+        <div class="space-y-6 my-auto">
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-6">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <p class="text-lg sm:text-2xl font-bold text-slate-900">Show on the number line: <span class="font-math text-sky-700 text-2xl sm:text-3xl ml-2">x &lt; &minus;1</span></p>
+              <button type="button" onclick="resetSingleNL('nl-s7-a')" class="text-xs font-semibold text-slate-500 hover:text-slate-800 underline">Clear line</button>
+            </div>
+            <div id="nl-s7-a" class="interactive-nl" data-nl-type="single" data-min="-5" data-max="5" data-sol='[{"type":"ray","at":-1,"dir":"left","closed":false}]'></div>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-6">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <p class="text-lg sm:text-2xl font-bold text-slate-900">Show on the number line: <span class="font-math text-sky-700 text-2xl sm:text-3xl ml-2">x &ge; 0</span></p>
+              <button type="button" onclick="resetSingleNL('nl-s7-b')" class="text-xs font-semibold text-slate-500 hover:text-slate-800 underline">Clear line</button>
+            </div>
+            <div id="nl-s7-b" class="interactive-nl" data-nl-type="single" data-min="-5" data-max="5" data-sol='[{"type":"ray","at":0,"dir":"right","closed":true}]'></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 8: DOUBLE INEQUALITIES (-2 < x <= 3 AND 0 <= x <= 4)          -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div>
+            <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Bounded Intervals • Double Inequalities</p>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Show on the Number Line</h2>
+          </div>
+          <button type="button" onclick="revealSlideNumberLines(this, ['nl-s8-a', 'nl-s8-b'])" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-2">
+            <i class="fa-solid fa-eye"></i> <span>Reveal Solutions</span>
+          </button>
+        </div>
+
+        <p class="text-xs sm:text-sm text-slate-500 mb-3">
+          <i class="fa-solid fa-hand-pointer text-indigo-600 mr-1"></i> <strong>Interactive Builder:</strong> Click two dots below the numbers to connect a segment; click an endpoint again to toggle open (&deg;) vs. solid (&bull;).
+        </p>
+
+        <div class="space-y-6 my-auto">
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-6">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <p class="text-lg sm:text-2xl font-bold text-slate-900">Show on the number line: <span class="font-math text-indigo-700 text-2xl sm:text-3xl ml-2">&minus;2 &lt; x &le; 3</span></p>
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-semibold text-slate-500">Integers: &minus;1, 0, 1, 2, 3</span>
+                <button type="button" onclick="resetSingleNL('nl-s8-a')" class="text-xs font-semibold text-slate-500 hover:text-slate-800 underline">Clear line</button>
+              </div>
+            </div>
+            <div id="nl-s8-a" class="interactive-nl" data-nl-type="double" data-min="-5" data-max="5" data-sol='[{"type":"seg","from":-2,"to":3,"leftClosed":false,"rightClosed":true}]'></div>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-6">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <p class="text-lg sm:text-2xl font-bold text-slate-900">Show on the number line: <span class="font-math text-indigo-700 text-2xl sm:text-3xl ml-2">0 &le; x &le; 4</span></p>
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-semibold text-slate-500">Integers: 0, 1, 2, 3, 4</span>
+                <button type="button" onclick="resetSingleNL('nl-s8-b')" class="text-xs font-semibold text-slate-500 hover:text-slate-800 underline">Clear line</button>
+              </div>
+            </div>
+            <div id="nl-s8-b" class="interactive-nl" data-nl-type="double" data-min="-5" data-max="5" data-sol='[{"type":"seg","from":0,"to":4,"leftClosed":true,"rightClosed":true}]'></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 9: COMPOUND 'OR' INEQUALITIES                                 -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div>
+            <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Disjoint Intervals • Compound 'Or'</p>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Show on the Number Line</h2>
+          </div>
+          <button type="button" onclick="revealSlideNumberLines(this, ['nl-s9-a', 'nl-s9-b'])" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-2">
+            <i class="fa-solid fa-eye"></i> <span>Reveal Solutions</span>
+          </button>
+        </div>
+
+        <p class="text-xs sm:text-sm text-slate-500 mb-3">
+          <i class="fa-solid fa-hand-pointer text-rose-600 mr-1"></i> <strong>Interactive Builder:</strong> Click the two boundary numbers below the axis to place outward rays; click a boundary dot again to toggle open (&deg;) vs. solid (&bull;).
+        </p>
+
+        <div class="space-y-6 my-auto">
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-6">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <p class="text-lg sm:text-2xl font-bold text-slate-900">Show on the number line: <span class="font-math text-rose-700 text-2xl sm:text-3xl ml-2">x &lt; &minus;1 &nbsp;or&nbsp; x &gt; 3</span></p>
+              <button type="button" onclick="resetSingleNL('nl-s9-a')" class="text-xs font-semibold text-slate-500 hover:text-slate-800 underline">Clear line</button>
+            </div>
+            <div id="nl-s9-a" class="interactive-nl" data-nl-type="compound" data-min="-5" data-max="5" data-sol='[{"type":"ray","at":-1,"dir":"left","closed":false},{"type":"ray","at":3,"dir":"right","closed":false}]'></div>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-6">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <p class="text-lg sm:text-2xl font-bold text-slate-900">Show on the number line: <span class="font-math text-rose-700 text-2xl sm:text-3xl ml-2">x &le; &minus;3 &nbsp;or&nbsp; x &gt; 0</span></p>
+              <button type="button" onclick="resetSingleNL('nl-s9-b')" class="text-xs font-semibold text-slate-500 hover:text-slate-800 underline">Clear line</button>
+            </div>
+            <div id="nl-s9-b" class="interactive-nl" data-nl-type="compound" data-min="-5" data-max="5" data-sol='[{"type":"ray","at":-3,"dir":"left","closed":true},{"type":"ray","at":0,"dir":"right","closed":false}]'></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 10: READING INEQUALITIES FROM NUMBER LINES (ONE BY ONE)       -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-6 sm:p-10 md:p-12 flex-col justify-between">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <div>
+            <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-1">Reverse Skill • Interpreting Diagrams</p>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Write Down the Inequality Shown</h2>
+          </div>
+          <span class="text-xs font-semibold text-slate-500 bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-xl">
+            Click each button to reveal one by one
+          </span>
+        </div>
+
+        <div class="space-y-4 my-auto">
+          <!-- Diagram 1: x >= 1 -->
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+            <div class="lg:col-span-8 static-nl" data-min="-5" data-max="5" data-sol='[{"type":"ray","at":1,"dir":"right","closed":true}]'></div>
+            <div class="lg:col-span-4 flex flex-col items-center gap-2">
+              <button type="button" onclick="toggleSingleReadAns('read-ans-1', this)" class="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5">
+                <i class="fa-solid fa-eye"></i> <span>Reveal Answer 1</span>
+              </button>
+              <div id="read-ans-1" class="hidden w-full text-center bg-emerald-100 border border-emerald-400 rounded-xl py-2 px-4 font-math text-2xl font-bold text-emerald-900">x &ge; 1</div>
+            </div>
+          </div>
+
+          <!-- Diagram 2: -4 <= x < 0 -->
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+            <div class="lg:col-span-8 static-nl" data-min="-5" data-max="5" data-sol='[{"type":"seg","from":-4,"to":0,"leftClosed":true,"rightClosed":false}]'></div>
+            <div class="lg:col-span-4 flex flex-col items-center gap-2">
+              <button type="button" onclick="toggleSingleReadAns('read-ans-2', this)" class="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5">
+                <i class="fa-solid fa-eye"></i> <span>Reveal Answer 2</span>
+              </button>
+              <div id="read-ans-2" class="hidden w-full text-center bg-emerald-100 border border-emerald-400 rounded-xl py-2 px-4 font-math text-2xl font-bold text-emerald-900">&minus;4 &le; x &lt; 0</div>
+            </div>
+          </div>
+
+          <!-- Diagram 3: x < -3 or x >= 1 -->
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+            <div class="lg:col-span-8 static-nl" data-min="-5" data-max="5" data-sol='[{"type":"ray","at":-3,"dir":"left","closed":false},{"type":"ray","at":1,"dir":"right","closed":true}]'></div>
+            <div class="lg:col-span-4 flex flex-col items-center gap-2">
+              <button type="button" onclick="toggleSingleReadAns('read-ans-3', this)" class="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5">
+                <i class="fa-solid fa-eye"></i> <span>Reveal Answer 3</span>
+              </button>
+              <div id="read-ans-3" class="hidden w-full text-center bg-emerald-100 border border-emerald-400 rounded-xl py-2 px-4 font-math text-xl font-bold text-emerald-900">x &lt; &minus;3 &nbsp;or&nbsp; x &ge; 1</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 11: HANDOUT 1 — REPRESENTING INEQUALITIES (a–t)               -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-5 sm:p-8 flex-col justify-between">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div>
+            <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-0.5">Double-Sided Practice Grid • Side 1</p>
+            <h2 class="text-xl sm:text-3xl font-extrabold text-slate-900">Handout: Representing Inequalities</h2>
+          </div>
+          <button type="button" onclick="toggleGrid1Answers(this)" class="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5">
+            <i class="fa-solid fa-eye"></i> <span>Reveal All Answers (a–t)</span>
+          </button>
+        </div>
+
+        <div id="grid1-container" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-2.5 my-auto text-xs"></div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 12: HANDOUT 2 — REPRESENTING DOUBLE INEQUALITIES (a–p)        -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-white p-5 sm:p-8 flex-col justify-between">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div>
+            <p class="text-xs font-bold tracking-widest uppercase text-sky-600 mb-0.5">Double-Sided Practice Grid • Side 2</p>
+            <h2 class="text-xl sm:text-3xl font-extrabold text-slate-900">Handout: Representing Double Inequalities</h2>
+          </div>
+          <button type="button" onclick="toggleGrid2Answers(this)" class="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5">
+            <i class="fa-solid fa-eye"></i> <span>Reveal All Answers (a–p)</span>
+          </button>
+        </div>
+
+        <div id="grid2-container" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 my-auto text-xs"></div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- SLIDE 13: KAHOOT! & INTERACTIVE HOMEWORK                            -->
+      <!-- =================================================================== -->
+      <section class="slide-panel flex-1 bg-slate-900 text-white p-8 sm:p-12 md:p-14 flex-col justify-between">
+        <div>
+          <p class="text-xs font-bold tracking-widest uppercase text-sky-400 mb-2">Plenary &amp; Independent Practice</p>
+          <h2 class="text-3xl sm:text-5xl font-extrabold text-white">Review &amp; Interactive Homework</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-auto">
+          <!-- Kahoot Card -->
+          <div class="bg-purple-950/70 border-2 border-purple-500/40 rounded-2xl p-6 sm:p-8 flex flex-col justify-between space-y-5">
+            <div>
+              <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-extrabold uppercase tracking-wider">In-Class Plenary</span>
+              <h3 class="text-2xl sm:text-3xl font-extrabold text-white mt-3">Kahoot! Live Quiz</h3>
+              <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+                Test your speed and accuracy reading number lines and matching inequality symbols.
+              </p>
+            </div>
+            <a href="https://create.kahoot.it/details/1aa70106-9ec6-4ee4-8c05-356c990ed91e" target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center justify-center gap-2 w-full py-3.5 px-5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm transition shadow-lg">
+              <i class="fa-solid fa-gamepad"></i> <span>Launch Kahoot! Quiz</span>
+            </a>
+          </div>
+
+          <!-- Interactive Homework Card -->
+          <div class="bg-sky-950/70 border-2 border-sky-500/40 rounded-2xl p-6 sm:p-8 flex flex-col justify-between space-y-5">
+            <div>
+              <span class="px-3 py-1 rounded-full bg-sky-500/20 text-sky-300 text-xs font-extrabold uppercase tracking-wider">Homework • Upload to Toddle</span>
+              <h3 class="text-2xl sm:text-3xl font-extrabold text-white mt-3">Interactive Self-Check Quiz</h3>
+              <ul class="text-slate-300 text-sm mt-3 space-y-1.5 list-disc list-inside">
+                <li>16 questions covering Section 1 &amp; Section 2</li>
+                <li><strong>One attempt only</strong> — locked after submission</li>
+                <li>Take a screenshot of your final score card &amp; upload to <strong>Toddle</strong></li>
+              </ul>
+            </div>
+            <a href="./homework.html" target="_blank"
+               class="inline-flex items-center justify-center gap-2 w-full py-3.5 px-5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-extrabold text-sm transition shadow-lg">
+              <i class="fa-solid fa-clipboard-check"></i> <span>Open Interactive Homework (homework.html)</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Bottom Slide Navigation Bar -->
+  <footer class="bg-slate-900/95 backdrop-blur border-t border-slate-800 text-slate-200 px-4 sm:px-6 py-3 sticky bottom-0 z-40">
+    <div class="max-w-6xl mx-auto flex items-center justify-between gap-4">
+      <button type="button" id="prev-btn" onclick="changeSlide(-1)"
+              class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-slate-800 hover:bg-slate-700 disabled:opacity-40 disabled:pointer-events-none text-white border border-slate-700 transition flex items-center gap-2">
+        <i class="fa-solid fa-arrow-left"></i> <span>Previous</span>
+      </button>
+
+      <div class="flex items-center gap-1.5 sm:gap-2" id="dot-indicators"></div>
+
+      <button type="button" id="next-btn" onclick="changeSlide(1)"
+              class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-sky-600 hover:bg-sky-500 disabled:opacity-40 disabled:pointer-events-none text-white transition flex items-center gap-2 shadow-sm">
+        <span>Next</span> <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </footer>
+
+  <script>
+    let currentSlide = 0;
+    const slides = Array.from(document.querySelectorAll('.slide-panel'));
+    const totalSlides = slides.length;
+    const initializedPads = new Set();
+
+    // =========================================================================
+    // 5-MINUTE STARTER TIMER
+    // =========================================================================
+    let starterSeconds = 300;
+    let starterInterval = null;
+
+    function updateTimerDisplay() {
+      const m = String(Math.floor(starterSeconds / 60)).padStart(2, '0');
+      const s = String(starterSeconds % 60).padStart(2, '0');
+      const el = document.getElementById('starter-timer');
+      el.textContent = `${m}:${s}`;
+      if (starterSeconds <= 30) el.classList.add('text-rose-400');
+      else el.classList.remove('text-rose-400');
+    }
+
+    function toggleStarterTimer() {
+      const btn = document.getElementById('timer-toggle-btn');
+      if (starterInterval) {
+        clearInterval(starterInterval);
+        starterInterval = null;
+        btn.textContent = 'Resume';
+      } else {
+        btn.textContent = 'Pause';
+        starterInterval = setInterval(() => {
+          if (starterSeconds > 0) {
+            starterSeconds--;
+            updateTimerDisplay();
+          } else {
+            clearInterval(starterInterval);
+            starterInterval = null;
+            btn.textContent = 'Done';
+          }
+        }, 1000);
+      }
+    }
+
+    function resetStarterTimer() {
+      clearInterval(starterInterval);
+      starterInterval = null;
+      starterSeconds = 300;
+      document.getElementById('timer-toggle-btn').textContent = 'Start';
+      updateTimerDisplay();
+    }
+
+    // =========================================================================
+    // SVG NUMBER LINE RENDERER & INTERACTIVE BUILDER (SINGLE, DOUBLE, COMPOUND)
+    // =========================================================================
+    function renderNumberLineSVG(min, max, features = [], compact = false) {
+      const width = compact ? 220 : 680;
+      const height = compact ? 44 : 74;
+      const padX = compact ? 18 : 44;
+      const axisY = compact ? 28 : 46;
+      const featY = compact ? 12 : 20;
+      const step = (width - padX * 2) / (max - min);
+      const xOf = (val) => padX + (val - min) * step;
+
+      let ticks = '';
+      for (let v = min; v <= max; v++) {
+        const x = xOf(v);
+        ticks += `<line x1="${x}" y1="${axisY - (compact ? 4 : 6)}" x2="${x}" y2="${axisY + (compact ? 4 : 6)}" stroke="#0f172a" stroke-width="${compact ? 1.3 : 1.8}" />`;
+        ticks += `<text x="${x}" y="${axisY + (compact ? 13 : 22)}" font-size="${compact ? 8.5 : 13}" font-weight="700" font-family="JetBrains Mono, monospace" text-anchor="middle" fill="#1e293b">${v}</text>`;
+      }
+
+      let overlays = '';
+      features.forEach(f => {
+        const strokeW = compact ? 2.6 : 4;
+        const r = compact ? 4.2 : 7;
+        if (f.type === 'ray') {
+          const sx = xOf(f.at);
+          const ex = f.dir === 'right' ? width - (compact ? 6 : 14) : (compact ? 6 : 14);
+          overlays += `<line x1="${sx}" y1="${featY}" x2="${ex}" y2="${featY}" stroke="#dc2626" stroke-width="${strokeW}" />`;
+          if (f.dir === 'right') {
+            overlays += `<polygon points="${ex},${featY} ${ex - (compact ? 6 : 11)},${featY - (compact ? 4 : 6)} ${ex - (compact ? 6 : 11)},${featY + (compact ? 4 : 6)}" fill="#dc2626" />`;
+          } else {
+            overlays += `<polygon points="${ex},${featY} ${ex + (compact ? 6 : 11)},${featY - (compact ? 4 : 6)} ${ex + (compact ? 6 : 11)},${featY + (compact ? 4 : 6)}" fill="#dc2626" />`;
+          }
+          overlays += `<circle cx="${sx}" cy="${featY}" r="${r}" fill="${f.closed ? '#dc2626' : '#ffffff'}" stroke="#dc2626" stroke-width="${compact ? 2.2 : 3.2}" />`;
+        } else if (f.type === 'seg') {
+          const x1 = xOf(f.from);
+          const x2 = xOf(f.to);
+          overlays += `<line x1="${x1}" y1="${featY}" x2="${x2}" y2="${featY}" stroke="#dc2626" stroke-width="${strokeW}" />`;
+          overlays += `<circle cx="${x1}" cy="${featY}" r="${r}" fill="${f.leftClosed ? '#dc2626' : '#ffffff'}" stroke="#dc2626" stroke-width="${compact ? 2.2 : 3.2}" />`;
+          overlays += `<circle cx="${x2}" cy="${featY}" r="${r}" fill="${f.rightClosed ? '#dc2626' : '#ffffff'}" stroke="#dc2626" stroke-width="${compact ? 2.2 : 3.2}" />`;
+        } else if (f.type === 'dot') {
+          const sx = xOf(f.at);
+          overlays += `<circle cx="${sx}" cy="${featY}" r="${r}" fill="${f.closed ? '#dc2626' : '#ffffff'}" stroke="#dc2626" stroke-width="${compact ? 2.2 : 3.2}" />`;
+        }
+      });
+
+      return `
+        <svg viewBox="0 0 ${width} ${height}" class="w-full h-auto overflow-visible">
+          <line x1="${compact ? 6 : 14}" y1="${axisY}" x2="${width - (compact ? 6 : 14)}" y2="${axisY}" stroke="#0f172a" stroke-width="${compact ? 1.5 : 2.2}" />
+          <polygon points="${compact ? 3 : 8},${axisY} ${compact ? 10 : 18},${axisY - (compact ? 3.5 : 5)} ${compact ? 10 : 18},${axisY + (compact ? 3.5 : 5)}" fill="#0f172a" />
+          <polygon points="${width - (compact ? 3 : 8)},${axisY} ${width - (compact ? 10 : 18)},${axisY - (compact ? 3.5 : 5)} ${width - (compact ? 10 : 18)},${axisY + (compact ? 3.5 : 5)}" fill="#0f172a" />
+          ${ticks}
+          ${overlays}
+        </svg>
+      `;
+    }
+
+    const nlUserState = {};
+    function initNumberLines() {
+      document.querySelectorAll('.interactive-nl').forEach(el => {
+        const nlType = el.dataset.nlType || 'single';
+        if (nlType === 'single') {
+          nlUserState[el.id] = { type: 'single', at: null, mode: 0, revealed: false };
+        } else {
+          // For double & compound: pts = [{ val, closed }, ...] (up to 2 endpoints)
+          nlUserState[el.id] = { type: nlType, pts: [], revealed: false };
+        }
+        renderInteractiveNL(el.id);
+      });
+
+      document.querySelectorAll('.static-nl').forEach(el => {
+        const min = parseInt(el.dataset.min, 10);
+        const max = parseInt(el.dataset.max, 10);
+        const sol = JSON.parse(el.dataset.sol);
+        el.innerHTML = renderNumberLineSVG(min, max, sol, false);
+      });
+    }
+
+    function renderInteractiveNL(id) {
+      const el = document.getElementById(id);
+      const min = parseInt(el.dataset.min, 10);
+      const max = parseInt(el.dataset.max, 10);
+      const st = nlUserState[id];
+      let features = [];
+
+      if (st.revealed) {
+        features = JSON.parse(el.dataset.sol);
+      } else if (st.type === 'single') {
+        if (st.at !== null && st.mode > 0) {
+          if (st.mode === 1) features = [{ type: 'ray', at: st.at, dir: 'right', closed: false }];
+          if (st.mode === 2) features = [{ type: 'ray', at: st.at, dir: 'right', closed: true }];
+          if (st.mode === 3) features = [{ type: 'ray', at: st.at, dir: 'left', closed: false }];
+          if (st.mode === 4) features = [{ type: 'ray', at: st.at, dir: 'left', closed: true }];
+        }
+      } else {
+        // Double or Compound with 1 or 2 selected endpoints
+        if (st.pts.length === 1) {
+          features = [{ type: 'dot', at: st.pts[0].val, closed: st.pts[0].closed }];
+        } else if (st.pts.length === 2) {
+          const sorted = [...st.pts].sort((a, b) => a.val - b.val);
+          if (st.type === 'double') {
+            features = [{
+              type: 'seg',
+              from: sorted[0].val,
+              to: sorted[1].val,
+              leftClosed: sorted[0].closed,
+              rightClosed: sorted[1].closed
+            }];
+          } else if (st.type === 'compound') {
+            features = [
+              { type: 'ray', at: sorted[0].val, dir: 'left', closed: sorted[0].closed },
+              { type: 'ray', at: sorted[1].val, dir: 'right', closed: sorted[1].closed }
+            ];
+          }
+        }
+      }
+
+      let buttonsHtml = '<div class="flex justify-between px-4 sm:px-8 mt-1">';
+      for (let v = min; v <= max; v++) {
+        const isSelected = st.type === 'single'
+          ? (st.at === v && st.mode > 0)
+          : st.pts.some(p => p.val === v);
+        const btnClass = isSelected
+          ? 'bg-sky-600 text-white shadow-sm'
+          : 'text-slate-400 hover:bg-sky-100 hover:text-sky-700';
+        buttonsHtml += `<button type="button" onclick="cycleNLPoint('${id}', ${v})" title="Click to place or toggle open/closed at ${v}" class="w-6 h-6 rounded-full text-[11px] font-bold transition ${btnClass}">&bull;</button>`;
+      }
+      buttonsHtml += '</div>';
+
+      el.innerHTML = renderNumberLineSVG(min, max, features, false) + buttonsHtml;
+    }
+
+    function cycleNLPoint(id, val) {
+      const st = nlUserState[id];
+      st.revealed = false;
+
+      if (st.type === 'single') {
+        if (st.at !== val) {
+          st.at = val;
+          st.mode = 1;
+        } else {
+          st.mode = (st.mode + 1) % 5;
+        }
+      } else {
+        const existingIdx = st.pts.findIndex(p => p.val === val);
+        if (existingIdx !== -1) {
+          // Cycle: open -> closed -> remove
+          if (!st.pts[existingIdx].closed) {
+            st.pts[existingIdx].closed = true;
+          } else {
+            st.pts.splice(existingIdx, 1);
+          }
+        } else {
+          if (st.pts.length >= 2) {
+            st.pts.shift();
+          }
+          st.pts.push({ val, closed: false });
+        }
+      }
+      renderInteractiveNL(id);
+    }
+
+    function resetSingleNL(id) {
+      const el = document.getElementById(id);
+      const nlType = el.dataset.nlType || 'single';
+      if (nlType === 'single') {
+        nlUserState[id] = { type: 'single', at: null, mode: 0, revealed: false };
+      } else {
+        nlUserState[id] = { type: nlType, pts: [], revealed: false };
+      }
+      renderInteractiveNL(id);
+    }
+
+    function revealSlideNumberLines(btn, ids) {
+      const anyHidden = ids.some(id => !nlUserState[id].revealed);
+      ids.forEach(id => {
+        nlUserState[id].revealed = anyHidden;
+        renderInteractiveNL(id);
+      });
+      btn.innerHTML = anyHidden
+        ? '<i class="fa-solid fa-eye-slash"></i> <span>Hide Solutions</span>'
+        : '<i class="fa-solid fa-eye"></i> <span>Reveal Solutions</span>';
+    }
+
+    // Slide 10 individual answer toggle
+    function toggleSingleReadAns(ansId, btn) {
+      const box = document.getElementById(ansId);
+      const isHidden = box.classList.contains('hidden');
+      box.classList.toggle('hidden', !isHidden);
+      const num = ansId.split('-').pop();
+      btn.innerHTML = isHidden
+        ? `<i class="fa-solid fa-eye-slash"></i> <span>Hide Answer ${num}</span>`
+        : `<i class="fa-solid fa-eye"></i> <span>Reveal Answer ${num}</span>`;
+    }
+
+    // =========================================================================
+    // HANDOUT GRIDS 1 & 2 BUILDER (SLIDES 11 & 12)
+    // =========================================================================
+    const grid1Data = [
+      { id: '(a)', type: 'read', min: 0, max: 6, sol: [{ type: 'ray', at: 1, dir: 'right', closed: false }], ans: 'x > 1' },
+      { id: '(b)', type: 'read', min: 0, max: 6, sol: [{ type: 'ray', at: 5, dir: 'left', closed: true }], ans: 'x &le; 5' },
+      { id: '(c)', type: 'read', min: 0, max: 6, sol: [{ type: 'ray', at: 2, dir: 'right', closed: true }], ans: 'x &ge; 2' },
+      { id: '(d)', type: 'read', min: 0, max: 6, sol: [{ type: 'ray', at: 4, dir: 'left', closed: false }], ans: 'x < 4' },
+      { id: '(e)', type: 'read', min: 0, max: 6, sol: [{ type: 'ray', at: 3, dir: 'right', closed: false }], ans: 'x > 3' },
+      { id: '(f)', type: 'read', min: -3, max: 3, sol: [{ type: 'ray', at: 0, dir: 'right', closed: false }], ans: 'x > 0' },
+      { id: '(g)', type: 'read', min: -3, max: 3, sol: [{ type: 'ray', at: 1, dir: 'left', closed: true }], ans: 'x &le; 1' },
+      { id: '(h)', type: 'read', min: -3, max: 3, sol: [{ type: 'ray', at: -1, dir: 'left', closed: false }], ans: 'x < &minus;1' },
+      { id: '(i)', type: 'read', min: -3, max: 3, sol: [{ type: 'ray', at: -2, dir: 'right', closed: true }], ans: 'x &ge; &minus;2' },
+      { id: '(j)', type: 'read', min: -3, max: 3, sol: [{ type: 'ray', at: 3, dir: 'left', closed: true }], ans: 'x &le; 3' },
+      { id: '(k)', type: 'draw', prompt: 'x > 3', min: 0, max: 6, sol: [{ type: 'ray', at: 3, dir: 'right', closed: false }] },
+      { id: '(l)', type: 'draw', prompt: 'x &le; 4', min: 0, max: 6, sol: [{ type: 'ray', at: 4, dir: 'left', closed: true }] },
+      { id: '(m)', type: 'draw', prompt: 'x &ge; 2', min: 0, max: 6, sol: [{ type: 'ray', at: 2, dir: 'right', closed: true }] },
+      { id: '(n)', type: 'draw', prompt: 'x > 0', min: 0, max: 6, sol: [{ type: 'ray', at: 0, dir: 'right', closed: false }] },
+      { id: '(o)', type: 'draw', prompt: 'x < 5', min: 0, max: 6, sol: [{ type: 'ray', at: 5, dir: 'left', closed: false }] },
+      { id: '(p)', type: 'draw', prompt: 'x &le; 1', min: -3, max: 3, sol: [{ type: 'ray', at: 1, dir: 'left', closed: true }] },
+      { id: '(q)', type: 'draw', prompt: 'x > &minus;2', min: -3, max: 3, sol: [{ type: 'ray', at: -2, dir: 'right', closed: false }] },
+      { id: '(r)', type: 'draw', prompt: 'x < &minus;1', min: -3, max: 3, sol: [{ type: 'ray', at: -1, dir: 'left', closed: false }] },
+      { id: '(s)', type: 'draw', prompt: 'x &ge; &minus;3', min: -3, max: 3, sol: [{ type: 'ray', at: -3, dir: 'right', closed: true }] },
+      { id: '(t)', type: 'draw', prompt: 'x &le; 0', min: -3, max: 3, sol: [{ type: 'ray', at: 0, dir: 'left', closed: true }] }
+    ];
+
+    let grid1Revealed = false;
+    function renderGrid1() {
+      const container = document.getElementById('grid1-container');
+      container.innerHTML = grid1Data.map(item => {
+        if (item.type === 'read') {
+          return `
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-2.5 flex flex-col justify-between">
+              <div class="flex justify-between items-center mb-1">
+                <span class="font-extrabold text-sky-700">${item.id}</span>
+                <span class="text-[10px] text-slate-500">Write inequality</span>
+              </div>
+              <div>${renderNumberLineSVG(item.min, item.max, item.sol, true)}</div>
+              <div class="mt-1 text-center font-math font-bold ${grid1Revealed ? 'text-emerald-700 bg-emerald-100 rounded py-0.5' : 'text-transparent'}">
+                ${item.ans}
+              </div>
+            </div>
+          `;
+        } else {
+          return `
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-2.5 flex flex-col justify-between">
+              <div class="flex justify-between items-center mb-1">
+                <span class="font-extrabold text-indigo-700">${item.id}</span>
+                <span class="font-math font-bold text-slate-900">${item.prompt}</span>
+              </div>
+              <div>${renderNumberLineSVG(item.min, item.max, grid1Revealed ? item.sol : [], true)}</div>
+            </div>
+          `;
+        }
+      }).join('');
+    }
+
+    function toggleGrid1Answers(btn) {
+      grid1Revealed = !grid1Revealed;
+      renderGrid1();
+      btn.innerHTML = grid1Revealed
+        ? '<i class="fa-solid fa-eye-slash"></i> <span>Hide Answers</span>'
+        : '<i class="fa-solid fa-eye"></i> <span>Reveal All Answers (a–t)</span>';
+    }
+
+    const grid2Data = [
+      { id: '(a)', type: 'int', prompt: '2 &le; x &le; 5', ans: '2, 3, 4, 5' },
+      { id: '(b)', type: 'int', prompt: '1 &lt; x &le; 4', ans: '2, 3, 4' },
+      { id: '(c)', type: 'int', prompt: '&minus;1 &le; x &lt; 3', ans: '&minus;1, 0, 1, 2' },
+      { id: '(d)', type: 'int', prompt: '&minus;4 &lt; x &lt; 1', ans: '&minus;3, &minus;2, &minus;1, 0' },
+      { id: '(e)', type: 'read', min: 0, max: 6, sol: [{ type: 'seg', from: 1, to: 5, leftClosed: true, rightClosed: true }], ans: '1 &le; x &le; 5' },
+      { id: '(f)', type: 'read', min: 0, max: 6, sol: [{ type: 'seg', from: 1, to: 4, leftClosed: false, rightClosed: true }], ans: '1 &lt; x &le; 4' },
+      { id: '(g)', type: 'read', min: -3, max: 3, sol: [{ type: 'seg', from: -2, to: 2, leftClosed: true, rightClosed: false }], ans: '&minus;2 &le; x &lt; 2' },
+      { id: '(h)', type: 'read', min: -3, max: 3, sol: [{ type: 'seg', from: -3, to: 1, leftClosed: false, rightClosed: false }], ans: '&minus;3 &lt; x &lt; 1' },
+      { id: '(i)', type: 'draw', prompt: '1 &lt; x &lt; 6', min: 0, max: 6, sol: [{ type: 'seg', from: 1, to: 6, leftClosed: false, rightClosed: false }] },
+      { id: '(j)', type: 'draw', prompt: '0 &le; x &lt; 3', min: 0, max: 6, sol: [{ type: 'seg', from: 0, to: 3, leftClosed: true, rightClosed: false }] },
+      { id: '(k)', type: 'draw', prompt: '1 &le; x &le; 3', min: 0, max: 6, sol: [{ type: 'seg', from: 1, to: 3, leftClosed: true, rightClosed: true }] },
+      { id: '(l)', type: 'draw', prompt: '2 &lt; x &le; 5', min: 0, max: 6, sol: [{ type: 'seg', from: 2, to: 5, leftClosed: false, rightClosed: true }] },
+      { id: '(m)', type: 'draw', prompt: '&minus;1 &le; x &le; 3', min: -3, max: 3, sol: [{ type: 'seg', from: -1, to: 3, leftClosed: true, rightClosed: true }] },
+      { id: '(n)', type: 'draw', prompt: '&minus;3 &le; x &lt; 0', min: -3, max: 3, sol: [{ type: 'seg', from: -3, to: 0, leftClosed: true, rightClosed: false }] },
+      { id: '(o)', type: 'draw', prompt: '&minus;2 &lt; x &lt; 2', min: -3, max: 3, sol: [{ type: 'seg', from: -2, to: 2, leftClosed: false, rightClosed: false }] },
+      { id: '(p)', type: 'draw', prompt: '&minus;1 &lt; x &le; 1', min: -3, max: 3, sol: [{ type: 'seg', from: -1, to: 1, leftClosed: false, rightClosed: true }] }
+    ];
+
+    let grid2Revealed = false;
+    function renderGrid2() {
+      const container = document.getElementById('grid2-container');
+      container.innerHTML = grid2Data.map(item => {
+        if (item.type === 'int') {
+          return `
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-2.5 flex flex-col justify-between">
+              <div class="flex justify-between items-center">
+                <span class="font-extrabold text-sky-700">${item.id}</span>
+                <span class="text-[10px] text-slate-500">List integers</span>
+              </div>
+              <p class="font-math font-bold text-sm text-center text-slate-900 my-1">${item.prompt}</p>
+              <div class="text-center font-math font-bold text-xs ${grid2Revealed ? 'text-emerald-800 bg-emerald-100 rounded py-0.5' : 'text-transparent'}">
+                ${item.ans}
+              </div>
+            </div>
+          `;
+        } else if (item.type === 'read') {
+          return `
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-2.5 flex flex-col justify-between">
+              <div class="flex justify-between items-center mb-1">
+                <span class="font-extrabold text-sky-700">${item.id}</span>
+                <span class="text-[10px] text-slate-500">Write inequality</span>
+              </div>
+              <div>${renderNumberLineSVG(item.min, item.max, item.sol, true)}</div>
+              <div class="mt-1 text-center font-math font-bold ${grid2Revealed ? 'text-emerald-800 bg-emerald-100 rounded py-0.5' : 'text-transparent'}">
+                ${item.ans}
+              </div>
+            </div>
+          `;
+        } else {
+          return `
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-2.5 flex flex-col justify-between">
+              <div class="flex justify-between items-center mb-1">
+                <span class="font-extrabold text-indigo-700">${item.id}</span>
+                <span class="font-math font-bold text-slate-900">${item.prompt}</span>
+              </div>
+              <div>${renderNumberLineSVG(item.min, item.max, grid2Revealed ? item.sol : [], true)}</div>
+            </div>
+          `;
+        }
+      }).join('');
+    }
+
+    function toggleGrid2Answers(btn) {
+      grid2Revealed = !grid2Revealed;
+      renderGrid2();
+      btn.innerHTML = grid2Revealed
+        ? '<i class="fa-solid fa-eye-slash"></i> <span>Hide Answers</span>'
+        : '<i class="fa-solid fa-eye"></i> <span>Reveal All Answers (a–p)</span>';
+    }
+
+    // =========================================================================
+    // GENERAL TOGGLE HELPERS & WRITING PAD
+    // =========================================================================
+    function toggleBox(boxId, btn, showLabel, hideLabel) {
+      if (boxId === 'hw-prev-sols') {
+        const items = document.querySelectorAll('.hw-prev-ans');
+        const isHidden = items[0].classList.contains('hidden');
+        items.forEach(el => el.classList.toggle('hidden', !isHidden));
+        btn.innerHTML = isHidden ? `<i class="fa-solid fa-eye-slash"></i> <span>${hideLabel}</span>` : `<i class="fa-solid fa-eye"></i> <span>${showLabel}</span>`;
+        return;
+      }
+      if (boxId === 'hook-answers') {
+        const items = document.querySelectorAll('.hook-ans');
+        const isHidden = items[0].classList.contains('hidden');
+        items.forEach(el => el.classList.toggle('hidden', !isHidden));
+        btn.innerHTML = isHidden ? `<i class="fa-solid fa-eye-slash"></i> <span>${hideLabel}</span>` : `<i class="fa-solid fa-eye"></i> <span>${showLabel}</span>`;
+        return;
+      }
+
+      const box = document.getElementById(boxId);
+      if (!box) return;
+      const isHidden = box.classList.contains('hidden');
+      box.classList.toggle('hidden', !isHidden);
+      btn.innerHTML = isHidden
+        ? `<i class="fa-solid fa-eye-slash"></i> <span>${hideLabel}</span>`
+        : `<i class="fa-solid fa-eye"></i> <span>${showLabel}</span>`;
+    }
+
+    function buildCanvasPad(containerId) {
+      const container = document.getElementById(containerId);
+      if (!container || initializedPads.has(containerId)) return;
+      initializedPads.add(containerId);
+
+      container.innerHTML = `
+        <div class="bg-slate-800 text-slate-200 px-3.5 py-2 flex flex-wrap items-center justify-between gap-2 text-xs">
+          <span class="font-bold flex items-center gap-1.5 text-sky-300"><i class="fa-solid fa-pen-nib"></i> Interactive Writing Pad</span>
+          <div class="flex items-center gap-1.5">
+            <button type="button" data-color="#0f172a" class="pen-btn w-5 h-5 rounded-full bg-slate-900 border-2 border-white"></button>
+            <button type="button" data-color="#0284c7" class="pen-btn w-5 h-5 rounded-full bg-sky-500 border border-slate-500"></button>
+            <button type="button" data-color="#e11d48" class="pen-btn w-5 h-5 rounded-full bg-rose-600 border border-slate-500"></button>
+            <button type="button" class="eraser-btn px-2 py-1 rounded bg-slate-700 hover:bg-slate-600 font-semibold">Eraser</button>
+            <button type="button" class="clear-btn px-2 py-1 rounded bg-rose-700 hover:bg-rose-600 font-semibold">Clear</button>
+          </div>
+        </div>
+        <div class="w-full h-40 relative"><canvas class="writing-canvas w-full h-full block"></canvas></div>
+      `;
+
+      const canvas = container.querySelector('canvas');
+      const ctx = canvas.getContext('2d');
+      let drawing = false, strokeColor = '#0f172a', isEraser = false;
+
+      function resizeCanvas() {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+        const temp = document.createElement('canvas');
+        temp.width = canvas.width; temp.height = canvas.height;
+        if (canvas.width > 0) temp.getContext('2d').drawImage(canvas, 0, 0);
+        canvas.width = rect.width; canvas.height = rect.height;
+        ctx.drawImage(temp, 0, 0);
+        ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      const getPos = (e) => {
+        const r = canvas.getBoundingClientRect();
+        const cx = e.touches ? e.touches[0].clientX : e.clientX;
+        const cy = e.touches ? e.touches[0].clientY : e.clientY;
+        return { x: cx - r.left, y: cy - r.top };
+      };
+
+      canvas.addEventListener('mousedown', (e) => { drawing = true; const p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); });
+      canvas.addEventListener('mousemove', (e) => {
+        if (!drawing) return;
+        const p = getPos(e);
+        ctx.lineWidth = isEraser ? 18 : 2.5;
+        ctx.globalCompositeOperation = isEraser ? 'destination-out' : 'source-over';
+        ctx.strokeStyle = strokeColor;
+        ctx.lineTo(p.x, p.y); ctx.stroke();
+      });
+      window.addEventListener('mouseup', () => { drawing = false; });
+      canvas.addEventListener('touchstart', (e) => { drawing = true; const p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); }, { passive: true });
+      canvas.addEventListener('touchmove', (e) => {
+        if (!drawing) return;
+        const p = getPos(e);
+        ctx.lineWidth = isEraser ? 18 : 2.5;
+        ctx.globalCompositeOperation = isEraser ? 'destination-out' : 'source-over';
+        ctx.strokeStyle = strokeColor;
+        ctx.lineTo(p.x, p.y); ctx.stroke();
+      }, { passive: true });
+      canvas.addEventListener('touchend', () => { drawing = false; });
+
+      container.querySelectorAll('.pen-btn').forEach(b => b.addEventListener('click', () => { isEraser = false; strokeColor = b.dataset.color; }));
+      container.querySelector('.eraser-btn').addEventListener('click', () => { isEraser = true; });
+      container.querySelector('.clear-btn').addEventListener('click', () => { ctx.clearRect(0, 0, canvas.width, canvas.height); });
+      canvas._resizePad = resizeCanvas;
+    }
+
+    function togglePad(padId, btn) {
+      const pad = document.getElementById(padId);
+      const isHidden = pad.classList.contains('hidden');
+      pad.classList.toggle('hidden', !isHidden);
+      if (isHidden) {
+        buildCanvasPad(padId);
+        const c = pad.querySelector('canvas');
+        if (c && c._resizePad) c._resizePad();
+        btn.innerHTML = '<i class="fa-solid fa-xmark"></i> <span>Hide Pad</span>';
+      } else {
+        btn.innerHTML = '<i class="fa-solid fa-pen"></i> <span>Writing Pad</span>';
+      }
+    }
+
+    // =========================================================================
+    // SLIDE DECK NAVIGATION
+    // =========================================================================
+    function initDeck() {
+      const dotsContainer = document.getElementById('dot-indicators');
+      dotsContainer.innerHTML = slides.map((_, idx) => `
+        <button type="button" onclick="goToSlide(${idx})" aria-label="Go to slide ${idx + 1}"
+                class="slide-dot h-2.5 rounded-full transition-all ${idx === 0 ? 'bg-sky-400 w-6' : 'bg-slate-600 w-2.5 hover:bg-slate-500'}"></button>
+      `).join('');
+      initNumberLines();
+      renderGrid1();
+      renderGrid2();
+      updateSlideUI();
+    }
+
+    function changeSlide(delta) {
+      const next = currentSlide + delta;
+      if (next >= 0 && next < totalSlides) goToSlide(next);
+    }
+
+    function goToSlide(index) {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = index;
+      slides[currentSlide].classList.add('active');
+      updateSlideUI();
+    }
+
+    function updateSlideUI() {
+      document.getElementById('slide-selector').value = currentSlide;
+      document.getElementById('prev-btn').disabled = currentSlide === 0;
+      document.getElementById('next-btn').disabled = currentSlide === totalSlides - 1;
+      document.getElementById('deck-progress').style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+      document.querySelectorAll('.slide-dot').forEach((dot, idx) => {
+        dot.className = idx === currentSlide
+          ? 'slide-dot h-2.5 w-6 rounded-full bg-sky-400 transition-all'
+          : 'slide-dot h-2.5 w-2.5 rounded-full bg-slate-600 hover:bg-slate-500 transition-all';
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (['INPUT', 'SELECT', 'TEXTAREA'].includes(e.target.tagName)) return;
+      if (e.key === 'ArrowRight') changeSlide(1);
+      if (e.key === 'ArrowLeft') changeSlide(-1);
+    });
+
+    window.addEventListener('DOMContentLoaded', initDeck);
+  </script>
+</body>
+</html>
