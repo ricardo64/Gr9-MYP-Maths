@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grade 9 Maths Homework — Inequalities Self-Check</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    body { font-family: 'DM Sans', sans-serif; background-color: #f1f5f9; color: #0f172a; }
+    .font-math { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+<body class="min-h-screen py-8 px-4 sm:px-6">
+
+  <div class="max-w-4xl mx-auto">
+    <!-- Header Banner -->
+    <header class="bg-slate-900 text-white rounded-2xl p-6 sm:p-8 shadow-lg mb-6">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <span class="px-3 py-1 rounded-full bg-sky-500/20 border border-sky-400/40 text-sky-300 text-xs font-bold uppercase tracking-wider">
+            Grade 9 MYP Mathematics • Homework
+          </span>
+          <h1 class="text-2xl sm:text-4xl font-extrabold mt-2">Representing &amp; Interpreting Inequalities</h1>
+          <p class="text-slate-300 text-sm mt-1">Complete all 16 questions. You have <strong>1 attempt only</strong>.</p>
+        </div>
+        <div class="bg-amber-500/15 border border-amber-400/40 rounded-xl p-3.5 text-xs text-amber-200 max-w-xs">
+          <i class="fa-solid fa-camera text-amber-400 mr-1"></i>
+          <strong>Toddle Submission:</strong> After submitting, take a screenshot of your final score banner and upload it to Toddle.
+        </div>
+      </div>
+
+      <!-- Student Name Input -->
+      <div class="mt-6 pt-5 border-t border-slate-800 flex flex-col sm:flex-row sm:items-center gap-3">
+        <label for="student-name" class="text-sm font-bold text-slate-200 shrink-0">Student Full Name:</label>
+        <input id="student-name" type="text" placeholder="Enter your first and last name..."
+               class="w-full sm:w-96 bg-slate-800 border border-slate-600 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-sky-400" />
+      </div>
+    </header>
+
+    <!-- Locked Score Card (Hidden until submitted) -->
+    <div id="result-banner" class="hidden bg-emerald-900 text-white rounded-2xl p-6 sm:p-8 shadow-xl border-4 border-emerald-400 mb-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <span class="px-3 py-1 rounded-full bg-emerald-400/20 text-emerald-200 text-xs font-extrabold uppercase tracking-wider">
+            <i class="fa-solid fa-lock mr-1"></i> Attempt Locked &amp; Recorded
+          </span>
+          <h2 id="res-student" class="text-2xl sm:text-3xl font-extrabold mt-2">Student Name</h2>
+          <p id="res-timestamp" class="text-emerald-200 text-xs mt-1"></p>
+        </div>
+        <div class="bg-white text-slate-900 rounded-2xl px-6 py-4 text-center shadow">
+          <p class="text-xs font-extrabold uppercase tracking-wider text-slate-500">Final Mark</p>
+          <p id="res-score" class="font-math text-4xl sm:text-5xl font-extrabold text-emerald-700 mt-1">0 / 16</p>
+          <p id="res-percent" class="text-sm font-bold text-slate-600 mt-0.5">0%</p>
+        </div>
+      </div>
+      <div class="mt-5 bg-emerald-950/80 border border-emerald-500/40 rounded-xl p-4 text-sm text-emerald-100 flex items-center gap-3">
+        <i class="fa-solid fa-cloud-arrow-up text-2xl text-emerald-400 shrink-0"></i>
+        <span><strong>Next Step:</strong> Take a screenshot of this entire box showing your name, score, and timestamp, and upload it to <strong>Toddle</strong>.</span>
+      </div>
+    </div>
+
+    <!-- Help Reminder -->
+    <div class="bg-white border border-slate-200 rounded-2xl p-5 mb-6 shadow-sm">
+      <p class="text-xs font-extrabold uppercase tracking-wider text-sky-700 mb-2">Quick Reminder</p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs sm:text-sm text-slate-700">
+        <div class="bg-slate-50 rounded-xl p-3 border border-slate-200"><strong>Solid circle (&bull;):</strong> Included (<span class="font-math">&le;</span> or <span class="font-math">&ge;</span>)</div>
+        <div class="bg-slate-50 rounded-xl p-3 border border-slate-200"><strong>Empty circle (&deg;):</strong> Not included (<span class="font-math">&lt;</span> or <span class="font-math">&gt;</span>)</div>
+        <div class="bg-slate-50 rounded-xl p-3 border border-slate-200"><strong>Arrow:</strong> Continues without bound</div>
+      </div>
+    </div>
+
+    <!-- Quiz Form -->
+    <form id="quiz-form" class="space-y-8">
+      <section>
+        <h2 class="text-lg font-extrabold text-slate-900 mb-3 px-1">Section 1: Choose the Correct Number Line for Each Inequality</h2>
+        <div id="sec1-questions" class="space-y-4"></div>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-extrabold text-slate-900 mb-3 px-1">Section 2: Choose the Correct Inequality for Each Diagram</h2>
+        <div id="sec2-questions" class="space-y-4"></div>
+      </section>
+
+      <div id="submit-area" class="bg-white border border-slate-200 rounded-2xl p-6 text-center shadow-sm">
+        <p id="error-msg" class="hidden text-rose-600 font-bold text-sm mb-3"></p>
+        <button type="submit" class="px-8 py-4 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-base shadow-lg transition">
+          <i class="fa-solid fa-paper-plane mr-2"></i> Submit Final Answers (1 Attempt Only)
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'gr9_myp_inequalities_hw_v1';
+
+    function renderMiniNL(features) {
+      const min = -6, max = 6, w = 260, h = 46, padX = 16, axisY = 30, featY = 12;
+      const step = (w - padX * 2) / (max - min);
+      const xOf = (v) => padX + (v - min) * step;
+
+      let ticks = '';
+      for (let v = min; v <= max; v++) {
+        const x = xOf(v);
+        ticks += `<line x1="${x}" y1="${axisY - 4}" x2="${x}" y2="${axisY + 4}" stroke="#0f172a" stroke-width="1.2" />`;
+        ticks += `<text x="${x}" y="${axisY + 13}" font-size="8" font-weight="700" font-family="JetBrains Mono, monospace" text-anchor="middle" fill="#334155">${v}</text>`;
+      }
+
+      let ov = '';
+      features.forEach(f => {
+        if (f.type === 'ray') {
+          const sx = xOf(f.at);
+          const ex = f.dir === 'right' ? w - 6 : 6;
+          ov += `<line x1="${sx}" y1="${featY}" x2="${ex}" y2="${featY}" stroke="#0284c7" stroke-width="2.6" />`;
+          ov += f.dir === 'right'
+            ? `<polygon points="${ex},${featY} ${ex - 6},${featY - 4} ${ex - 6},${featY + 4}" fill="#0284c7" />`
+            : `<polygon points="${ex},${featY} ${ex + 6},${featY - 4} ${ex + 6},${featY + 4}" fill="#0284c7" />`;
+          ov += `<circle cx="${sx}" cy="${featY}" r="4.2" fill="${f.closed ? '#0284c7' : '#ffffff'}" stroke="#0284c7" stroke-width="2.2" />`;
+        } else if (f.type === 'seg') {
+          const x1 = xOf(f.from), x2 = xOf(f.to);
+          ov += `<line x1="${x1}" y1="${featY}" x2="${x2}" y2="${featY}" stroke="#0284c7" stroke-width="2.6" />`;
+          ov += `<circle cx="${x1}" cy="${featY}" r="4.2" fill="${f.leftClosed ? '#0284c7' : '#ffffff'}" stroke="#0284c7" stroke-width="2.2" />`;
+          ov += `<circle cx="${x2}" cy="${featY}" r="4.2" fill="${f.rightClosed ? '#0284c7' : '#ffffff'}" stroke="#0284c7" stroke-width="2.2" />`;
+        }
+      });
+
+      return `<svg viewBox="0 0 ${w} ${h}" class="w-full h-auto"><line x1="6" y1="${axisY}" x2="${w - 6}" y2="${axisY}" stroke="#0f172a" stroke-width="1.4" />${ticks}${ov}</svg>`;
+    }
+
+    const sec1 = [
+      {
+        q: '1. n > 2',
+        correct: 0,
+        options: [
+          [{ type: 'ray', at: 2, dir: 'right', closed: false }],
+          [{ type: 'ray', at: 2, dir: 'right', closed: true }],
+          [{ type: 'ray', at: 2, dir: 'left', closed: false }],
+          [{ type: 'ray', at: -2, dir: 'right', closed: false }]
+        ]
+      },
+      {
+        q: '2. n > −1',
+        correct: 1,
+        options: [
+          [{ type: 'ray', at: -1, dir: 'left', closed: false }],
+          [{ type: 'ray', at: -1, dir: 'right', closed: false }],
+          [{ type: 'ray', at: -1, dir: 'right', closed: true }],
+          [{ type: 'ray', at: 1, dir: 'right', closed: false }]
+        ]
+      },
+      {
+        q: '3. n ≥ −3',
+        correct: 2,
+        options: [
+          [{ type: 'ray', at: -3, dir: 'right', closed: false }],
+          [{ type: 'ray', at: -3, dir: 'left', closed: true }],
+          [{ type: 'ray', at: -3, dir: 'right', closed: true }],
+          [{ type: 'ray', at: 3, dir: 'right', closed: true }]
+        ]
+      },
+      {
+        q: '4. n < 5',
+        correct: 0,
+        options: [
+          [{ type: 'ray', at: 5, dir: 'left', closed: false }],
+          [{ type: 'ray', at: 5, dir: 'left', closed: true }],
+          [{ type: 'ray', at: 5, dir: 'right', closed: false }],
+          [{ type: 'ray', at: -5, dir: 'left', closed: false }]
+        ]
+      },
+      {
+        q: '5. n ≥ −1',
+        correct: 3,
+        options: [
+          [{ type: 'ray', at: -1, dir: 'right', closed: false }],
+          [{ type: 'ray', at: -1, dir: 'left', closed: true }],
+          [{ type: 'ray', at: 1, dir: 'right', closed: true }],
+          [{ type: 'ray', at: -1, dir: 'right', closed: true }]
+        ]
+      },
+      {
+        q: '6. n ≤ 3',
+        correct: 1,
+        options: [
+          [{ type: 'ray', at: 3, dir: 'left', closed: false }],
+          [{ type: 'ray', at: 3, dir: 'left', closed: true }],
+          [{ type: 'ray', at: 3, dir: 'right', closed: true }],
+          [{ type: 'ray', at: -3, dir: 'left', closed: true }]
+        ]
+      },
+      {
+        q: '7. −4 ≤ n < 4',
+        correct: 2,
+        options: [
+          [{ type: 'seg', from: -4, to: 4, leftClosed: false, rightClosed: true }],
+          [{ type: 'seg', from: -4, to: 4, leftClosed: true, rightClosed: true }],
+          [{ type: 'seg', from: -4, to: 4, leftClosed: true, rightClosed: false }],
+          [{ type: 'seg', from: -4, to: 4, leftClosed: false, rightClosed: false }]
+        ]
+      },
+      {
+        q: '8. −3 < n < 0',
+        correct: 0,
+        options: [
+          [{ type: 'seg', from: -3, to: 0, leftClosed: false, rightClosed: false }],
+          [{ type: 'seg', from: -3, to: 0, leftClosed: true, rightClosed: false }],
+          [{ type: 'seg', from: -3, to: 0, leftClosed: false, rightClosed: true }],
+          [{ type: 'seg', from: 0, to: 3, leftClosed: false, rightClosed: false }]
+        ]
+      }
+    ];
+
+    const sec2 = [
+      {
+        q: '9. Write the inequality shown:',
+        diag: [{ type: 'ray', at: -2, dir: 'right', closed: false }],
+        correct: 1,
+        options: ['n ≥ −2', 'n > −2', 'n < −2', 'n ≤ −2']
+      },
+      {
+        q: '10. Write the inequality shown:',
+        diag: [{ type: 'ray', at: 4, dir: 'left', closed: true }],
+        correct: 0,
+        options: ['n ≤ 4', 'n < 4', 'n ≥ 4', 'n > 4']
+      },
+      {
+        q: '11. Write the inequality shown:',
+        diag: [{ type: 'ray', at: -1, dir: 'right', closed: true }],
+        correct: 2,
+        options: ['n > −1', 'n ≤ −1', 'n ≥ −1', 'n < −1']
+      },
+      {
+        q: '12. Write the inequality shown:',
+        diag: [{ type: 'ray', at: 2, dir: 'left', closed: false }],
+        correct: 3,
+        options: ['n ≤ 2', 'n > 2', 'n ≥ 2', 'n < 2']
+      },
+      {
+        q: '13. Write the inequality shown:',
+        diag: [{ type: 'seg', from: -4, to: 3, leftClosed: true, rightClosed: false }],
+        correct: 1,
+        options: ['−4 < n ≤ 3', '−4 ≤ n < 3', '−4 ≤ n ≤ 3', '−4 < n < 3']
+      },
+      {
+        q: '14. Write the inequality shown:',
+        diag: [{ type: 'seg', from: 1, to: 5, leftClosed: false, rightClosed: false }],
+        correct: 0,
+        options: ['1 < n < 5', '1 ≤ n ≤ 5', '1 ≤ n < 5', '1 < n ≤ 5']
+      },
+      {
+        q: '15. Write the inequality shown:',
+        diag: [{ type: 'seg', from: -3, to: 6, leftClosed: false, rightClosed: true }],
+        correct: 2,
+        options: ['−3 ≤ n < 6', '−3 < n < 6', '−3 < n ≤ 6', '−3 ≤ n ≤ 6']
+      },
+      {
+        q: '16. Write the inequality shown:',
+        diag: [{ type: 'seg', from: -5, to: -1, leftClosed: true, rightClosed: true }],
+        correct: 3,
+        options: ['−5 < n < −1', '−5 ≤ n < −1', '−5 < n ≤ −1', '−5 ≤ n ≤ −1']
+      }
+    ];
+
+    function buildQuiz() {
+      const s1El = document.getElementById('sec1-questions');
+      s1El.innerHTML = sec1.map((item, qIdx) => `
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm" id="card-q${qIdx}">
+          <p class="font-math font-bold text-lg text-slate-900 mb-3">${item.q}</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            ${item.options.map((opt, oIdx) => `
+              <label class="opt-label flex items-center gap-3 p-3 rounded-xl border border-slate-200 hover:border-sky-400 cursor-pointer transition bg-slate-50">
+                <input type="radio" name="q${qIdx}" value="${oIdx}" class="w-4 h-4 text-sky-600 shrink-0" />
+                <div class="w-full">${renderMiniNL(opt)}</div>
+              </label>
+            `).join('')}
+          </div>
+          <p class="feedback-line hidden mt-2.5 text-xs font-bold"></p>
+        </div>
+      `).join('');
+
+      const s2El = document.getElementById('sec2-questions');
+      s2El.innerHTML = sec2.map((item, idx) => {
+        const qIdx = idx + 8;
+        return `
+          <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm" id="card-q${qIdx}">
+            <p class="font-bold text-base text-slate-900 mb-2">${item.q}</p>
+            <div class="max-w-md bg-slate-50 border border-slate-200 rounded-xl p-2 mb-3">${renderMiniNL(item.diag)}</div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              ${item.options.map((opt, oIdx) => `
+                <label class="opt-label flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 hover:border-sky-400 cursor-pointer transition bg-slate-50 font-math font-bold text-sm">
+                  <input type="radio" name="q${qIdx}" value="${oIdx}" class="w-4 h-4 text-sky-600 shrink-0" />
+                  <span>${opt}</span>
+                </label>
+              `).join('')}
+            </div>
+            <p class="feedback-line hidden mt-2.5 text-xs font-bold"></p>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function applyLockedState(saved) {
+      document.getElementById('student-name').value = saved.name;
+      document.getElementById('student-name').disabled = true;
+      document.getElementById('submit-area').classList.add('hidden');
+
+      const pct = Math.round((saved.score / 16) * 100);
+      document.getElementById('res-student').textContent = saved.name;
+      document.getElementById('res-timestamp').textContent = `Submitted on ${saved.timestamp}`;
+      document.getElementById('res-score').textContent = `${saved.score} / 16`;
+      document.getElementById('res-percent').textContent = `${pct}%`;
+      document.getElementById('result-banner').classList.remove('hidden');
+
+      const allQuestions = [...sec1, ...sec2];
+      allQuestions.forEach((item, qIdx) => {
+        const chosen = saved.answers[qIdx];
+        const card = document.getElementById(`card-q${qIdx}`);
+        const radios = card.querySelectorAll('input[type="radio"]');
+        radios.forEach((r, oIdx) => {
+          r.disabled = true;
+          if (oIdx === chosen) r.checked = true;
+          const lbl = r.closest('label');
+          if (oIdx === item.correct) {
+            lbl.classList.add('border-emerald-500', 'bg-emerald-50');
+          } else if (oIdx === chosen && chosen !== item.correct) {
+            lbl.classList.add('border-rose-500', 'bg-rose-50');
+          }
+        });
+        const fb = card.querySelector('.feedback-line');
+        fb.classList.remove('hidden');
+        if (chosen === item.correct) {
+          fb.textContent = '✓ Correct (+1 mark)';
+          fb.classList.add('text-emerald-700');
+        } else {
+          fb.textContent = '✗ Incorrect (0 marks) — Correct answer highlighted in green';
+          fb.classList.add('text-rose-700');
+        }
+      });
+    }
+
+    document.getElementById('quiz-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (localStorage.getItem(STORAGE_KEY)) return;
+
+      const name = document.getElementById('student-name').value.trim();
+      const errEl = document.getElementById('error-msg');
+      if (!name) {
+        errEl.textContent = 'Please enter your full name at the top before submitting.';
+        errEl.classList.remove('hidden');
+        document.getElementById('student-name').focus();
+        return;
+      }
+
+      const allQuestions = [...sec1, ...sec2];
+      const answers = [];
+      for (let i = 0; i < allQuestions.length; i++) {
+        const sel = document.querySelector(`input[name="q${i}"]:checked`);
+        if (!sel) {
+          errEl.textContent = `Please answer Question ${i + 1} before submitting.`;
+          errEl.classList.remove('hidden');
+          document.getElementById(`card-q${i}`).scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
+        answers.push(parseInt(sel.value, 10));
+      }
+
+      errEl.classList.add('hidden');
+      let score = 0;
+      allQuestions.forEach((q, idx) => {
+        if (answers[idx] === q.correct) score++;
+      });
+
+      const payload = {
+        name,
+        score,
+        answers,
+        timestamp: new Date().toLocaleString()
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+      applyLockedState(payload);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      buildQuiz();
+      const existing = localStorage.getItem(STORAGE_KEY);
+      if (existing) {
+        try { applyLockedState(JSON.parse(existing)); } catch (_) {}
+      }
+    });
+  </script>
+</body>
+</html>
