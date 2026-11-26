@@ -1,58 +1,62 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Grade 9 MYP Mathematics — Interactive Lessons</title>
+  <title>Grade 9 MYP Mathematics — Interactive Lessons Hub</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <style>
     body {
       font-family: 'DM Sans', sans-serif;
       background-color: #0f172a;
-      color: #f8fafc;
     }
     .font-math {
       font-family: 'JetBrains Mono', monospace;
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between">
+<body class="min-h-screen flex flex-col justify-between text-slate-100">
 
   <!-- Header -->
   <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-30">
-    <div class="max-w-5xl mx-auto px-5 py-5 flex flex-wrap items-center justify-between gap-4">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-5 flex flex-wrap items-center justify-between gap-4">
       <div class="flex items-center gap-3.5">
-        <div class="w-11 h-11 rounded-2xl bg-sky-500/20 border border-sky-400/40 text-sky-400 flex items-center justify-center font-math font-bold text-lg">
-          G9
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-rose-500 to-indigo-600 flex items-center justify-center text-white font-math font-extrabold text-base shadow-lg">
+          MYP
         </div>
         <div>
-          <p class="text-xs font-bold uppercase tracking-widest text-sky-400">MYP Mathematics</p>
-          <h1 class="text-xl sm:text-2xl font-extrabold text-white">Grade 9 Interactive Lesson Hub</h1>
+          <p class="text-xs font-bold uppercase tracking-[0.16em] text-rose-400">Grade 9 Mathematics</p>
+          <h1 class="text-xl sm:text-2xl font-extrabold text-white leading-tight">Algebra: Equations &amp; Inequalities</h1>
         </div>
       </div>
-      <span class="text-xs font-semibold text-slate-400 bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-full">
-        Algebra &amp; Equations Unit
-      </span>
+
+      <div class="flex items-center gap-2 text-xs text-slate-400 bg-slate-800/80 border border-slate-700 px-3.5 py-2 rounded-xl">
+        <i class="fa-solid fa-layer-group text-rose-400"></i>
+        <span>5 Interactive Lesson Decks</span>
+      </div>
     </div>
   </header>
 
-  <!-- Main Lesson Grid -->
-  <main class="max-w-5xl w-full mx-auto px-5 py-10 flex-1">
-    <div class="mb-6">
-      <h2 class="text-lg font-bold text-slate-200">Select a Lesson</h2>
-      <p class="text-sm text-slate-400">Tap any lesson card below to launch the interactive presentation.</p>
+  <!-- Main Content -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12">
+    <div class="mb-8">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Lesson Directory</h2>
+      <p class="text-slate-400 text-sm sm:text-base mt-1">
+        Select a lesson deck to launch the interactive classroom slides, or open the linked self-check homework quiz.
+      </p>
     </div>
 
-    <div id="lessons-grid" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
+    <div id="lessons-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
   </main>
 
   <!-- Footer -->
-  <footer class="border-t border-slate-800 text-slate-500 text-xs py-5 px-5 text-center">
-    Grade 9 MYP Mathematics • Interactive Whiteboard &amp; Student Resources
+  <footer class="border-t border-slate-800/80 bg-slate-900/60 py-5 px-4 sm:px-6 text-center text-xs text-slate-500">
+    Grade 9 MYP Mathematics • Interactive Classroom &amp; Homework Portal
   </footer>
 
   <script>
@@ -60,7 +64,7 @@
       {
         number: "01",
         title: "Forming & Solving Equations",
-        subtitle: "Translating word problems into linear equations and solving step-by-step",
+        subtitle: "Translating word problems and geometric setups into linear equations",
         folder: "./Forming-Solving-Equations/",
         tag: "Equations",
         icon: "fa-equals",
@@ -69,91 +73,115 @@
       {
         number: "02",
         title: "More Forming & Solving Equations",
-        subtitle: "Multi-step equations, brackets, unknowns on both sides & geometric applications",
+        subtitle: "Multi-step equations, brackets, fractions & unknowns on both sides",
         folder: "./More-Forming-Solving-Equations/",
         tag: "Equations",
-        icon: "fa-scale-balanced",
-        accent: "emerald"
+        icon: "fa-calculator",
+        accent: "indigo"
       },
       {
         number: "03",
         title: "Power Equations",
-        subtitle: "Solving equations involving squares, cubes, square roots & cube roots",
+        subtitle: "Solving equations involving squares, cubes, roots & positive/negative solutions",
         folder: "./Power-Equations/",
         tag: "Powers & Roots",
         icon: "fa-superscript",
-        accent: "purple"
+        accent: "amber"
       },
       {
         number: "04",
         title: "Interpreting & Representing Inequalities",
-        subtitle: "Number lines, double & compound inequalities, plus self-check Toddle homework",
+        subtitle: "Inequality symbols, number line graphs & double (compound) inequalities",
         folder: "./Interpreting-Inequalities/",
-        homework: "./Interpreting-Inequalities/homework.html",
         tag: "Inequalities",
-        icon: "fa-less-than-equal",
-        accent: "amber"
+        icon: "fa-ruler-horizontal",
+        accent: "emerald"
+      },
+      {
+        number: "05",
+        title: "Solving Linear Inequalities",
+        subtitle: "Reversing inequality signs, graphing solutions & double inequalities",
+        folder: "./Solving-Inequalities/",
+        homework: "./Solving-Inequalities/04_homework-inequalities.html",
+        tag: "Inequalities",
+        icon: "fa-not-equal",
+        accent: "rose"
       }
     ];
 
     const accentStyles = {
       sky: {
         badge: "bg-sky-500/15 text-sky-300 border-sky-400/30",
-        iconBox: "bg-sky-500/20 text-sky-400 border-sky-400/30",
-        hover: "hover:border-sky-400/60"
+        iconBg: "bg-sky-500/20 text-sky-400 border-sky-400/30",
+        btn: "bg-sky-600 hover:bg-sky-500 text-white",
+        borderHover: "hover:border-sky-500/50"
       },
-      emerald: {
-        badge: "bg-emerald-500/15 text-emerald-300 border-emerald-400/30",
-        iconBox: "bg-emerald-500/20 text-emerald-400 border-emerald-400/30",
-        hover: "hover:border-emerald-400/60"
-      },
-      purple: {
-        badge: "bg-purple-500/15 text-purple-300 border-purple-400/30",
-        iconBox: "bg-purple-500/20 text-purple-400 border-purple-400/30",
-        hover: "hover:border-purple-400/60"
+      indigo: {
+        badge: "bg-indigo-500/15 text-indigo-300 border-indigo-400/30",
+        iconBg: "bg-indigo-500/20 text-indigo-400 border-indigo-400/30",
+        btn: "bg-indigo-600 hover:bg-indigo-500 text-white",
+        borderHover: "hover:border-indigo-500/50"
       },
       amber: {
         badge: "bg-amber-500/15 text-amber-300 border-amber-400/30",
-        iconBox: "bg-amber-500/20 text-amber-400 border-amber-400/30",
-        hover: "hover:border-amber-400/60"
+        iconBg: "bg-amber-500/20 text-amber-400 border-amber-400/30",
+        btn: "bg-amber-600 hover:bg-amber-500 text-white",
+        borderHover: "hover:border-amber-500/50"
+      },
+      emerald: {
+        badge: "bg-emerald-500/15 text-emerald-300 border-emerald-400/30",
+        iconBg: "bg-emerald-500/20 text-emerald-400 border-emerald-400/30",
+        btn: "bg-emerald-600 hover:bg-emerald-500 text-white",
+        borderHover: "hover:border-emerald-500/50"
+      },
+      rose: {
+        badge: "bg-rose-500/15 text-rose-300 border-rose-400/30",
+        iconBg: "bg-rose-500/20 text-rose-400 border-rose-400/30",
+        btn: "bg-rose-600 hover:bg-rose-500 text-white",
+        borderHover: "hover:border-rose-500/50"
       }
     };
 
     const grid = document.getElementById("lessons-grid");
-    grid.innerHTML = lessons.map(lesson => {
-      const st = accentStyles[lesson.accent] || accentStyles.sky;
-      const hwLink = lesson.homework
-        ? `<a href="${lesson.homework}" class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-300 hover:text-amber-200 bg-amber-500/15 border border-amber-400/30 px-3 py-1.5 rounded-lg transition">
-             <i class="fa-solid fa-clipboard-check"></i> Homework Quiz
+    grid.innerHTML = lessons.map((lesson) => {
+      const st = accentStyles[lesson.accent] || accentStyles.rose;
+      const homeworkButton = lesson.homework
+        ? `<a href="${lesson.homework}" target="_blank" rel="noopener"
+              class="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center justify-center gap-2">
+             <i class="fa-solid fa-pen-to-square text-rose-400"></i>
+             <span>Homework Match-Up Quiz</span>
            </a>`
         : "";
 
       return `
-        <div class="bg-slate-900/90 border border-slate-800 ${st.hover} rounded-2xl p-6 flex flex-col justify-between transition shadow-lg">
+        <article class="bg-slate-900/90 border border-slate-800 ${st.borderHover} rounded-2xl p-6 flex flex-col justify-between shadow-xl transition duration-200">
           <div>
-            <div class="flex items-center justify-between gap-3 mb-4">
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl border ${st.iconBox} flex items-center justify-center text-sm">
-                  <i class="fa-solid ${lesson.icon}"></i>
-                </div>
-                <span class="font-math text-xs font-bold text-slate-400">LESSON ${lesson.number}</span>
-              </div>
-              <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${st.badge}">
-                ${lesson.tag}
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <span class="font-math text-xs font-bold px-2.5 py-1 rounded-lg border ${st.badge}">
+                Lesson ${lesson.number} • ${lesson.tag}
               </span>
+              <div class="w-9 h-9 rounded-xl border ${st.iconBg} flex items-center justify-center text-sm">
+                <i class="fa-solid ${lesson.icon}"></i>
+              </div>
             </div>
 
-            <h3 class="text-xl font-extrabold text-white mb-2">${lesson.title}</h3>
-            <p class="text-sm text-slate-400 leading-relaxed mb-6">${lesson.subtitle}</p>
+            <h3 class="text-lg sm:text-xl font-extrabold text-white leading-snug">
+              ${lesson.title}
+            </h3>
+            <p class="text-slate-400 text-xs sm:text-sm mt-2 leading-relaxed">
+              ${lesson.subtitle}
+            </p>
           </div>
 
-          <div class="flex flex-wrap items-center justify-between gap-2 pt-4 border-t border-slate-800">
-            <a href="${lesson.folder}" class="inline-flex items-center gap-2 text-sm font-bold text-white bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-xl transition">
-              <span>Open Lesson</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+          <div class="mt-6 pt-4 border-t border-slate-800/80 space-y-2.5">
+            <a href="${lesson.folder}"
+               class="w-full py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold ${st.btn} transition flex items-center justify-center gap-2 shadow-sm">
+              <i class="fa-solid fa-chalkboard-user"></i>
+              <span>Launch Lesson Slides</span>
             </a>
-            ${hwLink}
+            ${homeworkButton}
           </div>
-        </div>
+        </article>
       `;
     }).join("");
   </script>
