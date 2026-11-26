@@ -430,9 +430,15 @@
             <p class="text-xs font-bold tracking-widest uppercase text-rose-600 mb-0.5">Independent Practice • Page 91</p>
             <h2 class="text-xl sm:text-3xl font-extrabold text-slate-900">Solve for <span class="font-math">x</span> and Graph the Solutions</h2>
           </div>
-          <button type="button" onclick="toggleGroup('ex3g-ans', this, 'Reveal All Solutions', 'Hide Solutions')" class="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5">
-            <i class="fa-solid fa-eye"></i> <span>Reveal All Solutions</span>
-          </button>
+          <div class="flex flex-wrap items-center gap-2">
+            <a href="./03_Solving_Inequalities_Worksheet.docx" download="03_Solving_Inequalities_Worksheet.docx"
+               class="px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white transition flex items-center gap-1.5 shadow-sm">
+              <i class="fa-solid fa-file-word"></i> <span>Download Worksheet (.docx)</span>
+            </a>
+            <button type="button" onclick="toggleGroup('ex3g-ans', this, 'Reveal All Solutions', 'Hide Solutions')" class="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5">
+              <i class="fa-solid fa-eye"></i> <span>Reveal All Solutions</span>
+            </button>
+          </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-auto text-sm">
@@ -663,7 +669,12 @@
         <i class="fa-solid fa-arrow-left"></i> <span>Previous</span>
       </button>
 
-      <div class="flex items-center gap-1.5 sm:gap-2" id="dot-indicators"></div>
+      <div class="flex flex-col sm:flex-row items-center gap-1.5 sm:gap-3">
+        <span id="slide-counter" class="font-math text-xs sm:text-sm font-bold text-slate-300 bg-slate-800/90 border border-slate-700 px-3 py-1 rounded-lg">
+          Slide 1 of 10
+        </span>
+        <div class="flex items-center gap-1.5 sm:gap-2" id="dot-indicators"></div>
+      </div>
 
       <button type="button" id="next-btn" onclick="changeSlide(1)"
               class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-rose-600 hover:bg-rose-500 disabled:opacity-40 disabled:pointer-events-none text-white transition flex items-center gap-2 shadow-sm">
@@ -1096,6 +1107,8 @@
 
     function updateSlideUI() {
       document.getElementById('slide-selector').value = currentSlide;
+      const counterEl = document.getElementById('slide-counter');
+      if (counterEl) counterEl.textContent = `Slide ${currentSlide + 1} of ${totalSlides}`;
       document.getElementById('prev-btn').disabled = currentSlide === 0;
       document.getElementById('next-btn').disabled = currentSlide === totalSlides - 1;
       document.getElementById('deck-progress').style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
